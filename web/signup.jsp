@@ -16,7 +16,7 @@
     <body>
         <h1>
             <div class="align-left-banner">
-                <a href="home.jsp">Crimson Video Store</a>
+                <a href="home.jsp">Crimson Video Store Biiiiiiiiitch</a>
             </div>
         </h1>
         
