@@ -4,6 +4,8 @@
     Author     : Thomas
 --%>
 
+<%--haha comment thomas--%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="html" uri="http://struts.apache.org/tags-html" %>
 <!DOCTYPE html>
@@ -19,7 +21,7 @@
                 <a href="home.jsp" >Crimson Video Store</a>
             </div>
         </h1>
-        
+         
     <html:form action="/signupman">
         
     </html:form>
