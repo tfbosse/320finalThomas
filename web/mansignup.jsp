@@ -5,6 +5,7 @@
 --%>
 
 <%--haha comment thomas--%>
+<%--second comment--%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="html" uri="http://struts.apache.org/tags-html" %>
