@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+//figuring this shit out
 package com.myapp.struts;
 
 import java.sql.Connection;
