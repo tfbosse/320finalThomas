@@ -18,7 +18,7 @@ import org.apache.struts.action.ActionMessage;
 public class SignUpForm extends org.apache.struts.action.ActionForm {
     
     private String firstname, lastname, address, address2, city, state, zip, email, username, password, creditcard, expdate, code, cardname;
-    
+        
     public String getFirstname() {
         return firstname;
     }
@@ -145,11 +145,7 @@ public class SignUpForm extends org.apache.struts.action.ActionForm {
      */
     public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
         ActionErrors errors = new ActionErrors();
-        
-        if (firstname == "") {
-            errors.add("firstname", new ActionMessage("error.firstname.required"));
-        }
-        
+                
         return errors;
     }
 }

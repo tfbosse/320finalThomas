@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="html" uri="http://struts.apache.org/tags-html" %>
+<%@ taglib prefix="bean" uri="http://struts.apache.org/tags-bean" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -21,7 +22,6 @@
         </h1>
         
         <br>
-
         <html:form action="/signup">
                 <table border="2">
                     <tr>
@@ -84,6 +84,8 @@
                 </table>
 
             </br>
+            
+            <html:errors />
             
             <table>
                 <tr>

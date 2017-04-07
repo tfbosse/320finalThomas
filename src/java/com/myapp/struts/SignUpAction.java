@@ -3,16 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+//figuring this shit out
 package com.myapp.struts;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
 
 /**
  *
@@ -39,6 +43,8 @@ public class SignUpAction extends org.apache.struts.action.Action {
             HttpServletRequest request, HttpServletResponse response)
             throws Exception {
         
+        ActionErrors errors = new ActionErrors();
+        
         SignUpForm signUpForm = (SignUpForm) form;
         String firstname = signUpForm.getFirstname();
         String lastname = signUpForm.getLastname();
@@ -55,38 +61,48 @@ public class SignUpAction extends org.apache.struts.action.Action {
         String code = signUpForm.getCode();
         String cardname = signUpForm.getCardname();
         
-        if (firstname.isEmpty() || firstname.length() > 50) {
-            return mapping.findForward(FAILURE);
-        } else if (lastname.isEmpty() || lastname.length() > 50) {
-            return mapping.findForward(FAILURE);
-        } else if (address.isEmpty() || address.length() > 150) {
-            return mapping.findForward(FAILURE);
-        } else if (address2.length() > 150) {
-            return mapping.findForward(FAILURE);
-        }else if (city.isEmpty() || city.length() > 50) {
-            return mapping.findForward(FAILURE);
-        } else if (state.isEmpty() || state.length() > 50) {
-            return mapping.findForward(FAILURE);
-        } else if (zip.isEmpty() || zip.length() > 5) {
-            return mapping.findForward(FAILURE);
-        } else if (email.isEmpty() || email.length() > 50) {
-            return mapping.findForward(FAILURE);
-        } else if (username.isEmpty() || username.length() > 50) {
-            return mapping.findForward(FAILURE);
-        } else if (password.isEmpty() || password.length() > 50) {
-            return mapping.findForward(FAILURE);
-        } else if (creditcard.isEmpty() || creditcard.length() > 16) {
-            return mapping.findForward(FAILURE);
-        } else if (expdate.isEmpty() || expdate.length() > 7) {
-            return mapping.findForward(FAILURE);
-        } else if (code.isEmpty() || code.length() > 3) {
-            return mapping.findForward(FAILURE);
-        } else if (cardname.length() > 100) {
-            return mapping.findForward(FAILURE);
+        if (firstname.isEmpty()) {
+            errors.add("firstname", new ActionMessage("errors.required", "A first name"));
+        } else if (firstname.length() > 50) {
+            errors.add("firstname", new ActionMessage("errors.maxlength", "First name", "50"));
+        } else if (lastname.isEmpty()) {
+            errors.add("lastname", new ActionMessage("errors.required", "A last name"));
+        } else if (lastname.length() > 50) {
+            errors.add("lastname", new ActionMessage("errors.maxlength", "Last name", "50"));
+        } else if (address.isEmpty()) {
+            errors.add("address", new ActionMessage("errors.required", "An address"));
+        } else if (address.length() > 150) {
+            errors.add("address", new ActionMessage("errors.maxlength", "Address", "150"));
+        } else if (address2.length() > 150) { 
+            errors.add("address2", new ActionMessage("errors.maxlength", "Address 2", "150"));
+        } else if (city.isEmpty()) {
+            errors.add("city", new ActionMessage("errors.required", "A city"));
+        } else if (city.length() > 100 || city.matches(".*\\d+.*")) {
+            errors.add("city", new ActionMessage("errors.invalid", "City"));
+        } else if (state.isEmpty()) {
+            errors.add("state", new ActionMessage("errors.required", "A state"));
+        } else if (zip.isEmpty()) {
+            errors.add("zip", new ActionMessage("errors.required", "A zip code"));
+        } else if (email.isEmpty()) {
+            errors.add("email", new ActionMessage("errors.required", "An email address"));
+        } else if (username.isEmpty()) {
+            errors.add("username", new ActionMessage("errors.required", "A username"));
+        } else if (password.isEmpty()) {
+            errors.add("password", new ActionMessage("errors.required", "A password"));
+        } else if (creditcard.isEmpty()) {
+            errors.add("creditcard", new ActionMessage("errors.required", "A credit card number"));
+        } else if (expdate.isEmpty()) {
+            errors.add("expdate", new ActionMessage("errors.required", "An expiration date"));
+        } else if (code.isEmpty()) {
+            errors.add("code", new ActionMessage("errors.required", "A security code"));
         }
         
-        //
+        this.saveErrors(request, errors);
         
-        return mapping.findForward(SUCCESS);
+        if (getErrors(request).isEmpty()) {
+            return mapping.findForward(SUCCESS);
+        } else {
+            return mapping.findForward(FAILURE);
+        }
     }
 }
