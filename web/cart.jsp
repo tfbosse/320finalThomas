@@ -1,6 +1,6 @@
 <%-- 
-    Document   : search
-    Created on : Apr 8, 2017, 8:24:30 PM
+    Document   : cart
+    Created on : Apr 8, 2017, 8:23:08 PM
     Author     : jakeotey
 --%>
 
@@ -9,9 +9,9 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Search Page</title>
+        <title>Shopping Cart Page</title>
     </head>
     <body>
-        <h1>Search for a Movie Biznitch!</h1>
+        <h1>Shopping Cart Biotch</h1>
     </body>
 </html>
