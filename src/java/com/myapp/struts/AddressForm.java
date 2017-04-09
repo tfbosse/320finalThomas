@@ -1,3 +1,5 @@
+package com.myapp.struts;
+
 
 import javax.servlet.http.HttpServletRequest;
 import org.apache.struts.action.ActionErrors;
