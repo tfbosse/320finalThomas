@@ -12,6 +12,6 @@
         <title>Shopping Cart Page</title>
     </head>
     <body>
-        <h1>Shopping Cart</h1>
+        <h1>Shopping Cart Biotch</h1>
     </body>
 </html>

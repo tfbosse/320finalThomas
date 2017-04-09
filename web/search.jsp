@@ -12,6 +12,6 @@
         <title>Search Page</title>
     </head>
     <body>
-        <h1>Search for a Movie!</h1>
+        <h1>Search for a Movie Biznitch!</h1>
     </body>
 </html>
