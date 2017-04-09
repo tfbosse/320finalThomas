@@ -8,6 +8,8 @@
 <struts-config>
     <form-beans>
         <form-bean name="SignUpForm" type="com.myapp.struts.SignUpForm"/>
+        
+        <form-bean name="ManagerForm" type="com.myapp.struts.ManagerForm"/>
     
     </form-beans>
     
@@ -28,6 +30,12 @@
             <forward name="success" path="/base.jsp" />
             <forward name="failure" path="/login.jsp" />
         </action>
+        
+        <action input="/" name="ManagerForm" path="/signupman" scope="session" type="com.myapp.struts.ManagerSignupAction">
+            <forward name="success" path="/login.jsp" />
+            <forward name="failure" path="/mansignup.jsp" />
+        </action>
+       
     </action-mappings>
     
     <controller processorClass="org.apache.struts.tiles.TilesRequestProcessor"/>
