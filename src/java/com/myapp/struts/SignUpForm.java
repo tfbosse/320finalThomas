@@ -17,8 +17,16 @@ import org.apache.struts.action.ActionMessage;
  */
 public class SignUpForm extends org.apache.struts.action.ActionForm {
     
-    private String firstname, lastname, address, address2, city, state, zip, email, username, password, creditcard, expdate, code, cardname;
-        
+    private String storeID, firstname, lastname, email, addressID, createDate, lastUpdate;
+
+    public String getStoreID() {
+        return storeID;
+    }
+
+    public void setStoreID(String storeID) {
+        this.storeID = storeID;
+    }
+
     public String getFirstname() {
         return firstname;
     }
@@ -35,46 +43,6 @@ public class SignUpForm extends org.apache.struts.action.ActionForm {
         this.lastname = lastname;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getAddress2() {
-        return address2;
-    }
-
-    public void setAddress2(String address2) {
-        this.address2 = address2;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    public String getZip() {
-        return zip;
-    }
-
-    public void setZip(String zip) {
-        this.zip = zip;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -83,53 +51,30 @@ public class SignUpForm extends org.apache.struts.action.ActionForm {
         this.email = email;
     }
 
-    public String getUsername() {
-        return username;
+    public String getAddressID() {
+        return addressID;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setAddressID(String addressID) {
+        this.addressID = addressID;
     }
 
-    public String getPassword() {
-        return password;
+    public String getCreateDate() {
+        return createDate;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setCreateDate(String createDate) {
+        this.createDate = createDate;
     }
 
-    public String getCreditcard() {
-        return creditcard;
+    public String getLastUpdate() {
+        return lastUpdate;
     }
 
-    public void setCreditcard(String creditcard) {
-        this.creditcard = creditcard;
+    public void setLastUpdate(String lastUpdate) {
+        this.lastUpdate = lastUpdate;
     }
-
-    public String getExpdate() {
-        return expdate;
-    }
-
-    public void setExpdate(String expdate) {
-        this.expdate = expdate;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public String getCardname() {
-        return cardname;
-    }
-
-    public void setCardname(String cardname) {
-        this.cardname = cardname;
-    }
+        
     
     public SignUpForm() {
         super();
