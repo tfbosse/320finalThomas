@@ -79,6 +79,8 @@ public class SignUpAction extends org.apache.struts.action.Action {
         this.saveErrors(request, errors);
         
         if (getErrors(request).isEmpty()) {
+            customerDAO cust = new customerDAO();
+            cust.insertCustomer(signUpForm);
             return mapping.findForward(SUCCESS);
         } else {
             return mapping.findForward(FAILURE);
