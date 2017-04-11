@@ -40,13 +40,18 @@ public class ManagerSignupAction extends org.apache.struts.action.Action {
         
         ActionErrors errors = new ActionErrors();
         
-        ManagerForm mansignUpForm = (ManagerForm) form;
+        ManagerForm mansignUpForm = (ManagerForm) form;     
         
-        String firstname = mansignUpForm.getFirst_name();
-        String lastname = mansignUpForm.getLast_name();
+        String firstname = mansignUpForm.getFirstname();
+        String lastname = mansignUpForm.getLastname();
         String email = mansignUpForm.getEmail();
         String username = mansignUpForm.getUsername();
         String password = mansignUpForm.getPassword();
+        
+        
+        
+        
+        
         
         
         if (firstname.isEmpty()) {
