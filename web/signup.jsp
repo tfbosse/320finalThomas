@@ -17,7 +17,7 @@
     <body>
         <h1>
             <div class="align-left-banner">
-                <a href="home.jsp">Crimson Video Store Biotch</a>
+                <a href="home.jsp">Crimson Video Store</a>
             </div>
         </h1>
         
@@ -33,12 +33,26 @@
                         <td><html:text property="lastname" /></td>
                     </tr>
                     <tr>
-                        <td>Address: </td>
-                        <td><html:text property="address" /></td>
+                        <td>Email: </td>
+                        <td><html:text property="email" /></td>
+                    </tr>
+                </table>
+                    <br />
+                <table border="2">
+                    <tr>
+                        <td>Username: </td>
+                        <td><html:text property="username" /></td>
                     </tr>
                     <tr>
-                        <td>Address 2: </td>
-                        <td><html:text property="address2" /></td>
+                        <td>Password: </td>
+                        <td><html:text property="password" /></td>
+                    </tr>
+                </table>
+                    <br />
+                <table border="2">
+                    <tr>
+                        <td>Address: </td>
+                        <td><html:text property="address" /></td>
                     </tr>
                     <tr>
                         <td>City: </td>
@@ -52,37 +66,7 @@
                         <td>Zip Code: </td>
                         <td><html:text property="zip" /></td>
                     </tr>
-                
-                    <tr>
-                        <td>Email: </td>
-                        <td><html:text property="email" /></td>
-                    </tr>
-                    <tr>
-                        <td>Username: </td>
-                        <td><html:text property="username" /></td>
-                    </tr>
-                    <tr>
-                        <td>Password: </td>
-                        <td><html:text property="password" /></td>
-                    </tr>
-                    <tr>
-                        <td>Credit Card: </td>
-                        <td><html:text property="creditcard" /></td>
-                    </tr>
-                    <tr>
-                        <td>Expiration Date: </td>
-                        <td><html:text property="expdate" /></td>
-                    </tr>
-                    <tr>
-                        <td>Security Code: </td>
-                        <td><html:text property="code" /></td>
-                    </tr>
-                    <tr>
-                        <td>Name on Card (if different): </td>
-                        <td><html:text property="cardname" /></td>
-                    </tr>
                 </table>
-
             </br>
             
             <html:errors />
