@@ -117,9 +117,7 @@ public class customerDAO {
                     statement.executeQuery();
                     
                 }
-                else{
-                    
-                }
+                
             } catch (SQLException ex) {
                 System.out.println("SQL statement is not executed!" + ex);
 
@@ -149,6 +147,7 @@ public int addressIDSearch(String address, String city, String state, String zip
                 String c = rs.getString("address");
                 if (c == null) {
                     id = findHighestID(address, "address_id");
+                    System.out.println("this sucks " + id);
                     PreparedStatement statement = con.prepareStatement("insert into address(address_id,address,address2,district,cityID,postal_code,phone,last_update)"
                             + "+ values(?,?,?,?,?,?,?,?");
                     statement.setInt(1, id);//addressID
@@ -186,9 +185,9 @@ public int addressIDSearch(String address, String city, String state, String zip
             try {
                 Statement search = con.createStatement();
                 ResultSet rs = search.executeQuery("select max(" + property + ") from " + table);
-                id++;
-                id = rs.getInt(property);
                 
+                id = rs.getInt(property);
+                id++;
 
             } catch (SQLException ex) {
                 System.out.println("SQL statement is not executed!" + ex);
