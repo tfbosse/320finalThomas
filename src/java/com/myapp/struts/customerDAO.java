@@ -31,34 +31,36 @@ public class customerDAO {
         try {
 
             try {
-                PreparedStatement st = con.prepareStatement("INSERT INTO customer(store_id,first_name,last_name,email,active,create_date,last_update)"
-                        + "VALUES(?,?,?,?,?,?,?)");
-
-                String first = cust.getFirstname();
-                String last = cust.getLastname();
-                String email = cust.getEmail();
                 Timestamp ts = new Timestamp(System.currentTimeMillis());
                 Date date = new Date(ts.getTime());
+                
+//                PreparedStatement st = con.prepareStatement("INSERT INTO customer(store_id,first_name,last_name,email,active,create_date,last_update)"
+//                        + "VALUES(?,?,?,?,?,?,?)");
+//
+//                String first = cust.getFirstname();
+//                String last = cust.getLastname();
+//                String email = cust.getEmail();
+//                
+//
+//                //change storeID to 1      
+//                st.setInt(1, 1);
+//                st.setString(2, first);
+//                st.setString(3, last);
+//                st.setString(4, email);
+//                st.setInt(5, 1);
+//                st.setDate(6, date);
+//                st.setDate(7, date);
+//                st.executeUpdate();
 
-                //change storeID to 1      
-                st.setInt(1, 1);
-                st.setString(2, first);
-                st.setString(3, last);
-                st.setString(4, email);
-                st.setInt(5, 1);
-                st.setDate(6, date);
-                st.setDate(7, date);
-                st.executeUpdate();
-
-                PreparedStatement st2 = con.prepareStatement("INSERT INTO (username,password)"
-                        + "VALUES(?,?)");
-
-                String user = cust.getUsername();
-                String pass = cust.getPassword();
-
-                st2.setString(1, user);
-                st2.setString(2, pass);
-                st2.executeUpdate();
+//                PreparedStatement st2 = con.prepareStatement("INSERT INTO (username,password)"
+//                        + "VALUES(?,?)");
+//
+//                String user = cust.getUsername();
+//                String pass = cust.getPassword();
+//
+//                st2.setString(1, user);
+//                st2.setString(2, pass);
+//                st2.executeUpdate();
 
                 PreparedStatement st1 = con.prepareStatement("INSERT INTO address(address_id,address,address2,district,city_id, postal_code,phone,last_update)"
                         + "VALUES(?,?,?,?,?,?,?,?)");
@@ -86,6 +88,64 @@ public class customerDAO {
                 System.out.println("SQL statement is not executed!" + ex);
             }
             con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println("jdbc connection");
+        DBConnectionUtil DBcon1 = new DBConnectionUtil();
+        Connection con1 = DBcon1.getConnection();
+        try {
+
+            try {
+                Timestamp ts = new Timestamp(System.currentTimeMillis());
+                Date date = new Date(ts.getTime());
+        PreparedStatement st = con1.prepareStatement("INSERT INTO customer(store_id,first_name,last_name,email,active,create_date,last_update)"
+                        + "VALUES(?,?,?,?,?,?,?)");
+
+                String first = cust.getFirstname();
+                String last = cust.getLastname();
+                String email = cust.getEmail();
+                
+
+                //change storeID to 1      
+                st.setInt(1, 1);
+                st.setString(2, first);
+                st.setString(3, last);
+                st.setString(4, email);
+                st.setInt(5, 1);
+                st.setDate(6, date);
+                st.setDate(7, date);
+                st.executeUpdate();
+
+        } catch (SQLException ex) {
+                System.out.println("SQL statement is not executed!" + ex);
+            }
+            con1.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        System.out.println("jdbc connection");
+        DBConnectionUtil DBcon2 = new DBConnectionUtil();
+        Connection con2 = DBcon2.getConnection();
+        try {
+
+            try {
+                
+        PreparedStatement st2 = con2.prepareStatement("INSERT INTO (username,password)"
+                        + "VALUES(?,?)");
+
+                String user = cust.getUsername();
+                String pass = cust.getPassword();
+
+                st2.setString(1, user);
+                st2.setString(2, pass);
+                st2.executeUpdate();
+
+        } catch (SQLException ex) {
+                System.out.println("SQL statement is not executed!" + ex);
+            }
+            con2.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -147,7 +207,7 @@ public int addressIDSearch(String address, String city, String state, String zip
                 String c = rs.getString("address");
                 if (c == null) {
                     id = findHighestID(address, "address_id");
-                    System.out.println("this sucks " + id);
+                    System.out.println("this sucks " +id);
                     PreparedStatement statement = con.prepareStatement("insert into address(address_id,address,address2,district,cityID,postal_code,phone,last_update)"
                             + "+ values(?,?,?,?,?,?,?,?");
                     statement.setInt(1, id);//addressID
