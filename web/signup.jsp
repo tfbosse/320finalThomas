@@ -20,67 +20,97 @@
                 <a href="home.jsp">Crimson Video Store</a>
             </div>
         </h1>
-        
-        <br>
+
+        <br />
+        <br />
+        <br />
+        <html:errors />
+        <br />
         <html:form action="/signup">
-                <table border="2">
-                    <tr>
-                        <td>First Name: </td>
-                        <td><html:text property="firstname" /></td>
-                    </tr>
-                    <tr>
-                        <td>Last Name: </td>
-                        <td><html:text property="lastname" /></td>
-                    </tr>
-                    <tr>
-                        <td>Email: </td>
-                        <td><html:text property="email" /></td>
-                    </tr>
-                </table>
-                    <br />
-                <table border="2">
-                    <tr>
-                        <td>Username: </td>
-                        <td><html:text property="username" /></td>
-                    </tr>
-                    <tr>
-                        <td>Password: </td>
-                        <td><html:text property="password" /></td>
-                    </tr>
-                </table>
-                    <br />
-                <table border="2">
-                    <tr>
-                        <td>Address: </td>
-                        <td><html:text property="address" /></td>
-                    </tr>
-                    <tr>
-                        <td>City: </td>
-                        <td><html:text property="city" /></td>
-                    </tr>
-                    <tr>
-                        <td>State: </td>
-                        <td><html:text property="state" /></td>
-                    </tr>
-                    <tr>
-                        <td>Zip Code: </td>
-                        <td><html:text property="zip" /></td>
-                    </tr>
-                </table>
+            <table>
+                <tr>
+                    <td>First Name: </td>
+                    <td><html:text property="firstname" size="24" /></td>
+                </tr>
+                <tr>
+                    <td>Last Name: </td>
+                    <td><html:text property="lastname" size="24" /></td>
+                </tr>
+                <tr>
+                    <td>Email: </td>
+                    <td><html:text property="email" size="24" /></td>
+                </tr>
+            </table>
+            <br />
+            <table>
+                <tr>
+                    <td>Username: </td>
+                    <td><html:text property="username" size="24" /></td>
+                </tr>
+                <tr>
+                    <td>Password: </td>
+                    <td><html:text property="password" size="24" /></td>
+                </tr>
+            </table>
+                &nbsp; Password must be at least eight (8) characters long, and contain both numbers and letters
+            
+            <br />
+            <br />
+            
+            <table>
+                <tr>
+                    <td>Address: </td>
+                    <td><html:text property="address" size="24" /></td>
+                </tr>
+                <tr>
+                    <td>City: </td>
+                    <td><html:text property="city" size="24" /></td>
+                </tr>
+                <tr>
+                    <td>State: </td>
+                    <td><html:text property="state" size="24" /></td>
+                </tr>
+                <tr>
+                    <td>Zip Code: </td>
+                    <td><html:text property="zip" size="24" /></td>
+                </tr>
+            </table>
+
             </br>
             
-            <html:errors />
-            
+            <table>
+                <tr>
+                    <td>Credit Card: </td>
+                    <td><html:text property="creditcard" size="24" /></td>
+                </tr>
+                <tr>
+                    <td>Expiration Date: </td>
+                    <td><html:text property="expdate" size="24" /></td>
+                </tr>
+                <tr>
+                    <td>Security Code: </td>
+                    <td><html:text property="code" size="24" /></td>
+                </tr>
+                <tr>
+                    <td>Name on Card (if different): </td>
+                    <td><html:text property="cardname" size="24" /></td>
+                </tr>
+            </table>
+                
+                <br />
+
             <table>
                 <tr>
                     <td>preferences and shit go here</td>
                     <td>blah blah blah</td>
                 </tr>
             </table>
+                
+                <br />
 
             <html:submit value="Submit" />
         </html:form>
-            <br/>
-            <a style="color: crimson; text-decoration: underline;" href="mansignup.jsp">Are you a manager?</a>
+        <br/>
+        <a style="color: crimson; text-decoration: underline;" href="mansignup.jsp">Are you a manager?</a>
     </body>
 </html>
