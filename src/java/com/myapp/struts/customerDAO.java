@@ -60,21 +60,25 @@ public class customerDAO {
                 st2.setString(2, pass);
                 st2.executeUpdate();
 
-                PreparedStatement st1 = con.prepareStatement("INSERT INTO address(address,address2,district,city_id, postal_code,phone,last_update)"
-                        + "VALUES(?,?,?,?,?,?,?)");
-
+                PreparedStatement st1 = con.prepareStatement("INSERT INTO address(address_id,address,address2,district,city_id, postal_code,phone,last_update)"
+                        + "VALUES(?,?,?,?,?,?,?,?)");
+                int addressID = addressIDSearch(cust.getAddress(),cust.getCity(),cust.getState(),cust.getZip());
+                
                 String a = cust.getAddress();
                 String dist = cust.getState(); // state
-                String cityID = cust.getCity(); // going to need a method to find if the city exists
+               
                 String postal = cust.getZip();//zip code
-
-                st1.setString(1, a);
-                st1.setString(2, "no street 2");
-                st1.setString(3, dist); //state
-                st1.setInt(4, Integer.parseInt(cityID));
-                st1.setString(5, postal);//zip code
-                st1.setString(6, "1234");//phone not required
-                st1.setDate(7, date);
+                
+                st1.setInt(1, addressID);
+                st1.setString(2, a);
+                st1.setString(3, "no street 2");
+                st1.setString(4, dist); //state
+                
+                int cityID = cityIDSearch(cust.getCity());
+                st1.setInt(5, cityID);
+                st1.setString(6, postal);//zip code
+                st1.setString(7, "1234");//phone not required
+                st1.setDate(8, date);
                 st1.executeUpdate();
 
                 System.out.println("1 row affected ");
@@ -113,6 +117,53 @@ public class customerDAO {
                     statement.executeQuery();
                     
                 }
+                
+            } catch (SQLException ex) {
+                System.out.println("SQL statement is not executed!" + ex);
+
+            }
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return id;
+    }
+public int addressIDSearch(String address, String city, String state, String zip) {
+        System.out.println("jdbc connection");
+        DBConnectionUtil DBcon = new DBConnectionUtil();
+        Connection con = DBcon.getConnection();
+        int id = 0;
+        int cityID = cityIDSearch(city);
+        Timestamp ts = new Timestamp(System.currentTimeMillis());
+        Date date = new Date(ts.getTime());
+        
+        try {
+            try {
+
+                Statement lookUp = con.createStatement();
+                ResultSet rs = lookUp.executeQuery("select address from address where address = " + address);
+
+                String c = rs.getString("address");
+                if (c == null) {
+                    id = findHighestID(address, "address_id");
+                    System.out.println("this sucks " + id);
+                    PreparedStatement statement = con.prepareStatement("insert into address(address_id,address,address2,district,cityID,postal_code,phone,last_update)"
+                            + "+ values(?,?,?,?,?,?,?,?");
+                    statement.setInt(1, id);//addressID
+                    statement.setString(2, address);//address
+                    statement.setString(3, "no address2");//address2 not required
+                    statement.setString(4, state);//district
+                    statement.setInt(5, cityID);//cityID
+                    statement.setString(6, zip);//district
+                    statement.setString(4, "123456");//district
+                    statement.setDate(4, date);//lastUpdate
+                    statement.executeQuery();
+                    
+                }
+                else{
+                    
+                }
             } catch (SQLException ex) {
                 System.out.println("SQL statement is not executed!" + ex);
 
@@ -134,7 +185,9 @@ public class customerDAO {
             try {
                 Statement search = con.createStatement();
                 ResultSet rs = search.executeQuery("select max(" + property + ") from " + table);
+                
                 id = rs.getInt(property);
+                id++;
 
             } catch (SQLException ex) {
                 System.out.println("SQL statement is not executed!" + ex);
