@@ -11,6 +11,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -31,33 +34,87 @@ public class SignUpAction extends org.apache.struts.action.Action {
     private static final String FAILURE = "failure";
     
     public boolean emailVal(String email) {
-        return true;
+        String ePattern = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
+        Pattern p = java.util.regex.Pattern.compile(ePattern);
+        Matcher m = p.matcher(email);
+        if (m.matches()) {
+            return true;
+        } else {
+            return false;
+        }
     }
     
     public boolean passVal(String password) {
-        return true;
+        if (password.length() < 8) {
+            return false;
+        }
+        if (password.matches(".*[a-zA-Z].*") && password.matches(".*[0-9].*")) {
+            return true;
+        } else {
+            return false;
+        }
     }
     
     public boolean addressVal(String address) {
+        String[] split = address.split(" ");
+        if (split.length < 3) {
+            return false;
+        }
+        if (split[0].matches(".*[a-z][A-Z].*")) {
+            return false;
+        }
         return true;
     }
     
     public boolean cityVal(String city) {
-        return true;
+        if (city.matches("^[ A-Za-z]+$")) {
+            return true;
+        } else {
+            return false;
+        }
     }
     
     public boolean stateVal(String state) {
-        return true;
+        ArrayList<String> states = new ArrayList();
+        Collections.addAll(states, "alabama", "alaska", "arizona", "arkansas", "california", "colorado", "connecticut", 
+                "delaware", "florida", "georgia", "hawaii", "hawai'i", "idaho", "illinois", "indiana", "iowa", "kansas", 
+                "kentucky", "louisiana", "maine", "maryland", "massachusetts", "michigan", "minnesota", "mississippi", 
+                "missouri", "montana", "nebraska", "nevada", "new hampshire", "new jersey", "new mexico", "new york", 
+                "north carolina", "north dakota", "ohio", "oklahoma", "oregon", "pennsylvania", "rhode island", 
+                "south carolina", "south dakota", "tennessee", "texas", "utah", "vermont", "virginia", "washington", 
+                "west virginia", "wisconsin", "wyoming", "d. c.", "dc", "d c", "d.c.", "district of columbia");
+        state = state.toLowerCase();
+        if (states.contains(state)) {
+            return true;
+        } else {
+            return false;
+        }
     }
     
     public boolean zipVal(String zip) {
         if (zip.length() != 5) {
             return false;
         }
-        if (Pattern.matches("[a-z][A-Z]+", zip)) {
+        if (zip.matches(".*[a-z][A-Z].*")) {
             return false;
         }
         return true;
+    }
+    
+    public boolean firstVal(String firstname) {
+        if (firstname.matches("^[ A-Za-z]+$")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    public boolean lastVal(String lastname) {
+        if (lastname.matches("^[ A-Za-z]+$")) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -92,10 +149,14 @@ public class SignUpAction extends org.apache.struts.action.Action {
             errors.add("firstname", new ActionMessage("errors.required", "A first name"));
         } else if (firstname.length() > 45) {
             errors.add("firstname", new ActionMessage("errors.maxlength", "First name", "45"));
+        } else if (firstVal(firstname) == false) {
+            errors.add("firstname", new ActionMessage("errors.invalid", "First name"));
         } else if (lastname.isEmpty()) {
             errors.add("lastname", new ActionMessage("errors.required", "A last name"));
         } else if (lastname.length() > 45) {
             errors.add("lastname", new ActionMessage("errors.maxlength", "Last name", "45"));
+        } else if (lastVal(lastname) == false) {
+            errors.add("lastname", new ActionMessage("errors.invalid", "Last name"));
         } else if (email.isEmpty()) {
             errors.add("email", new ActionMessage("errors.required", "An email"));
         } else if (email.length() > 50) {
