@@ -116,6 +116,22 @@ public class SignUpAction extends org.apache.struts.action.Action {
             return false;
         }
     }
+    
+    public boolean creditVal(String creditcard) {
+        
+    }
+    
+    public boolean expVal(String expdate) {
+        
+    }
+    
+    public boolean codeVal(String code) {
+        if (code.length() != 3)
+    }
+    
+    public boolean cnameVal(String cardname) {
+        
+    }
 
     /**
      * This is the action called from the Struts framework.
@@ -144,6 +160,10 @@ public class SignUpAction extends org.apache.struts.action.Action {
         String city = signUpForm.getCity();
         String state = signUpForm.getState();
         String zip = signUpForm.getZip();
+        String creditcard = signUpForm.getCreditcard();
+        String expdate = signUpForm.getExpdate();
+        String code = signUpForm.getCode();
+        String cardname = signUpForm.getCardname();
         
         if (firstname.isEmpty()) {
             errors.add("firstname", new ActionMessage("errors.required", "A first name"));
@@ -197,6 +217,22 @@ public class SignUpAction extends org.apache.struts.action.Action {
             errors.add("zip", new ActionMessage("errors.maxlength", "Zip code", "10"));
         } else if (zipVal(zip) == false) {
             errors.add("zip", new ActionMessage("errors.invalid", "Zip code"));
+        } else if (creditcard.isEmpty()) {
+            errors.add("creditcard", new ActionMessage("errors.required", "A credit card"));
+        } else if (creditcard.length() < 16) {
+            errors.add("creditcard", new ActionMessage("errors.invalid", "Credit card"));
+        } else if (creditVal(creditcard) == false) {
+            errors.add("creditcard", new ActionMessage("errors.invalid", "Credit card"));
+        } else if (expdate.isEmpty()) {
+            errors.add("expdate", new ActionMessage("errors.required", "An expiration date"));
+        } else if (expVal(expdate) == false) {
+            errors.add("expdate", new ActionMessage("errors.invalid", "Expiration date"));
+        } else if (code.isEmpty()) {
+            errors.add("code", new ActionMessage("errors.required", "A security code"));
+        } else if (codeVal(code)) {
+            errors.add("code", new ActionMessage("errors.invalid", "Security code"));
+        } else if (cnameVal(cardname)) {
+            errors.add("cardname", new ActionMessage("errors.invalid", "Name on card"));
         }
         
         this.saveErrors(request, errors);
