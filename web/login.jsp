@@ -20,16 +20,18 @@
                 <a href="home.jsp">Crimson Video Store</a>
             </div>
         </h1>
+        
+        <br /><br /><br />
 
         <html:form action="/login">
             <table border="2">
                 <tr>
                     <td>Username: </td>
-                    <td><html:text property="username" /></td>
+                    <td><html:text property="username" size="24"/></td>
                 </tr>
                 <tr>
                     <td>Password: </td>
-                    <td><html:text property="password" /></td>
+                    <td><html:text property="password" size="24"/></td>
                 </tr>
             </table>
             <br/>

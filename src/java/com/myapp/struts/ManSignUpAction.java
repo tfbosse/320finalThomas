@@ -119,6 +119,8 @@ public class ManSignUpAction extends org.apache.struts.action.Action {
         this.saveErrors(request, errors);
         
         if (getErrors(request).isEmpty()) {
+            managerDAO mdao = new managerDAO();
+            mdao.insertManager(mansignUpForm);
             return mapping.findForward(SUCCESS);
         } else {
             return mapping.findForward(FAILURE);
