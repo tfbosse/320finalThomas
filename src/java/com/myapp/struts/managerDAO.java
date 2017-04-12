@@ -27,8 +27,8 @@ public class managerDAO {
             try {
                 
                 int id = 1+getHighestID();
-                PreparedStatement st = con.prepareStatement("Insert INTO staff(staff_id,first_name,last_name,address_id,email,active,username,password,last_update)"
-                        + "VALUES(?,?,?,?,?,?,?,?,?,?)"); 
+                PreparedStatement st = con.prepareStatement("Insert INTO staff(staff_id,first_name,last_name,email,username,password,last_update)"
+                        + "VALUES(?,?,?,?,?,?,?)"); 
                 
                 String first = manager.getFirstname();
                 String last = manager.getLastname();
@@ -38,21 +38,17 @@ public class managerDAO {
                 
                 Timestamp ts = new Timestamp(System.currentTimeMillis());
                 Date date = new Date(ts.getTime());
-                //String aaddress_id
                 
                 st.setInt(1,id);
                 st.setString(2, first);
                 st.setString(3,last);
-                st.setString(5,email);
-                st.setString(6,"1");
-                st.setString(7,username);
-                st.setString(8,password);
-                st.setDate(9, date);
+                st.setString(4,email);
+                st.setString(5,username);
+                st.setString(6,password);
+                st.setDate(7, date);
                 st.executeQuery();
                 
-                
-                
-                
+                 
             }
             catch(SQLException ex){
                  System.out.println("SQL statement is not executed!" + ex);
@@ -65,6 +61,8 @@ public class managerDAO {
         }
                
     }
+    
+    
     public int getHighestID () {
         int id = 0 ;
         
@@ -77,12 +75,11 @@ public class managerDAO {
                 ResultSet rs = statement.executeQuery("Select Max(staff_id) from staff");
                 
                id = rs.getInt("staff_id");
-                           }
+                }
             catch(SQLException ex){
                  System.out.println("SQL statement is not executed!" + ex);
             }
             con.close();
-            
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -90,6 +87,38 @@ public class managerDAO {
         
         return id;
     }
+    
+    public boolean searchManager (String username,String password) {
+        boolean flag = false;
+        
+        DBConnectionUtil DBcon = new DBConnectionUtil();
+        Connection con = DBcon.getConnection();
+        
+     try {
+            try {
+                Statement st = con.createStatement();
+                ResultSet rs = st.executeQuery("SELECT username, password FROM staff WHERE username = " + username);
+               
+                String user = rs.getString("username");
+                String pass = rs.getString("password");
+                
+                if (user != null|| pass == password){
+                     flag = true;
+                }
+            
+                }
+            catch(SQLException ex){
+                 System.out.println("SQL statement is not executed!" + ex);
+            }
+            con.close();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return flag;
+    }
+    
         
     
     
