@@ -6,30 +6,48 @@
 package com.myapp.struts;
 
 import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Timestamp;
+import java.util.ArrayList;
 
 /**
  *
  * @author jakeotey
  */
 public class FilmDAO {
-    public String getField (FilmDAO field) throws Exception {
+    public ArrayList <FilmForm> getSearch (String criteria) throws Exception {
         System.out.println("jdbc connection");
         DBConnectionUtil DBcon1 = new DBConnectionUtil();
         Connection con1 = DBcon1.getConnection();
-        String result = null;
-        
+        ArrayList <FilmForm> films = null;//initialize list of films
+        String[] searchList = criteria.split("// ");//create a list of search criteria
+        ArrayList <String> tables = new ArrayList<String>();
+        tables.add("film");
+        tables.add("actor");
+        tables.add("category");
+        ArrayList <String> fields = new ArrayList<String>();
+        fields.add("title");
+        fields.add("actor");
+        fields.add("name");
+        fields.add("release_year");
+        fields.add("rating");
+        fields.add("description");
+        fields.add("length");
+        int x = 0;
+        String field = null;
+        String table = null;
+
         try {
 
             try {
                 Statement lookUp = con1.createStatement();
-                ResultSet rs = lookUp.executeQuery("select city from city where city = " + city);
-                
+                ResultSet rs;
+                while(x < 7){
+                check = fields.get(x);
+                 rs = lookUp.executeQuery("select * from"+ check + "where city = " + city);
+                x++;
+                }
                 
 
         } catch (SQLException ex) {
@@ -39,7 +57,7 @@ public class FilmDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return result;
+        return films;
     }
 
 }

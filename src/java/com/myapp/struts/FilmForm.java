@@ -11,7 +11,23 @@ package com.myapp.struts;
  */
 public class FilmForm {
     
-    private String title, actor, genre, realeaseYear, rating;
+    private String title, actor, genre, realeaseYear, rating, description,length;
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getLength() {
+        return length;
+    }
+
+    public void setLength(String length) {
+        this.length = length;
+    }
 
     public String getTitle() {
         return title;
