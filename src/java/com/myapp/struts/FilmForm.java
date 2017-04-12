@@ -10,6 +10,7 @@ package com.myapp.struts;
  * @author jakeotey
  */
 public class FilmForm {
+    
     private String title, actor, genre, realeaseYear, rating;
 
     public String getTitle() {
