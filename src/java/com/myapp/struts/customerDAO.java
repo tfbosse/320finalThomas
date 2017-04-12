@@ -26,66 +26,56 @@ public class customerDAO {
 
     public void insertCustomer(SignUpForm cust) throws Exception {
         System.out.println("jdbc connection");
-        DBConnectionUtil DBcon = new DBConnectionUtil();
-        Connection con = DBcon.getConnection();
+        DBConnectionUtil DBcon1 = new DBConnectionUtil();
+        Connection con1 = DBcon1.getConnection();
         try {
 
             try {
-                PreparedStatement st = con.prepareStatement("INSERT INTO customer(store_id,first_name,last_name,email,active,create_date,last_update)"
-                        + "VALUES(?,?,?,?,?,?,?)");
-
+                Timestamp ts = new Timestamp(System.currentTimeMillis());
+                Date date = new Date(ts.getTime());
+        PreparedStatement st = con1.prepareStatement("INSERT INTO customer(first_name,last_name,email,address,"
+                + "city,state,zip, username, password, card_number, expiration_date, security_number, name_on_card,last_update)"
+                + "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+//jake
                 String first = cust.getFirstname();
                 String last = cust.getLastname();
                 String email = cust.getEmail();
-                Timestamp ts = new Timestamp(System.currentTimeMillis());
-                Date date = new Date(ts.getTime());
+                String address = cust.getAddress();
+                String city = cust.getCity();
+                String state = cust.getState();
+                String zip = cust.getZip();
+                String username = cust.getUsername();
+                String password = cust.getPassword();
+                String cNum = cust.getCardNumber();
+                String expDate = cust.getExpDate();
+                String secNum = cust.getSecNum();
+                String nameOnCard = cust.getNameOnCard();
+                
+                
+                
 
                 //change storeID to 1      
-                st.setInt(1, 1);
-                st.setString(2, first);
-                st.setString(3, last);
-                st.setString(4, email);
-                st.setInt(5, 1);
-                st.setDate(6, date);
-                st.setDate(7, date);
+                st.setString(1, first);
+                st.setString(2, last);
+                st.setString(3, email);
+                st.setString(4, address);
+                st.setString(5, city);
+                st.setString(6, state);
+                st.setString(7, zip);
+                st.setString(8, username);
+                st.setString(9, password);
+                st.setString(10, cNum);
+                st.setString(11, expDate);
+                st.setString(12, secNum);
+                st.setString(13, nameOnCard);
+                st.setDate(14, date);
+                
                 st.executeUpdate();
 
-                PreparedStatement st2 = con.prepareStatement("INSERT INTO (username,password)"
-                        + "VALUES(?,?)");
-
-                String user = cust.getUsername();
-                String pass = cust.getPassword();
-
-                st2.setString(1, user);
-                st2.setString(2, pass);
-                st2.executeUpdate();
-
-                PreparedStatement st1 = con.prepareStatement("INSERT INTO address(address_id,address,address2,district,city_id, postal_code,phone,last_update)"
-                        + "VALUES(?,?,?,?,?,?,?,?)");
-                int addressID = addressIDSearch(cust.getAddress(),cust.getCity(),cust.getState(),cust.getZip());
-                
-                String a = cust.getAddress();
-                String dist = cust.getState(); // state
-               
-                String postal = cust.getZip();//zip code
-                
-                st1.setInt(1, addressID);
-                st1.setString(2, a);
-                st1.setString(3, "no street 2");
-                st1.setString(4, dist); //state
-                
-                int cityID = cityIDSearch(cust.getCity());
-                st1.setInt(5, cityID);
-                st1.setString(6, postal);//zip code
-                st1.setString(7, "1234");//phone not required
-                st1.setDate(8, date);
-                st1.executeUpdate();
-
-                System.out.println("1 row affected ");
-            } catch (SQLException ex) {
+        } catch (SQLException ex) {
                 System.out.println("SQL statement is not executed!" + ex);
             }
-            con.close();
+            con1.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -147,7 +137,7 @@ public int addressIDSearch(String address, String city, String state, String zip
                 String c = rs.getString("address");
                 if (c == null) {
                     id = findHighestID(address, "address_id");
-                    System.out.println("this sucks " + id);
+                    System.out.println("this sucks " +id);
                     PreparedStatement statement = con.prepareStatement("insert into address(address_id,address,address2,district,cityID,postal_code,phone,last_update)"
                             + "+ values(?,?,?,?,?,?,?,?");
                     statement.setInt(1, id);//addressID
