@@ -96,7 +96,7 @@
                     <td><html:text property="nameOnCard" size="24" /></td>
                 </tr>
             </table>
-                &nbsp; Expiration date format: MM/YYYY
+                &nbsp; Expiration date format: MM/YY
                 
                 <br /><br />
 

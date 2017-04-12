@@ -117,12 +117,93 @@ public class SignUpAction extends org.apache.struts.action.Action {
         }
     }
     
+    public int checkLength(long creditcard) {
+            int length = 0;
+            while (creditcard > 1)
+            {
+                creditcard = creditcard / 10;
+                length++;
+            }
+            return length;
+        }
+    
+    public int sumDoubleSecondDigits(long creditcard) {
+        int sum = 0;
+        creditcard = creditcard / 10;
+        while (creditcard != 0) {
+            sum = sum + getDigit((int)(creditcard % 10) * 2);
+            creditcard = creditcard / 100;
+        }
+        return sum;
+    }
+    
+    public int getDigit(int digit) {
+        if (digit <= 9) {
+            return digit;
+        } else if (digit > 9) {
+            return (digit % 10 + digit / 10);
+        }
+        return digit;
+    }
+    
+    public int sumOddDigits(long creditcard) {
+        int sum = 0;
+        while (creditcard != 0) {
+            sum = sum + (int)(creditcard % 10);
+            creditcard = creditcard / 100;
+        }
+        return sum;
+    }
+    
+    public boolean checkValidity(long totalSum) {
+        if (totalSum % 10 == 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
     public boolean creditVal(String creditcard) {
-        return true;
+        long cc;
+        try {
+            cc = Long.valueOf(creditcard);   
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return false;
+        }
+        int length = checkLength(cc);
+        int even = sumDoubleSecondDigits(cc);
+        int odd = sumOddDigits(cc);
+        int totalSum = even + odd;
+        int yes = 0;
+        if (checkValidity(totalSum) == true && checkStartNumbers(cc) == yes 
+                && (length >= 13 && length <= 16)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    public int checkStartNumbers(long creditcard) {
+        int yes = 0;
+        int no = 0;
+        while (creditcard > 0) {
+            creditcard = creditcard / 10;
+            if (creditcard == 37 || creditcard == 4 || creditcard == 5 || creditcard == 6) {
+                creditcard = yes;
+            } else {
+                creditcard = no;
+            }
+        }
+        return yes;
     }
     
     public boolean expVal(String expdate) {
-        return true;
+        if (expdate.matches("(?:0[1-9]|1[0-2])/[0-9]{2}")) {
+            return true;
+        } else {
+            return false;
+        }
     }
     
     public boolean codeVal(String code) {
