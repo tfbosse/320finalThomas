@@ -31,7 +31,7 @@
             <forward name="failure" path="/login.jsp" />
         </action>
         
-        <action input="/" name="ManagerForm" path="/signupman" scope="session" type="com.myapp.struts.ManagerSignupAction">
+        <action input="/" name="ManagerForm" path="/signupman" scope="session" type="com.myapp.struts.ManSignUpAction">
             <forward name="success" path="/login.jsp" />
             <forward name="failure" path="/mansignup.jsp" />
         </action>

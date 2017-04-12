@@ -30,8 +30,8 @@ public class managerDAO {
                 PreparedStatement st = con.prepareStatement("Insert INTO staff(staff_id,first_name,last_name,address_id,email,active,username,password,last_update)"
                         + "VALUES(?,?,?,?,?,?,?,?,?,?)"); 
                 
-                String first = manager.getFirst_name();
-                String last = manager.getLast_name();
+                String first = manager.getFirstname();
+                String last = manager.getLastname();
                 String email = manager.getEmail();
                 String username = manager.getUsername();
                 String password = manager.getPassword();

@@ -81,23 +81,24 @@
             <table>
                 <tr>
                     <td>Credit Card: </td>
-                    <td><html:text property="creditcard" size="24" /></td>
+                    <td><html:text property="cardNumber" size="24" /></td>
                 </tr>
                 <tr>
                     <td>Expiration Date: </td>
-                    <td><html:text property="expdate" size="24" /></td>
+                    <td><html:text property="expDate" size="24" /></td>
                 </tr>
                 <tr>
                     <td>Security Code: </td>
-                    <td><html:text property="code" size="24" /></td>
+                    <td><html:text property="secNum" size="24" /></td>
                 </tr>
                 <tr>
                     <td>Name on Card (if different): </td>
-                    <td><html:text property="cardname" size="24" /></td>
+                    <td><html:text property="nameOnCard" size="24" /></td>
                 </tr>
             </table>
+                &nbsp; Expiration date format: MM/YYYY
                 
-                <br />
+                <br /><br />
 
             <table>
                 <tr>
