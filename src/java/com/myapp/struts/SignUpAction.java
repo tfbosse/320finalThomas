@@ -118,19 +118,36 @@ public class SignUpAction extends org.apache.struts.action.Action {
     }
     
     public boolean creditVal(String creditcard) {
-        
+        return true;
     }
     
     public boolean expVal(String expdate) {
-        
+        return true;
     }
     
     public boolean codeVal(String code) {
-        if (code.length() != 3)
+        if (code.length() != 3) {
+            return false;
+        }
+        if (code.matches(".*[a-z][A-Z].*")) {
+            return false;
+        }
+        return true;
     }
     
     public boolean cnameVal(String cardname) {
-        
+        if (cardname.isEmpty()) {
+            return true;
+        }
+        String[] split = cardname.split(" ");
+        if (split.length < 2) {
+            return false;
+        }
+        if (cardname.matches("^[ A-Za-z]+$")) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -160,10 +177,10 @@ public class SignUpAction extends org.apache.struts.action.Action {
         String city = signUpForm.getCity();
         String state = signUpForm.getState();
         String zip = signUpForm.getZip();
-        String creditcard = signUpForm.getCreditcard();
-        String expdate = signUpForm.getExpdate();
-        String code = signUpForm.getCode();
-        String cardname = signUpForm.getCardname();
+        String creditcard = signUpForm.getCardNumber();
+        String expdate = signUpForm.getExpDate();
+        String code = signUpForm.getSecNum();
+        String cardname = signUpForm.getNameOnCard();
         
         if (firstname.isEmpty()) {
             errors.add("firstname", new ActionMessage("errors.required", "A first name"));
@@ -229,9 +246,9 @@ public class SignUpAction extends org.apache.struts.action.Action {
             errors.add("expdate", new ActionMessage("errors.invalid", "Expiration date"));
         } else if (code.isEmpty()) {
             errors.add("code", new ActionMessage("errors.required", "A security code"));
-        } else if (codeVal(code)) {
+        } else if (codeVal(code) == false) {
             errors.add("code", new ActionMessage("errors.invalid", "Security code"));
-        } else if (cnameVal(cardname)) {
+        } else if (cnameVal(cardname) == false) {
             errors.add("cardname", new ActionMessage("errors.invalid", "Name on card"));
         }
         
