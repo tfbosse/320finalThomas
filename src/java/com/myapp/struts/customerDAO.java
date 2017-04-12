@@ -36,7 +36,7 @@ public class customerDAO {
         PreparedStatement st = con1.prepareStatement("INSERT INTO customer(first_name,last_name,email,address,"
                 + "city,state,zip, username, password, card_number, expiration_date, security_number, name_on_card,last_update)"
                 + "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
-//jake
+
                 String first = cust.getFirstname();
                 String last = cust.getLastname();
                 String email = cust.getEmail();
