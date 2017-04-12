@@ -59,39 +59,6 @@ public class SignUpForm extends org.apache.struts.action.ActionForm {
     public void setLastUpdate(String lastUpdate) {
         this.lastUpdate = lastUpdate;
     }
-
-
-    public String getCreditcard() {
-        return creditcard;
-    }
-
-    public void setCreditcard(String creditcard) {
-        this.creditcard = creditcard;
-    }
-
-    public String getExpdate() {
-        return expdate;
-    }
-
-    public void setExpdate(String expdate) {
-        this.expdate = expdate;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public String getCardname() {
-        return cardname;
-    }
-
-    public void setCardname(String cardname) {
-        this.cardname = cardname;
-    }
     
     public String getAddress() {
         return address;
