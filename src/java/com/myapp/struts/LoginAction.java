@@ -19,6 +19,7 @@ public class LoginAction extends org.apache.struts.action.Action {
 
     /* forward name="success" path="" */
     private static final String SUCCESS = "success";
+    private static final String FAILURE = "failure";
 
     /**
      * This is the action called from the Struts framework.
@@ -35,7 +36,10 @@ public class LoginAction extends org.apache.struts.action.Action {
             HttpServletRequest request, HttpServletResponse response)
             throws Exception {
         
-        //fuck off
+        managerDAO mdao = new managerDAO();
+        customerDAO cdao = new customerDAO();
+        
+        //compare username to all in man & cust, then compare passwords
         
         return mapping.findForward(SUCCESS);
     }
