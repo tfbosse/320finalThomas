@@ -20,6 +20,14 @@ a {
 	color: white;
     text-decoration: none;
 }
+table {
+    width: 400px;
+    border: 1px solid black;
+}
+td {
+    width: 200px;
+    border: 1px solid black;
+}
 .align-left-banner{
    float: left;
    width: 100%;
