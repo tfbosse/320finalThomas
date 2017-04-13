@@ -67,7 +67,7 @@ public class SignUpAction extends org.apache.struts.action.Action {
     }
     
     public boolean cityVal(String city) {
-        if (city.matches("^[ A-Za-z]+$")) {
+        if (city.matches("^([a-zA-Z\\u0080-\\u024F]+(?:. |-| |'))*[a-zA-Z\\u0080-\\u024F]*$")) {
             return true;
         } else {
             return false;
@@ -82,7 +82,10 @@ public class SignUpAction extends org.apache.struts.action.Action {
                 "missouri", "montana", "nebraska", "nevada", "new hampshire", "new jersey", "new mexico", "new york", 
                 "north carolina", "north dakota", "ohio", "oklahoma", "oregon", "pennsylvania", "rhode island", 
                 "south carolina", "south dakota", "tennessee", "texas", "utah", "vermont", "virginia", "washington", 
-                "west virginia", "wisconsin", "wyoming", "d. c.", "dc", "d c", "d.c.", "district of columbia");
+                "west virginia", "wisconsin", "wyoming", "d. c.", "dc", "d c", "d.c.", "district of columbia", "al", 
+                "ak", "az", "al", "ca", "co", "ct", "de", "fl", "ga", "hi", "id", "il", "in", "ia", "ks", "ky", "la", 
+                "me", "md", "ma", "mi", "mn", "ms", "mo", "mt", "ne", "nv", "nh", "nj", "nm", "ny", "nc", "nd", "oh", 
+                "ok", "or", "pa", "ri", "sc", "sd", "tn", "tx", "ut", "vt", "va", "wa", "wv", "wi", "wy");
         state = state.toLowerCase();
         if (states.contains(state)) {
             return true;
