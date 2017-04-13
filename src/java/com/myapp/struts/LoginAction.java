@@ -5,6 +5,7 @@
  */
 package com.myapp.struts;
 
+import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -39,8 +40,13 @@ public class LoginAction extends org.apache.struts.action.Action {
         managerDAO mdao = new managerDAO();
         customerDAO cdao = new customerDAO();
         
-        //compare username to all in man & cust, then compare passwords
+        SignUpForm signUpForm = (SignUpForm) form;
         
-        return mapping.findForward(SUCCESS);
+        if (cdao.searchCustomer(signUpForm.getUsername(), signUpForm.getPassword()) 
+                || mdao.searchManager(signUpForm.getUsername(), signUpForm.getPassword())) {
+            return mapping.findForward(SUCCESS);
+        }
+        
+        return mapping.findForward(FAILURE);
     }
 }
