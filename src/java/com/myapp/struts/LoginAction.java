@@ -40,10 +40,12 @@ public class LoginAction extends org.apache.struts.action.Action {
         managerDAO mdao = new managerDAO();
         customerDAO cdao = new customerDAO();
         
-        SignUpForm signUpForm = (SignUpForm) form;
+        LoginForm signUpForm = (LoginForm) form;
         
         if (cdao.searchCustomer(signUpForm.getUsername(), signUpForm.getPassword()) 
                 || mdao.searchManager(signUpForm.getUsername(), signUpForm.getPassword())) {
+            signUpForm.setUsername("");
+            signUpForm.setPassword("");
             return mapping.findForward(SUCCESS);
         }
         

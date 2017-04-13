@@ -7,8 +7,8 @@
 
 <struts-config>
     <form-beans>
+        <form-bean name="LoginForm" type="com.myapp.struts.LoginForm"/>
         <form-bean name="SignUpForm" type="com.myapp.struts.SignUpForm"/>
-        
         <form-bean name="ManagerForm" type="com.myapp.struts.ManagerForm"/>
     
     </form-beans>
@@ -26,7 +26,7 @@
             <forward name ="success" path="/login.jsp" />
             <forward name="failure" path="/signup.jsp" />
         </action>
-        <action input="/" name="SignUpForm" path="/login" scope="session" type="com.myapp.struts.LoginAction">
+        <action input="/" name="LoginForm" path="/login" scope="session" type="com.myapp.struts.LoginAction">
             <forward name="success" path="/base.jsp" />
             <forward name="failure" path="/login.jsp" />
         </action>
