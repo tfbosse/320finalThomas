@@ -31,7 +31,7 @@
                 </tr>
                 <tr>
                     <td>Password: </td>
-                    <td><html:text property="password" size="24"/></td>
+                    <td><html:password property="password" size="24"/></td>
                 </tr>
             </table>
             <br/>
