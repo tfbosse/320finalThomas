@@ -14,16 +14,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 /**
  *
  * @author jakeotey
  */
 public class customerDAO {
-
-    public void insertAddress() {
-
-    }
 
     public void insertCustomer(SignUpForm cust) throws Exception {
         System.out.println("jdbc connection");
@@ -34,9 +31,9 @@ public class customerDAO {
             try {
                 Timestamp ts = new Timestamp(System.currentTimeMillis());
                 Date date = new Date(ts.getTime());
-        PreparedStatement st = con1.prepareStatement("INSERT INTO customer(first_name,last_name,email,address,"
-                + "city,state,zip, username, password, card_number, expiration_date, security_number, name_on_card,last_update)"
-                + "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+                PreparedStatement st = con1.prepareStatement("INSERT INTO customer(first_name,last_name,email,address,"
+                        + "city,state,zip, username, password, card_number, expiration_date, security_number, name_on_card,last_update)"
+                        + "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 
                 String first = cust.getFirstname();
                 String last = cust.getLastname();
@@ -51,7 +48,7 @@ public class customerDAO {
                 String expDate = cust.getExpDate();
                 String secNum = cust.getSecNum();
                 String nameOnCard = cust.getNameOnCard();
-                
+
                 SimpleDateFormat format = new SimpleDateFormat("MM/yy");
                 java.util.Date parsed = format.parse(expDate);
                 java.sql.Date eDate = new java.sql.Date(parsed.getTime());
@@ -71,7 +68,7 @@ public class customerDAO {
                 st.setString(12, secNum);
                 st.setString(13, nameOnCard);
                 st.setDate(14, date);
-                
+
                 st.executeUpdate();
 
             } catch (SQLException ex) {
@@ -83,147 +80,38 @@ public class customerDAO {
         }
     }
 
-    public int cityIDSearch(String city) {
-        System.out.println("jdbc connection");
-        DBConnectionUtil DBcon = new DBConnectionUtil();
-        Connection con = DBcon.getConnection();
-        int id = 0;
-        Timestamp ts = new Timestamp(System.currentTimeMillis());
-        Date date = new Date(ts.getTime());
-        
-        try {
-            try {
-
-                Statement lookUp = con.createStatement();
-                ResultSet rs = lookUp.executeQuery("select city from city where city = " + city);
-
-                String c = rs.getString("city");
-                if (c == null) {
-                    id = findHighestID(city, "city_id");
-                    PreparedStatement statement = con.prepareStatement("insert into city(city_id,city,country_id,last_update)"
-                            + "+ values(?,?,?,?");
-                    statement.setInt(1, id);
-                    statement.setString(2, city);
-                    statement.setInt(3,1);
-                    statement.setDate(4, date);
-                    statement.executeQuery();
-                    
-                }
-                
-            } catch (SQLException ex) {
-                System.out.println("SQL statement is not executed!" + ex);
-
-            }
-            con.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return id;
-    }
-public int addressIDSearch(String address, String city, String state, String zip) {
-        System.out.println("jdbc connection");
-        DBConnectionUtil DBcon = new DBConnectionUtil();
-        Connection con = DBcon.getConnection();
-        int id = 0;
-        int cityID = cityIDSearch(city);
-        Timestamp ts = new Timestamp(System.currentTimeMillis());
-        Date date = new Date(ts.getTime());
-        
-        try {
-            try {
-
-                Statement lookUp = con.createStatement();
-                ResultSet rs = lookUp.executeQuery("select address from address where address = " + address);
-
-                String c = rs.getString("address");
-                if (c == null) {
-                    id = findHighestID(address, "address_id");
-                    System.out.println("this sucks " +id);
-                    PreparedStatement statement = con.prepareStatement("insert into address(address_id,address,address2,district,cityID,postal_code,phone,last_update)"
-                            + "+ values(?,?,?,?,?,?,?,?");
-                    statement.setInt(1, id);//addressID
-                    statement.setString(2, address);//address
-                    statement.setString(3, "no address2");//address2 not required
-                    statement.setString(4, state);//district
-                    statement.setInt(5, cityID);//cityID
-                    statement.setString(6, zip);//district
-                    statement.setString(4, "123456");//district
-                    statement.setDate(4, date);//lastUpdate
-                    statement.executeQuery();
-                    
-                }
-                else{
-                    
-                }
-            } catch (SQLException ex) {
-                System.out.println("SQL statement is not executed!" + ex);
-
-            }
-            con.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return id;
-    }
-
-    public int findHighestID(String table, String property) {
-        System.out.println("jdbc connection");
-        DBConnectionUtil DBcon = new DBConnectionUtil();
-        Connection con = DBcon.getConnection();
-        int id = 0;
-        try {
-            try {
-                Statement search = con.createStatement();
-                ResultSet rs = search.executeQuery("select max(" + property + ") from " + table);
-                
-                id = rs.getInt(property);
-                id++;
-
-            } catch (SQLException ex) {
-                System.out.println("SQL statement is not executed!" + ex);
-
-            }
-            con.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return id;
-    }
-    
-    
-    public boolean searchCustomer (String username,String password) {
+    public boolean searchCustomer(String username, String password) {
         boolean flag = false;
-        
-        DBConnectionUtil DBcon = new DBConnectionUtil();
-        Connection con = DBcon.getConnection();
-        
-     try {
-            try {
-                Statement st = con.createStatement();
-                ResultSet rs = st.executeQuery("SELECT username, password FROM staff WHERE username = " + username);
-               
-                String user = rs.getString("username");
-                String pass = rs.getString("password");
-                
-                if (user != null|| pass == password){
-                     flag = true;
-                }
-            
-                }
-            catch(SQLException ex){
-                 System.out.println("SQL statement is not executed!" + ex);
-            }
-            con.close();
+
+        if (username.isEmpty() || password.isEmpty()) {
+            return flag;
         }
-        catch (Exception e) {
+
+        try {
+            try {
+                DBConnectionUtil DBcon = new DBConnectionUtil();
+                Connection con = DBcon.getConnection();
+                Statement st = con.createStatement();
+                ResultSet rs = st.executeQuery("SELECT username, password FROM customer WHERE username='" + username + "';");
+
+                String user = "", pass = "";
+
+                while (rs.next()) {
+                    user = rs.getString("username");
+                    pass = rs.getString("password");
+                }
+
+                if (pass.equals(password)) {
+                    flag = true;
+                }
+
+            } catch (SQLException ex) {
+                System.out.println("SQL statement is not executed!" + ex);
+            }
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        
         return flag;
     }
-    
-    
+
 }

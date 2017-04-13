@@ -90,32 +90,35 @@ public class managerDAO {
     
     public boolean searchManager (String username,String password) {
         boolean flag = false;
-        
-        DBConnectionUtil DBcon = new DBConnectionUtil();
-        Connection con = DBcon.getConnection();
-        
-     try {
-            try {
-                Statement st = con.createStatement();
-                ResultSet rs = st.executeQuery("SELECT username, password FROM staff WHERE username = " + username);
-               
-                String user = rs.getString("username");
-                String pass = rs.getString("password");
-                
-                if (user != null|| pass == password){
-                     flag = true;
-                }
-            
-                }
-            catch(SQLException ex){
-                 System.out.println("SQL statement is not executed!" + ex);
-            }
-            con.close();
+
+        if (username.isEmpty() || password.isEmpty()) {
+            return flag;
         }
-        catch (Exception e) {
+
+        try {
+            try {
+                DBConnectionUtil DBcon = new DBConnectionUtil();
+                Connection con = DBcon.getConnection();
+                Statement st = con.createStatement();
+                ResultSet rs = st.executeQuery("SELECT username, password FROM manager WHERE username='" + username + "';");
+
+                String user = "", pass = "";
+
+                while (rs.next()) {
+                    user = rs.getString("username");
+                    pass = rs.getString("password");
+                }
+
+                if (pass.equals(password)) {
+                    flag = true;
+                }
+
+            } catch (SQLException ex) {
+                System.out.println("SQL statement is not executed!" + ex);
+            }
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        
         return flag;
     }
     
