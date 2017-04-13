@@ -13,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 
 /**
  *
@@ -51,8 +52,9 @@ public class customerDAO {
                 String secNum = cust.getSecNum();
                 String nameOnCard = cust.getNameOnCard();
                 
-                
-                
+                SimpleDateFormat format = new SimpleDateFormat("MM/yy");
+                java.util.Date parsed = format.parse(expDate);
+                java.sql.Date eDate = new java.sql.Date(parsed.getTime());
 
                 //change storeID to 1      
                 st.setString(1, first);
@@ -65,17 +67,17 @@ public class customerDAO {
                 st.setString(8, username);
                 st.setString(9, password);
                 st.setString(10, cNum);
-                st.setString(11, expDate);
+                st.setDate(11, eDate);
                 st.setString(12, secNum);
                 st.setString(13, nameOnCard);
                 st.setDate(14, date);
                 
                 st.executeUpdate();
 
-        } catch (SQLException ex) {
+            } catch (SQLException ex) {
                 System.out.println("SQL statement is not executed!" + ex);
             }
-            con1.close();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
