@@ -18,77 +18,44 @@ import java.sql.Timestamp;
  * @author landr
  */
 public class managerDAO {
-    
-    public void insertManager (ManagerForm manager) {
-        DBConnectionUtil DBcon = new DBConnectionUtil();
-        Connection con = DBcon.getConnection();
-        
+
+    public void insertManager(ManagerForm manager) {
+
         try {
             try {
-                
-                int id = 1+getHighestID();
-                PreparedStatement st = con.prepareStatement("Insert INTO staff(staff_id,first_name,last_name,email,username,password,last_update)"
-                        + "VALUES(?,?,?,?,?,?,?)"); 
-                
+                DBConnectionUtil DBcon = new DBConnectionUtil();
+                Connection con = DBcon.getConnection();
+                PreparedStatement st = con.prepareStatement("Insert INTO staff(first_name,last_name,email,username,password,last_update) "
+                        + "VALUES(?,?,?,?,?,?)");
+
                 String first = manager.getFirstname();
                 String last = manager.getLastname();
                 String email = manager.getEmail();
                 String username = manager.getUsername();
                 String password = manager.getPassword();
-                
+
                 Timestamp ts = new Timestamp(System.currentTimeMillis());
                 Date date = new Date(ts.getTime());
-                
-                st.setInt(1,id);
-                st.setString(2, first);
-                st.setString(3,last);
-                st.setString(4,email);
-                st.setString(5,username);
-                st.setString(6,password);
-                st.setDate(7, date);
-                st.executeQuery();
-                
-                 
+
+                st.setString(1, first);
+                st.setString(2, last);
+                st.setString(3, email);
+                st.setString(4, username);
+                st.setString(5, password);
+                st.setDate(6, date);
+                st.execute();
+
+            } catch (SQLException ex) {
+                System.out.println("SQL statement is not executed!" + ex);
             }
-            catch(SQLException ex){
-                 System.out.println("SQL statement is not executed!" + ex);
-            }
-            con.close();
-            
-        }
-        catch (Exception e) {
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
-               
+
     }
-    
-    
-    public int getHighestID () {
-        int id = 0 ;
-        
-        DBConnectionUtil DBcon = new DBConnectionUtil();
-        Connection con = DBcon.getConnection();
-        
-     try {
-            try {
-                Statement statement = con.createStatement();
-                ResultSet rs = statement.executeQuery("Select Max(staff_id) from staff");
-                
-               id = rs.getInt("staff_id");
-                }
-            catch(SQLException ex){
-                 System.out.println("SQL statement is not executed!" + ex);
-            }
-            con.close();
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-        
-        return id;
-    }
-    
-    public boolean searchManager (String username,String password) {
+
+    public boolean searchManager(String username, String password) {
         boolean flag = false;
 
         if (username.isEmpty() || password.isEmpty()) {
@@ -100,7 +67,7 @@ public class managerDAO {
                 DBConnectionUtil DBcon = new DBConnectionUtil();
                 Connection con = DBcon.getConnection();
                 Statement st = con.createStatement();
-                ResultSet rs = st.executeQuery("SELECT username, password FROM manager WHERE username='" + username + "';");
+                ResultSet rs = st.executeQuery("SELECT username, password FROM staff WHERE username='" + username + "';");
 
                 String user = "", pass = "";
 
@@ -121,8 +88,5 @@ public class managerDAO {
         }
         return flag;
     }
-    
-        
-    
-    
+
 }
