@@ -14,6 +14,10 @@
     </head>
     <body>
         
+        <%
+            System.out.println(session.getAttribute("sessID"));
+        %>
+        
         <h1>
             <div class="align-left-banner">
                 <a href="base.jsp">Crimson Video Store</a>

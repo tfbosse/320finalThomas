@@ -36,12 +36,14 @@
             <forward name="success" path="/login.jsp" />
             <forward name="failure" path="/mansignup.jsp" />
         </action>
+      
+        <action input="/" name="SignUpForm" path="/update" scope="session" type="com.myapp.struts.UpdateAction"/>
+
         
         <action input="/" name="FilmForm" path="/search" scope="session" type="com.myapp.struts.FilmAction">
             <forward name="success" path="/search.jsp" />
             <forward name="failure" path="/base.jsp" />
         </action>
-        
        
          
     </action-mappings>

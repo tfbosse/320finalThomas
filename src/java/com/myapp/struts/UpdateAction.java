@@ -5,11 +5,8 @@
  */
 package com.myapp.struts;
 
-import java.util.ArrayList;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
@@ -18,11 +15,10 @@ import org.apache.struts.action.ActionMapping;
  *
  * @author Thomas
  */
-public class LoginAction extends org.apache.struts.action.Action {
+public class UpdateAction extends org.apache.struts.action.Action {
 
     /* forward name="success" path="" */
     private static final String SUCCESS = "success";
-    private static final String FAILURE = "failure";
 
     /**
      * This is the action called from the Struts framework.
@@ -39,20 +35,8 @@ public class LoginAction extends org.apache.struts.action.Action {
             HttpServletRequest request, HttpServletResponse response)
             throws Exception {
         
-        managerDAO mdao = new managerDAO();
-        customerDAO cdao = new customerDAO();
         
-        LoginForm signUpForm = (LoginForm) form;
         
-        if (cdao.searchCustomer(signUpForm.getUsername(), signUpForm.getPassword()) 
-                || mdao.searchManager(signUpForm.getUsername(), signUpForm.getPassword())) {
-            HttpSession ses = request.getSession();
-            ses.setAttribute("sessID", signUpForm.getUsername());
-            signUpForm.setUsername("");
-            signUpForm.setPassword("");
-            return mapping.findForward(SUCCESS);
-        }
-        
-        return mapping.findForward(FAILURE);
+        return mapping.findForward(SUCCESS);
     }
 }
