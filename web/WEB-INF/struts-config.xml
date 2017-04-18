@@ -35,6 +35,7 @@
             <forward name="success" path="/login.jsp" />
             <forward name="failure" path="/mansignup.jsp" />
         </action>
+        <action input="/" name="SignUpForm" path="/update" scope="session" type="com.myapp.struts.UpdateAction"/>
        
     </action-mappings>
     
