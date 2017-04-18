@@ -11,7 +11,22 @@ package com.myapp.struts;
  */
 public class FilmForm extends org.apache.struts.action.ActionForm {
     
-    private String title, actor, genre, realeaseYear, rating, description,length;
+    private String title, actor, genre, releaseYear, rating, description,length;
+    
+    public FilmForm(){
+        super();
+    }
+    
+    public FilmForm(String title, String actor, String genre, String releaseYear, String rating, String description, String length){
+        this.title = title;
+        this.actor= actor;
+        this.genre = genre;
+        this.releaseYear = releaseYear;
+        this.rating = rating;
+        this.description = description;
+        this.length = length;
+        
+    }
 
     public String getDescription() {
         return description;
@@ -53,12 +68,12 @@ public class FilmForm extends org.apache.struts.action.ActionForm {
         this.genre = genre;
     }
 
-    public String getRealeaseYear() {
-        return realeaseYear;
+    public String getReleaseYear() {
+        return releaseYear;
     }
 
-    public void setRealeaseYear(String realeaseYear) {
-        this.realeaseYear = realeaseYear;
+    public void setReleaseYear(String releaseYear) {
+        this.releaseYear = releaseYear;
     }
 
     public String getRating() {

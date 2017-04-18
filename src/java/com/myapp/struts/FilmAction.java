@@ -41,16 +41,10 @@ public class FilmAction extends org.apache.struts.action.Action {
         String title = filmform.getTitle();
         String actor = filmform.getActor();
         String genre = filmform.getGenre();
-        String release_year = filmform.getRealeaseYear();
+        String release_year = filmform.getReleaseYear();
         String rating = filmform.getRating(); 
         
-        
-        
-        
-        
-        
-        
-        
+       
         return mapping.findForward(SUCCESS);
     }
 }
