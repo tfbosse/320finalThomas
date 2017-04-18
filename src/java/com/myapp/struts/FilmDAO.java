@@ -78,8 +78,7 @@ public class FilmDAO {
                       FilmForm film = new FilmForm(title,actor,genre,releaseYear,rating,description,length);
                       films.add(film);
                    }
-            }
-           }
+
         } catch (SQLException ex) {
                 System.out.println("SQL statement is not executed!" + ex);
             }
