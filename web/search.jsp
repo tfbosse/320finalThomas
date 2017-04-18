@@ -6,7 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="html" uri="http://struts.apache.org/tags-html" %>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -14,26 +14,33 @@
         <title>Search Page</title>
     </head>
     <body>
-        <h1>Search for a Movie Biznitch!</h1>
-        <table>
+        <h1>Search</h1>
+        
         <html:form action="/search"  >
-            <td>
-             <html:radio property="title" disabled="false" value="false" ></html:radio> Title<br>
-            </td>
-            <td>
-             <html:radio property="actor" disabled="false" value="false" ></html:radio> Actor<br>
-            </td>
-            <td>
-             <html:radio property="genre" disabled="false" value="false" ></html:radio> Genre<br>
-            </td>
-            <td>
-             <html:radio property="realeaseYear" disabled="false" value="false" ></html:radio> Release Year<br>
-             </td>
-             <td>
-             <html:radio property="rating" disabled="false" value="false" ></html:radio> Rating<br>
-            </td>
-           
+            <html:text property="searchType"/><br>
+            <html:text property="searchString"/>
+            <html:submit value="Search"/>
         </html:form>
-        </table>
+            
+            <table border="1" width="100%">
+                <th>
+                  Type of Search  
+                </th>
+                <th>
+                   Results 
+                </th>
+                
+                <c:forEach var="FilmForm" items="${films}">
+                <tr>
+                    <td><c:out value="${FilmForm.title}"/></td>
+                    <td><c:out value="${FilmForm.rating}"/></td>
+                    <td><c:out value="${FilmForm.releaseYear}"/></td>
+                    <td><c:out value="${FilmForm.description}"/></td>
+                    
+                </tr>
+            </c:forEach>
+                
+            </table>
+        
     </body>
 </html>
