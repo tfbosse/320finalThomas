@@ -10,6 +10,7 @@
         <form-bean name="LoginForm" type="com.myapp.struts.LoginForm"/>
         <form-bean name="SignUpForm" type="com.myapp.struts.SignUpForm"/>
         <form-bean name="ManagerForm" type="com.myapp.struts.ManagerForm"/>
+        <form-bean name="FilmForm" type="com.myapp.struts.FilmForm"/>
     
     </form-beans>
     
@@ -35,8 +36,16 @@
             <forward name="success" path="/login.jsp" />
             <forward name="failure" path="/mansignup.jsp" />
         </action>
+      
         <action input="/" name="SignUpForm" path="/update" scope="session" type="com.myapp.struts.UpdateAction"/>
+
+        
+        <action input="/" name="FilmForm" path="/search" scope="session" type="com.myapp.struts.FilmAction">
+            <forward name="success" path="/search.jsp" />
+            <forward name="failure" path="/base.jsp" />
+        </action>
        
+         
     </action-mappings>
     
     <controller processorClass="org.apache.struts.tiles.TilesRequestProcessor"/>
