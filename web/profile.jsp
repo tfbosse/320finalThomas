@@ -4,6 +4,7 @@
     Author     : Thomas
 --%>
 
+<%@page import="com.myapp.struts.ProfileDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="html" uri="http://struts.apache.org/tags-html" %>
 <!DOCTYPE html>
@@ -16,8 +17,7 @@
     <body>
         
         <%
-            System.out.println(session.getAttribute("sessID"));
-            
+            setAll(session);
         %>
         
         <h1>
