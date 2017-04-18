@@ -16,7 +16,55 @@ import java.util.ArrayList;
  * @author jakeotey
  */
 public class FilmDAO {
-    public ArrayList <FilmForm> getSearch (String criteria) throws Exception {
+    
+    public ArrayList <FilmForm> getAllFilms (String criteria) throws Exception {
+       DBConnectionUtil DBcon = new DBConnectionUtil();
+        Connection con1 = DBcon.getConnection();
+        
+        ArrayList <FilmForm> films = new ArrayList <FilmForm>();//initialize list of films
+        
+        
+         
+
+        try {
+
+            try {
+              
+                Statement lookUp = con1.createStatement();
+                ResultSet rs;
+                
+                   rs = lookUp.executeQuery("SELECT * from film where in_Stock = 1");
+                    
+                   while(rs.next()){
+                       
+                      String id = rs.getString("film_id");
+                      String title = rs.getString("title");
+                      String actor = null;
+                      String genre = null;
+                      String releaseYear = rs.getString("release_year");
+                      String rating = rs.getString("rating");
+                      String description = rs.getString("description");
+                      String length = rs.getString("length");
+                      
+                      FilmForm film = new FilmForm(title, actor, genre, releaseYear, rating, description, length);
+                      films.add(film);
+                
+                   }
+       
+        } catch (SQLException ex) {
+                System.out.println("SQL statement is not executed!" + ex);
+            }
+            con1.close();
+        }
+            catch (Exception e) {
+                  e.printStackTrace();
+        }
+        return films;
+    
+    }
+    
+    
+    public ArrayList <FilmForm> getSearch (String field, String criteria) throws Exception {
         DBConnectionUtil DBcon = new DBConnectionUtil();
         Connection con1 = DBcon.getConnection();
         
@@ -25,9 +73,8 @@ public class FilmDAO {
         
         String[] searchList = criteria.split(" ");//create a list of search criteria
         
-        String[] tables = {"film", "actor", "category"};
-        String[] fields = {"title", "actor", "name", "release_year", "rating", "description", "length"};
-//              
+//        String[] tables = {"film", "actor", "category"};
+//        String[] fields = {"title", "actor", "genre", "release_year", "rating", "description", "length"};           
 
         try {
 
@@ -39,11 +86,11 @@ public class FilmDAO {
                 Statement stGenre= con1.createStatement();
                 ResultSet rsGenre;
                 
-                            
-           for(int y = 0; y<7; y++) {
-          
-                for(int z = 0; y< searchList.length; z++) {
-                    rs = lookUp.executeQuery("SELECT * from film where "+ fields[y] +"= " + searchList[z]);
+                if (field.equals("Title")|| field.equals("Release Year") || field.equals("Rating")){      
+                  
+                for(int x = 0; x< searchList.length; x++) {
+                    rs = lookUp.executeQuery("SELECT * from film where "+ field +" like %" + searchList[x] + "% "
+                            + " and in_stock = 1");
                     
                    while(rs.next()){
                        
@@ -78,8 +125,20 @@ public class FilmDAO {
                       FilmForm film = new FilmForm(title,actor,genre,releaseYear,rating,description,length);
                       films.add(film);
                    }
-            }
-           }
+                 }
+                }
+                
+                if (field.equals("actor")) {
+                    
+                }
+                
+                
+                
+                
+                
+                
+                
+                
         } catch (SQLException ex) {
                 System.out.println("SQL statement is not executed!" + ex);
             }
@@ -89,4 +148,7 @@ public class FilmDAO {
         }
         return films;
     }
+    
+    //TODO 
+    //ADD 
 }
