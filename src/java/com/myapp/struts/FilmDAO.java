@@ -129,7 +129,7 @@ public class FilmDAO {
                 }
                 
                 if (field.equals("actor")) {
-                    
+                     rs = lookUp.executeQuery("SELECT * from 
                 }
                 
                 
