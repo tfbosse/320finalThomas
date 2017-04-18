@@ -15,11 +15,11 @@ import org.apache.struts.action.ActionMapping;
  *
  * @author jakeotey
  */
-public class FilmAction extends org.apache.struts.action.Action {
+public class SearchAction extends org.apache.struts.action.Action {
 
     /* forward name="success" path="" */
     private static final String SUCCESS = "success";
-
+    private static final String FAILURE = "failure";
     /**
      * This is the action called from the Struts framework.
      *
@@ -34,17 +34,16 @@ public class FilmAction extends org.apache.struts.action.Action {
     public ActionForward execute(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
             throws Exception {
+        SearchForm search = (SearchForm) form;
+        String searchType = search.getSearchType();
+        String searchString = search.getSearchString();
         
-        FilmForm filmform = (FilmForm) form;
-        String description = filmform.getDescription();
-        String length = filmform.getLength();
-        String title = filmform.getTitle();
-        String actor = filmform.getActor();
-        String genre = filmform.getGenre();
-        String release_year = filmform.getReleaseYear();
-        String rating = filmform.getRating(); 
-        
-       
-        return mapping.findForward(SUCCESS);
+        if (getErrors(request).isEmpty()) {
+            FilmDAO film = new FilmDAO();
+            film.getAllFilms(search);
+            return mapping.findForward(SUCCESS);
+        } else {
+            return mapping.findForward(FAILURE);
+        }
     }
 }
