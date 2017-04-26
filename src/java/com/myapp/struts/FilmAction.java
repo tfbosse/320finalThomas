@@ -7,6 +7,7 @@ package com.myapp.struts;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
@@ -43,6 +44,9 @@ public class FilmAction extends org.apache.struts.action.Action {
         String genre = filmform.getGenre();
         String release_year = filmform.getReleaseYear();
         String rating = filmform.getRating(); 
+        request.getParameter("title");
+        HttpSession ses = request.getSession().setAttribute("title", );
+        ses.setAttribute("title", title);
         
        
         return mapping.findForward(SUCCESS);

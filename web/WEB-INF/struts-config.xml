@@ -49,8 +49,12 @@
             <forward name="success" path="/search.jsp" />
             <forward name="failure" path="/base.jsp" />
         </action>
+        
+        <action input="/search.jsp" name="FilmForm" path="/description" scope="session" type="com.myapp.struts.FilmAction">
+            <forward name="success" path="/filmPage.jsp" />
+            <forward name="failure" path="/base.jsp" />
+        </action>
       
-        <action input="/" name="SearchForm" path="/search" scope="session" type="com.myapp.struts.SearchAction"/>       
        
     </action-mappings>
     
