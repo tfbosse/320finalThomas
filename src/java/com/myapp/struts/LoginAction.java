@@ -10,9 +10,11 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
 
 /**
  *
@@ -39,6 +41,8 @@ public class LoginAction extends org.apache.struts.action.Action {
             HttpServletRequest request, HttpServletResponse response)
             throws Exception {
         
+        ActionErrors errors = new ActionErrors();
+        
         managerDAO mdao = new managerDAO();
         customerDAO cdao = new customerDAO();
         
@@ -51,8 +55,10 @@ public class LoginAction extends org.apache.struts.action.Action {
             signUpForm.setUsername("");
             signUpForm.setPassword("");
             return mapping.findForward(SUCCESS);
+        } else {
+            errors.add("username", new ActionMessage("errors.invalid", "Username or password"));
+            this.saveErrors(request, errors);
+            return mapping.findForward(FAILURE);
         }
-        
-        return mapping.findForward(FAILURE);
     }
 }

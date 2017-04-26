@@ -300,7 +300,7 @@ public class SignUpAction extends org.apache.struts.action.Action {
             errors.add("address", new ActionMessage("errors.maxlength", "Address", "50"));
         } else if (addressVal(address) == false) {
            errors.add("address", new ActionMessage("errors.invalid", "Address")); 
-        }else if (city.isEmpty()) {
+        } else if (city.isEmpty()) {
             errors.add("city", new ActionMessage("errors.required", "A city"));
         } else if (city.length() > 50) {
             errors.add("city", new ActionMessage("errors.maxlength", "City", "50"));
