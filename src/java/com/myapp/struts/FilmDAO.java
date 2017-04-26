@@ -86,9 +86,9 @@ public class FilmDAO {
                 if (field.equals("Title")|| field.equals("Release Year") || field.equals("Rating")){      
                   
                 for(int x = 0; x< searchList.length; x++) {
-               //     if (field.equals("Rating")&& searchList[x]){
-                        
-               //     }
+                  if (field.equals("Rating")&& searchList[x].toLowerCase().equals("pg")) {
+                    searchList[x] = " pg ";
+                  }
                     rs = lookUp.executeQuery("SELECT * FROM film WHERE "+ field +" LIKE '%" + searchList[x] + "%' "
                             + "and in_stock = 1");
                     
