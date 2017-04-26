@@ -21,18 +21,12 @@
             if (session.getAttribute("sessID") == null) {
                 response.sendRedirect("/FinalShitStruts/");
             }
-        %>
-        <script>
-            function chooseDisp() {
-                if ("<%=(String)session.getAttribute("sessType")%>" === "man") {
-                    document.getElementById("address").style.display = "none";
-                    document.getElementById("card").style.display = "none";
-                }
-                System.out.println("called2");
+            if (session.getAttribute("sessType") == "man") {
+                response.sendRedirect("/FinalShitStruts/manprofile.jsp");
             }
-        </script>
+        %>
     </head>
-    <body onload="chooseDisp()">
+    <body>
         
         <%
             ProfileDAO pdao = new ProfileDAO();

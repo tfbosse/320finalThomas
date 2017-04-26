@@ -12,13 +12,12 @@
         <link href="fpcss.css" rel="stylesheet" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Crimson Video Store</title>
-    </head>
-    <body>
-        
         <%
             ProfileDAO pdao = new ProfileDAO();
             pdao.signOut(session);
         %>
+    </head>
+    <body>
         
         <h1>
             <div class="align-left-banner">

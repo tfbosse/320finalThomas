@@ -4,6 +4,7 @@
     Author     : Thomas
 --%>
 
+<%@page import="com.myapp.struts.ProfileDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="html" uri="http://struts.apache.org/tags-html" %>
 <%@ taglib prefix="bean" uri="http://struts.apache.org/tags-bean" %>
@@ -13,6 +14,10 @@
         <link rel="stylesheet" href="fpcss.css" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Crimson Video Store</title>
+        <%
+            ProfileDAO pdao = new ProfileDAO();
+            pdao.signOut(session);
+        %>
     </head>
     <body>
         <h1>
@@ -26,7 +31,7 @@
         <br />
         <html:errors />
         <br />
-        <html:form action="/signup">
+        <html:form action="/signup" focus="firstname">
             <table>
                 <tr>
                     <td>First Name: </td>
