@@ -86,11 +86,15 @@ public class FilmDAO {
                 if (field.equals("Title")|| field.equals("Release Year") || field.equals("Rating")){      
                   
                 for(int x = 0; x< searchList.length; x++) {
-                  if (field.equals("Rating")&& searchList[x].toLowerCase().equals("pg")) {
-                    searchList[x] = " pg ";
+                  if (field.equals("Rating") && searchList[x].toUpperCase().equals("PG")) {
+                        rs = lookUp.executeQuery("SELECT * FROM film WHERE rating = 'PG' and in_stock = 1");
                   }
-                    rs = lookUp.executeQuery("SELECT * FROM film WHERE "+ field +" LIKE '%" + searchList[x] + "%' "
+                  else {
+                      
+                        rs = lookUp.executeQuery("SELECT * FROM film WHERE "+ field +" LIKE '%" + searchList[x] + "%' "
                             + "and in_stock = 1");
+                  }
+                  
                     
                    while(rs.next()){
                        
@@ -150,13 +154,13 @@ public class FilmDAO {
                 
                 else if (field.equals("actor")) {
                    for(int x = 0; x< searchList.length; x++) {
-                        rs = lookUp.executeQuery("SELECT * from actor as a" +
-                                                  "join film_actor as fa"
-                                                 + "on a.actor_id = fa.actor_id"
-                                                 + "join film as f"
-                                                 + "on f.film_id = fa.film_id"
+                        rs = lookUp.executeQuery("SELECT * from actor as a " +
+                                                  "join film_actor as fa "
+                                                 + "on a.actor_id = fa.actor_id "
+                                                 + "join film as f "
+                                                 + "on f.film_id = fa.film_id "
                                                  + "where first_name like '" + searchList[x]+ "%'"
-                                                 + "or last_name like '"+ searchList[x] + "%'");
+                                                 + " or last_name like '"+ searchList[x] + "%'");
                         
                
                      while(rs.next()){
@@ -172,8 +176,8 @@ public class FilmDAO {
                       
                       
                       rsActor = stActor.executeQuery("Select * from film_actor as fa "
-                               + "                    join actor as a"
-                               + "                    on fa.actor_id = a.actor_id"
+                               + "                    join actor as a "
+                               + "                    on fa.actor_id = a.actor_id "
                                + "                    where fa.film_id = '" + id+"'");
                       
                      
@@ -187,9 +191,9 @@ public class FilmDAO {
                      }
                      
                       rsGenre = stGenre.executeQuery("Select * from film_category as fc "
-                               + "                    join category as c"
-                               + "                    on fc.category_id = c.category_id"
-                               + "                    where fa.film_id = '" + id+"'");
+                               + "                    join category as c "
+                               + "                    on fc.category_id = c.category_id "
+                               + "                    where fc.film_id = '" + id+"'");
                       
                      int g =0;
                      while(rsGenre.next()){
@@ -218,11 +222,11 @@ public class FilmDAO {
                 
                    else if (field.equals("genre")){
                         for(int x = 0; x< searchList.length; x++) {
-                        rs = lookUp.executeQuery("SELECT * FROM film as f"
-                                + "join film_category as fc"
-                                + "on f.film_id = fc.film_id"
-                                + "join category as c"
-                                + "on c.category_id = fc.category_id"
+                        rs = lookUp.executeQuery("SELECT * FROM film as f "
+                                + "join film_category as fc "
+                                + "on f.film_id = fc.film_id "
+                                + "join category as c "
+                                + "on c.category_id = fc.category_id "
                                 + "where c.name LIKE '" + searchList[x] + "'");
                               
                      while(rs.next()){
@@ -238,8 +242,8 @@ public class FilmDAO {
                       
                       
                       rsActor = stActor.executeQuery("Select * from film_actor as fa "
-                               + "                    join actor as a"
-                               + "                    on fa.actor_id = a.actor_id"
+                               + "                    join actor as a "
+                               + "                    on fa.actor_id = a.actor_id "
                                + "                    where fa.film_id = '" + id+"'");
                       
                      
@@ -252,9 +256,9 @@ public class FilmDAO {
                          actor += rsActor.getString("first_name") + " " + rsActor.getString("last_name");
                      }
                      
-                      rsGenre = stGenre.executeQuery("Select * from film_category as fc"
-                               + "                    join category as c"
-                               + "                    on fc.category_id = c.category_id"
+                      rsGenre = stGenre.executeQuery("Select * from film_category as fc "
+                               + "                    join category as c "
+                               + "                    on fc.category_id = c.category_id "
                                + "                    where fc.film_id= '" + id+"'");
                       
                      int g =0;
