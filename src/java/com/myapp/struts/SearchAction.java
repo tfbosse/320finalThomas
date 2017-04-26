@@ -5,6 +5,7 @@
  */
 package com.myapp.struts;
 
+import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -40,7 +41,10 @@ public class SearchAction extends org.apache.struts.action.Action {
         
         if (getErrors(request).isEmpty()) {
             FilmDAO film = new FilmDAO();
-            film.getSearch(search);
+          
+            ArrayList<FilmForm> films = new ArrayList<FilmForm>();
+            films = film.getSearch(search);
+            request.setAttribute("listfilms", films);
             return mapping.findForward(SUCCESS);
         } else {
             return mapping.findForward(FAILURE);
