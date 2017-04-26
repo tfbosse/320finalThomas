@@ -59,7 +59,7 @@
                     <td> <c:out value="${filmInStock.rating}"/></td>  
                     <td> <c:out value="${filmInStock.description}"/></td> 
                     <td><html:form action="/description">
-                        <html:submit property="${filmInStock.title}"value="Info"/>
+                        <html:submit property="(${filmInStock.title}"value="Info"/>
                     </html:form>
                     </td>
                 </tr>
