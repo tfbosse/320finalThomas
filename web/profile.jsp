@@ -14,9 +14,17 @@
         <link rel="stylesheet" href="fpcss.css" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Crimson Video Store</title>
-        
+        <script>
+            function chooseDisp() {
+                if ("<%=(String)session.getAttribute("sessType")%>" === "man") {
+                    document.getElementById("address").style.display = "none";
+                    document.getElementById("card").style.display = "none";
+                }
+                System.out.println("called2");
+            }
+        </script>
     </head>
-    <body>
+    <body onload="chooseDisp()">
         
         <%
             ProfileDAO pdao = new ProfileDAO();
@@ -38,7 +46,7 @@
         <br />
         <html:errors />
         <br />
-        <html:form action="/update">
+        <html:form action="/update" >
             <table>
                 <tr>
                     <td>First Name: </td>
@@ -69,7 +77,7 @@
             <br />
             <br />
             
-            <table>
+            <table id="address" style="display: block">
                 <tr>
                     <td>Address: </td>
                     <td><html:text property="address" size="24" value="<%=(String)session.getAttribute("address")%>"/></td>
@@ -90,7 +98,7 @@
 
             </br>
             
-            <table>
+            <table id="card" style="display: block">
                 <tr>
                     <td>Credit Card: </td>
                     <td><html:text property="cardNumber" size="24" value="<%=(String)session.getAttribute("cardNumber")%>"/></td>
