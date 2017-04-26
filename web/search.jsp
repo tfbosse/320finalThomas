@@ -7,6 +7,10 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="html" uri="http://struts.apache.org/tags-html" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
+<%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
+<%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
+<%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -16,10 +20,20 @@
     <body>
         <h1>Search</h1>
         
+        <sql:setDataSource var="source" driver="com.mysql.jdbc.Driver"
+                       url="jdbc:mysql://localhost:3306/sakila"
+                       user="root"  password="nbuser"/>
+        
+        
+        <sql:query dataSource="${source}" var="listfilms">
+            SELECT * from film where in_stock = 1;
+        </sql:query>
+        
+        
+        
+        
         <html:form action="/search"  >
-            Search Type: 
             <html:text property="searchType"/><br>
-            Search String: 
             <html:text property="searchString"/>
             <html:submit value="Search"/>
         </html:form>
@@ -31,22 +45,16 @@
                 <th>
                    Results 
                 </th>
-                <th>
-                   Results 
-                </th>
-                <th>
-                   Results 
-                </th>
                 
-                <c:forEach var="FilmForm" items="${films}">
-                <tr>
-                    <td><c:out value="${FilmForm.title}"/></td>
-                    <td><c:out value="${FilmForm.rating}"/></td>
-                    <td><c:out value="${FilmForm.releaseYear}"/></td>
-                    <td><c:out value="${FilmForm.description}"/></td>
-                    
-                </tr>
-            </c:forEach>
+                <c:forEach var="filmInStock" items="${listfilms.rows}">
+            <tr>              
+                <td>Title: <c:out value="${filmInStock.title}"/></td> 
+                <td>Rating: <c:out value="${filmInStock.rating}"/></td>  
+                <td>Description: <c:out value="${filmInStock.description}"/></td> 
+            </tr>
+                </c:forEach>
+                
+                
                 
             </table>
         
