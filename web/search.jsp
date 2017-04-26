@@ -26,9 +26,6 @@
 
 
 
-
-
-
         <html:form action="/search">
 
             <html:text property="searchType"/>
@@ -50,7 +47,7 @@
                 Info
             </th>
 
-            <c:forEach var="filmInStock" items="${listfilms.rows}">
+            <c:forEach var="filmInStock" items="${listfilms}">
                 <tr>              
                     <td><c:out value="${filmInStock.title}"/></td> 
                     <td> <c:out value="${filmInStock.rating}"/></td>  
