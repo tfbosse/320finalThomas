@@ -64,7 +64,7 @@ public class FilmDAO {
         DBConnectionUtil DBcon = new DBConnectionUtil();
         Connection con1 = DBcon.getConnection();
         
-       
+        System.out.print("Made it here");
         String field = search.getSearchType();
         
         ArrayList <FilmForm> films = new ArrayList <FilmForm>();//initialize list of films
