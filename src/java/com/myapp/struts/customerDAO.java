@@ -79,6 +79,30 @@ public class customerDAO {
             e.printStackTrace();
         }
     }
+    
+    public boolean searchCustomer(String username) {
+        
+        try {
+            DBConnectionUtil DBcon = new DBConnectionUtil();
+            Connection con = DBcon.getConnection();
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("select * from customer where username='" + username + "';");
+            
+            String temp = null;
+            
+            while (rs.next()) {
+                temp = rs.getString("username");
+            }
+            
+            if (temp == null) {
+                return false;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return true;
+    }
 
     public boolean searchCustomer(String username, String password) {
         boolean flag = false;
