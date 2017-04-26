@@ -23,6 +23,8 @@
         
         <br /><br /><br />
 
+        <html:errors />
+        
         <html:form action="/login">
             <table border="2">
                 <tr>
