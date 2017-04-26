@@ -58,6 +58,8 @@ public class LoginAction extends org.apache.struts.action.Action {
         } else {
             errors.add("username", new ActionMessage("errors.invalid", "Username or password"));
             this.saveErrors(request, errors);
+            signUpForm.setUsername("");
+            signUpForm.setPassword("");
             return mapping.findForward(FAILURE);
         }
     }
