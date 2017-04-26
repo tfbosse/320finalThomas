@@ -6,10 +6,12 @@
 package com.myapp.struts;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -278,6 +280,43 @@ public class FilmDAO {
             e.printStackTrace();
         }
         return films;
+    }
+    
+     public void setValues(HttpSession session) {
+        
+        try {
+            String title = (String) session.getAttribute("title");
+            
+            String actor = "", genre = "", releaseYear = "", rating = "", length = "";
+            
+            System.out.println("jdbc connection");
+            DBConnectionUtil DBcon1 = new DBConnectionUtil();
+            Connection con1 = DBcon1.getConnection();
+            
+            PreparedStatement ps = con1.prepareStatement("select * "
+                    + "from film where title=?");
+            ps.setString(1, title);
+            ResultSet rs = ps.executeQuery();
+            
+            while (rs.next()) {
+                actor = rs.getString("actor");
+                genre = rs.getString("genre");
+                releaseYear = rs.getString("release_year");
+                rating = rs.getString("rating");
+                length = rs.getString("length");
+                
+            }
+            
+            session.setAttribute("actor", actor);
+            session.setAttribute("genre", genre);
+            session.setAttribute("releaseYear", releaseYear);
+            session.setAttribute("rating", rating);
+            session.setAttribute("length", length);
+            
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
 
