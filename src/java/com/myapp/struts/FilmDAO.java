@@ -80,8 +80,7 @@ public class FilmDAO {
                 Statement stGenre= con1.createStatement();
                 ResultSet rsGenre;
                 
-                if ((field.toLowerCase()).equals(("title"))|| (field.toLowerCase()).equals("release year") || 
-                        (field.toLowerCase()).equals("rating")){      
+                if (field.equals("Title")|| field.equals("Release Year") ||   field.equals("Rating")){      
                   
                 for(int x = 0; x< searchList.length; x++) {
                     rs = lookUp.executeQuery("SELECT * from film where "+ field +" like '%" + searchList[x] + "%' "
@@ -104,26 +103,34 @@ public class FilmDAO {
                                + "                    on fa.actor_id = a.actor_id"
                                + "                    where fa.film_id = '" + id+"'");
                       
-                     
+                      int a = 0;
                      while(rsActor.next()){
-                         actor +=  ", " + rsActor.getString("actor");
+                       if (a>0)
+                           actor += ", ";
+                       a++;
+                         
+                         actor += rsActor.getString("first_name") + " " + rsActor.getString("last_name");
                      }
                      
-                      rsGenre = stGenre.executeQuery("Select * from film_genre as fg "
-                               + "                    join genre as g"
-                               + "                    on fg.g = a.actor_id"
-                               + "                    where fa.genre_id = '" + id+"'");
-                      
+                      rsGenre = stGenre.executeQuery("Select * from film_category as fc "
+                               + "                    join category as c"
+                               + "                    on fc.category_id = c.category_id"
+                               + "                    where fc.category_id = '" + id+"'");
+                      int g =0;
                      while(rsGenre.next()){
-                      genre +=  ", " + rsGenre.getString("genre");
+                        if (g>0)
+                          genre += ", ";
+                     
+                      genre += rsGenre.getString("genre");
                      }
                       FilmForm film = new FilmForm(title,actor,genre,releaseYear,rating,description,length);
                       films.add(film);
-                   }
-                 }
+                   
+                 
+                }
                 }
                 
-                
+                }
                 
                 
                 /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -234,8 +241,10 @@ public class FilmDAO {
                    }
                  }
                            
-                           
-       
+                        
+                
+                
+     
                
         } catch (SQLException ex) {
                 System.out.println("SQL statement is not executed!" + ex);
