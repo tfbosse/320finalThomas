@@ -4,6 +4,7 @@
     Author     : Thomas
 --%>
 
+<%@page import="com.myapp.struts.ProfileDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -13,6 +14,11 @@
         <title>Crimson Video Store</title>
     </head>
     <body>
+        
+        <%
+            ProfileDAO pdao = new ProfileDAO();
+            pdao.signOut(session);
+        %>
         
         <h1>
             <div class="align-left-banner">
