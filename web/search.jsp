@@ -25,14 +25,11 @@
                            user="root"  password="nbuser"/>
 
 
-        <sql:query dataSource="${source}" var="listfilms">
-            SELECT * from film where in_stock = 1;
-        </sql:query>
 
 
 
 
-        <html:form action="/search"  >
+        <html:form action="/search">
 
             <html:text property="searchType"/>
                 <html:text property="searchString"/>

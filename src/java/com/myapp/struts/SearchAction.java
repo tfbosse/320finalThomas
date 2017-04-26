@@ -40,7 +40,7 @@ public class SearchAction extends org.apache.struts.action.Action {
         
         if (getErrors(request).isEmpty()) {
             FilmDAO film = new FilmDAO();
-            film.getAllFilms(search);
+            film.getSearch(search);
             return mapping.findForward(SUCCESS);
         } else {
             return mapping.findForward(FAILURE);
