@@ -16,6 +16,14 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Search Page</title>
+        <%
+            response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+            response.setHeader("Pragma", "no-cache");
+            response.setDateHeader("Expires", 0);
+            if (session.getAttribute("sessID") == null) {
+                response.sendRedirect("/FinalShitStruts/");
+            }
+        %>
     </head>
     <body>
         <h1>Search</h1>

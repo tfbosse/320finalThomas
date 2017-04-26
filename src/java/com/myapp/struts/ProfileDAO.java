@@ -6,9 +6,11 @@
 package com.myapp.struts;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import javax.servlet.http.HttpSession;
@@ -19,6 +21,10 @@ import javax.servlet.http.HttpSession;
  */
 public class ProfileDAO {
 
+    public void signOut(HttpSession session) {
+        session.invalidate();
+    }
+    
     public void setValues(HttpSession session) {
         
         session.removeAttribute("firstname");
@@ -69,6 +75,11 @@ public class ProfileDAO {
                     secNum = rs.getString("security_number");
                     nameOnCard = rs.getString("name_on_card");
                 }
+                
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                SimpleDateFormat sdf1 = new SimpleDateFormat("MM/yy");
+                String[] expArr = expDate.split(" ");
+                expDate = sdf1.format(sdf.parse(expArr[0]));
 
                 session.setAttribute("firstname", firstname);
                 session.setAttribute("lastname", lastname);
