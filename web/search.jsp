@@ -17,7 +17,9 @@
         <h1>Search</h1>
         
         <html:form action="/search"  >
+            Search Type: 
             <html:text property="searchType"/><br>
+            Search String: 
             <html:text property="searchString"/>
             <html:submit value="Search"/>
         </html:form>
@@ -25,6 +27,12 @@
             <table border="1" width="100%">
                 <th>
                   Type of Search  
+                </th>
+                <th>
+                   Results 
+                </th>
+                <th>
+                   Results 
                 </th>
                 <th>
                    Results 

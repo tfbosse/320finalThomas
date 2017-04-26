@@ -45,12 +45,13 @@
             <forward name="failure" path="/profile.jsp" />
         </action>
         
-        <action input="/" name="SearchForm" path="/search" scope="session" type="com.myapp.struts.FilmAction">
+        <action input="/" name="SearchForm" path="/search" scope="session" type="com.myapp.struts.SearchAction">
             <forward name="success" path="/search.jsp" />
             <forward name="failure" path="/base.jsp" />
         </action>
-        <action input="/" name="SearchForm" path="/search" scope="session" type="com.myapp.struts.SearchAction"/>
-        
+      
+        <action input="/" name="SearchForm" path="/search" scope="session" type="com.myapp.struts.SearchAction"/>       
+       
     </action-mappings>
     
     <controller processorClass="org.apache.struts.tiles.TilesRequestProcessor"/>
