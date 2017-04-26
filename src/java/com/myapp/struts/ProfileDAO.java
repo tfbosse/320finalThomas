@@ -22,7 +22,9 @@ import javax.servlet.http.HttpSession;
 public class ProfileDAO {
 
     public void signOut(HttpSession session) {
-        session.invalidate();
+        if (session.getAttribute("sessID") != null) {
+            session.invalidate();
+        }
     }
     
     public void setValues(HttpSession session) {
