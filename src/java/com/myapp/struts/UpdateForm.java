@@ -125,10 +125,6 @@ public class UpdateForm extends org.apache.struts.action.ActionForm {
         this.nameOnCard = nameOnCard;
     }
     
-    public void setAll(HttpSession session) {
-        
-    }
-    
     public UpdateForm() {
         super();
         // TODO Auto-generated constructor stub

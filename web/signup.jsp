@@ -99,13 +99,6 @@
                 &nbsp; Expiration date format: MM/YY
                 
                 <br /><br />
-
-            <table>
-                <tr>
-                    <td>preferences and shit go here</td>
-                    <td>blah blah blah</td>
-                </tr>
-            </table>
                 
                 <br />
 

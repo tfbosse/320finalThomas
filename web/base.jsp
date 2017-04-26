@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="html" uri="http://struts.apache.org/tags-html" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -13,10 +14,6 @@
         <title>Crimson Video Store</title>
     </head>
     <body>
-        
-        <%
-            System.out.println(session.getAttribute("sessID"));
-        %>
         
         <h1>
             <div class="align-left-banner">

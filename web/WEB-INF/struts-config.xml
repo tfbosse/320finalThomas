@@ -29,6 +29,7 @@
             <forward name ="success" path="/login.jsp" />
             <forward name="failure" path="/signup.jsp" />
         </action>
+        
         <action input="/" name="LoginForm" path="/login" scope="session" type="com.myapp.struts.LoginAction">
             <forward name="success" path="/base.jsp" />
             <forward name="failure" path="/login.jsp" />
@@ -43,15 +44,13 @@
             <forward name="success" path="/base.jsp" />
             <forward name="failure" path="/profile.jsp" />
         </action>
-
         
         <action input="/" name="SearchForm" path="/search" scope="session" type="com.myapp.struts.FilmAction">
             <forward name="success" path="/search.jsp" />
             <forward name="failure" path="/base.jsp" />
         </action>
         <action input="/" name="SearchForm" path="/search" scope="session" type="com.myapp.struts.SearchAction"/>
-       
-         
+        
     </action-mappings>
     
     <controller processorClass="org.apache.struts.tiles.TilesRequestProcessor"/>
