@@ -23,6 +23,20 @@ public class ProfileDAO {
         try {
             String username = (String) session.getAttribute("sessID");
             
+            customerDAO cdao = new customerDAO();
+            managerDAO mdao = new managerDAO();
+            
+            if (cdao.searchCustomer(username)) {
+                System.out.println("yes, cust");
+            } else {
+                System.out.println("no, cust");
+            }
+            if (mdao.searchManager(username)) {
+                System.out.println("yes, man");
+            } else {
+                System.out.println("no, man");
+            }
+            
             String firstname = "", lastname = "", email = "", password = "", address = "", city = "", state = "",
                     zip = "", cardNumber = "", expDate = "", secNum = "", nameOnCard = "";
             
