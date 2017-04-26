@@ -11,7 +11,7 @@ package com.myapp.struts;
  */
 public class SearchForm extends org.apache.struts.action.ActionForm {
     
-    private String searchType, searchString;
+   private String searchType, searchString;
     
     public SearchForm(){
         super();
