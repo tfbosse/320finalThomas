@@ -36,17 +36,14 @@ public class FilmAction extends org.apache.struts.action.Action {
             HttpServletRequest request, HttpServletResponse response)
             throws Exception {
         
-        FilmForm filmform = (FilmForm) form;
-        String description = filmform.getDescription();
-        String length = filmform.getLength();
+        FilmForm filmform = new FilmForm();
+        
         String title = filmform.getTitle();
-        String actor = filmform.getActor();
-        String genre = filmform.getGenre();
-        String release_year = filmform.getReleaseYear();
-        String rating = filmform.getRating(); 
-        request.getParameter("title");
-        HttpSession ses = request.getSession().setAttribute("title", );
-        ses.setAttribute("title", title);
+        
+        
+        HttpSession ses = request.getSession();
+        ses.setAttribute("title", title); 
+        
         
        
         return mapping.findForward(SUCCESS);
