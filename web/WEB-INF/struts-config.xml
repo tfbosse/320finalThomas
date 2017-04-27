@@ -7,11 +7,12 @@
 
 <struts-config>
     <form-beans>
+        <form-bean name="InfoActionForm" type="com.myapp.struts.InfoActionForm"/>
         <form-bean name="UpdateForm" type="com.myapp.struts.UpdateForm"/>
         <form-bean name="LoginForm" type="com.myapp.struts.LoginForm"/>
         <form-bean name="SignUpForm" type="com.myapp.struts.SignUpForm"/>
         <form-bean name="ManagerForm" type="com.myapp.struts.ManagerForm"/>
-        <form-bean name="FilmForm" type="com.myapp.struts.FilmForm"/>
+        <form-bean name="InfoForm" type="com.myapp.struts.InfoForm"/>
         <form-bean name="SearchForm" type="com.myapp.struts.SearchForm"/>
     
     </form-beans>
@@ -50,7 +51,7 @@
             <forward name="failure" path="/base.jsp" />
         </action>
         
-        <action input="/search.jsp" name="FilmForm" path="/description" scope="session" type="com.myapp.struts.FilmAction">
+        <action input="/search.jsp" name="InfoForm" path="/description" scope="session" type="com.myapp.struts.InfoAction">
             <forward name="success" path="/filmPage.jsp" />
             <forward name="failure" path="/base.jsp" />
         </action>

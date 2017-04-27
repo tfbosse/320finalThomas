@@ -7,7 +7,6 @@ package com.myapp.struts;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
@@ -16,7 +15,7 @@ import org.apache.struts.action.ActionMapping;
  *
  * @author jakeotey
  */
-public class FilmAction extends org.apache.struts.action.Action {
+public class InfoAction extends org.apache.struts.action.Action {
 
     /* forward name="success" path="" */
     private static final String SUCCESS = "success";
@@ -35,18 +34,7 @@ public class FilmAction extends org.apache.struts.action.Action {
     public ActionForward execute(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
             throws Exception {
-        System.out.println("yo");
-        FilmForm filmform = new FilmForm();
         
-        String title = filmform.getTitle();
-        
-        
-        HttpSession ses = request.getSession();
-        ses.setAttribute("title", title); 
-        
-        
-        
-       
         return mapping.findForward(SUCCESS);
     }
 }

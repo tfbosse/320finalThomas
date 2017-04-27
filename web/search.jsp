@@ -33,6 +33,7 @@
                 <html:submit value="Search"/>
         </html:form>
 
+        <html:form action="/description">
         <table border="1" width="100%">
             <th>
                 Title 
@@ -46,22 +47,24 @@
             <th>
                 Info
             </th>
-
+        System.out.println("yo1");
+        
             <c:forEach var="filmInStock" items="${listfilms}">
                 <tr>              
                     <td><c:out value="${filmInStock.title}"/></td> 
                     <td> <c:out value="${filmInStock.rating}"/></td>  
                     <td> <c:out value="${filmInStock.description}"/></td> 
-                    <td><html:form action="/description">
-                        <html:submit property="(${filmInStock.title}"value="Info"/>
-                    </html:form>
+                    <td>
+                        <html:submit  property="${filmInStock.title}" value="Info"/>
+                    
                     </td>
                 </tr>
             </c:forEach>
-
+                
 
 
         </table>
 
+        </html:form>
     </body>
 </html>
