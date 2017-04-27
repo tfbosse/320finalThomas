@@ -34,6 +34,7 @@
                 <a href="noise.jsp">Crimson Video Store</a>
                 <div class="align-right-banner">
                     <a href="search.jsp">Search</a> | 
+                    <a href="reports.jsp">Reports</a> | 
                     <a href="home.jsp">Sign Out</a>
                 </div>
             </div>

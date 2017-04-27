@@ -11,7 +11,20 @@ and open the template in the editor.
 body {
     background-color: lightgrey;
 }
-
+h2 {
+    color: crimson;
+}
+.my-link{
+    color: crimson;
+    text-decoration: none;
+}
+.div-center{
+    text-align: center;
+}
+.align-center{
+    display: inline-block;
+    background-color: transparent;
+}
 h1 {
 	background-color: crimson;
     color: white;
