@@ -12,8 +12,9 @@
         <form-bean name="LoginForm" type="com.myapp.struts.LoginForm"/>
         <form-bean name="SignUpForm" type="com.myapp.struts.SignUpForm"/>
         <form-bean name="ManagerForm" type="com.myapp.struts.ManagerForm"/>
-        <form-bean name="InfoForm" type="com.myapp.struts.FilmForm"/>
+        <form-bean name="InfoForm" type="com.myapp.struts.InfoForm"/>
         <form-bean name="SearchForm" type="com.myapp.struts.SearchForm"/>
+        <form-bean name="FilmForm" type="com.myapp.struts.FilmForm"/>
     
     </form-beans>
     
@@ -51,7 +52,7 @@
             <forward name="failure" path="/noise.jsp" />
         </action>
         
-        <action input="/" name="InfoForm" path="/moreInfo" scope="session" type="com.myapp.struts.InfoAction">
+        <action input="/" name="FilmForm" path="/moreInfo" scope="session" type="com.myapp.struts.FilmAction">
             <forward name="success" path="/filmPage.jsp" />
             <forward name="failure" path="/noise.jsp" />
         </action>
@@ -65,6 +66,11 @@
             <forward name="success" path="/reportCustomer.jsp" />
             <forward name="failure" path="/manager.jsp" />
         </action>
+        <action input="/" name="FilmForm" path="/bullshit" scope="session" type="com.myapp.struts.InfoAction">
+            <forward name="success" path="/reportCustomer.jsp" />
+            <forward name="failure" path="/manager.jsp" />
+        </action>
+       
        
        
     </action-mappings>

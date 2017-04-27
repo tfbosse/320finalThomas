@@ -37,10 +37,17 @@ public class InfoAction extends org.apache.struts.action.Action {
             HttpServletRequest request, HttpServletResponse response)
             throws Exception {
 
-        InfoForm info = (InfoForm) form;
+        FilmForm info = (FilmForm) form;
         
         HttpSession ses = request.getSession();
         ses.setAttribute("title", info.getTitle());
+        ses.setAttribute("actor", info.getActor());
+        ses.setAttribute("genre", info.getGenre());
+        ses.setAttribute("releaseYear", info.getReleaseYear());
+        ses.setAttribute("rating", info.getRating());
+        ses.setAttribute("length", info.getLength());
+        ses.setAttribute("description", info.getDescription());
+        
         
         return mapping.findForward(SUCCESS);
     }

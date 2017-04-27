@@ -77,14 +77,14 @@
 
             <c:forEach var="filmInStock" items="${listfilms}">
                 <tr>              
-                    <td><c:out value="${filmInStock.title}"/> </td> 
+                    <td class="hyper"> <c:out value="${filmInStock.title}"/> </td> 
                     <td> <c:out value="${filmInStock.rating}"/></td>  
                     <td> <c:out value="${filmInStock.description}"/></td> 
 
 
 
 
-                    <td align="center"><html:submit value="Info"/></td>
+                    <td align="center"> <html:submit property="${filmInStock.title}" value="Info"/></td>
                 </tr>
             </c:forEach>
 
@@ -92,6 +92,14 @@
 
         </table>
 
-
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+        <script>
+            $(document).ready(function(){
+                var links = document.getElementsByClassName("hyper");
+                for(i=0;i<links.length;i++){
+                    links[i].innerHTML = "<a href=\"filmPage.jsp?title=" + links[i].innerHTML + "\"> " + links[i].innerHTML + " </a>";
+                 }
+            });
+        </script>
     </body>
 </html>
