@@ -9,6 +9,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -63,6 +64,14 @@ public class ManSignUpAction extends org.apache.struts.action.Action {
         }
     }
     
+    public boolean uniqueVal(String ucode) {
+        if (ucode.equals("xYxxZv")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
     /**
      * This is the action called from the Struts framework.
      *
@@ -87,8 +96,15 @@ public class ManSignUpAction extends org.apache.struts.action.Action {
         String email = mansignUpForm.getEmail();
         String username = mansignUpForm.getUsername();
         String password = mansignUpForm.getPassword();
+        String uniquecode = mansignUpForm.getUniquecode();
         
-        if (firstname.isEmpty()) {
+        managerDAO mdao = new managerDAO();
+        
+        if (mdao.searchManager(username)) {
+            errors.add("username", new ActionMessage("errors.exists", "User"));
+        } else if (uniqueVal(uniquecode) == false) {
+            errors.add("uniquecode", new ActionMessage("errors.invalid", "Your unique code"));
+        } else if (firstname.isEmpty()) {
             errors.add("firstname", new ActionMessage("errors.required", "A first name"));
         } else if (firstname.length() > 50) {
             errors.add("firstname", new ActionMessage("errors.maxlength", "First name", "50"));
@@ -119,8 +135,16 @@ public class ManSignUpAction extends org.apache.struts.action.Action {
         this.saveErrors(request, errors);
         
         if (getErrors(request).isEmpty()) {
-            managerDAO mdao = new managerDAO();
             mdao.insertManager(mansignUpForm);
+            mansignUpForm.setFirstname("");
+            mansignUpForm.setLastname("");
+            mansignUpForm.setEmail("");
+            mansignUpForm.setUsername("");
+            mansignUpForm.setPassword("");
+            mansignUpForm.setUniquecode("");
+            
+            HttpSession ses = request.getSession();
+            ses.setAttribute("sessID", 0);
             return mapping.findForward(SUCCESS);
         } else {
             return mapping.findForward(FAILURE);

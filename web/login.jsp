@@ -14,8 +14,16 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Crimson Video Store</title>
         <%
-            ProfileDAO pdao = new ProfileDAO();
-            pdao.signOut(session);
+            response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+            response.setHeader("Pragma", "no-cache");
+            response.setDateHeader("Expires", 0);
+            try {
+                if (session.getAttribute("sessID") != null && (String)session.getAttribute("sessID") != "0") {
+                    response.sendRedirect("/FinalShitStruts/");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         %>
     </head>
     <body>
