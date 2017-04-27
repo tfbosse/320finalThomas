@@ -80,7 +80,7 @@
 
 
 
-                    <td align="center"><html:submit property="${filmInStock.title}" value="Info"/></td>
+                    <td align="center"><html:submit value="Info"/></td>
                 </tr>
             </c:forEach>
 
