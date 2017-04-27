@@ -443,11 +443,19 @@ public class FilmDAO {
                    }
                    }
                  }
+                   
+                   
+                   
+                   
+                   else {
+                       
+                   }
                            
-                        
+
 
                 ///Trying to add Jake's shit
             } catch (SQLException ex) {
+
                 System.out.println("SQL statement is not executed!" + ex);
             }
             //  con1.close();
@@ -457,7 +465,18 @@ public class FilmDAO {
         return films;
     }
 
+ 
+    
+    
+    
+    
+    
+    
+
+
+
 /// Jake's testing shit starts here 
+
     public void setValues(HttpSession session) {
 
         try {
