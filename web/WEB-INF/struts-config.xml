@@ -33,7 +33,7 @@
         
         <action input="/" name="LoginForm" path="/login" scope="session" type="com.myapp.struts.LoginAction">
             <forward name="success" path="/noise.jsp" />
-            <forward name="failure" path="/loginnoise.jsp" />
+            <forward name="failure" path="/login.jsp" />
         </action>
         
         <action input="/" name="ManagerForm" path="/signupman" scope="session" type="com.myapp.struts.ManSignUpAction">
@@ -55,6 +55,7 @@
             <forward name="success" path="/filmPage.jsp" />
             <forward name="failure" path="/noise.jsp" />
         </action>
+        
         <action input="/" name="UpdateForm" path="/manupdate" scope="session" type="com.myapp.struts.ManUpdateAction">
             <forward name="success" path="/noise.jsp" />
             <forward name="failure" path="manprofile.jsp" />
