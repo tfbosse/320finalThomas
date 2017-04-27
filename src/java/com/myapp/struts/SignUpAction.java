@@ -345,19 +345,6 @@ public class SignUpAction extends org.apache.struts.action.Action {
         
         if (getErrors(request).isEmpty()) {
             cust.insertCustomer(signUpForm);
-            signUpForm.setFirstname("");
-            signUpForm.setLastname("");
-            signUpForm.setEmail("");
-            signUpForm.setUsername("");
-            signUpForm.setPassword("");
-            signUpForm.setAddress("");
-            signUpForm.setCity("");
-            signUpForm.setState("");
-            signUpForm.setZip("");
-            signUpForm.setCardNumber("");
-            signUpForm.setExpDate("");
-            signUpForm.setSecNum("");
-            signUpForm.setNameOnCard("");
             
             HttpSession ses = request.getSession();
             ses.setAttribute("sessID", 0);

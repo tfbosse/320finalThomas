@@ -67,7 +67,7 @@
             <table>
                 <tr>
                     <td>Username: </td>
-                    <td><html:text property="username" size="24" value="<%=(String)session.getAttribute("username")%>"/></td>
+                    <td><html:text readonly="true" property="username" size="24" value="<%=(String)session.getAttribute("username")%>"/></td>
                 </tr>
                 <tr>
                     <td>Password: </td>
