@@ -47,7 +47,7 @@
         </action>
         
         <action input="/" name="SearchForm" path="/search" scope="session" type="com.myapp.struts.SearchAction">
-            <forward name="success" path="/searchnoise.jsp" />
+            <forward name="success" path="/search.jsp" />
             <forward name="failure" path="/noise.jsp" />
         </action>
         
