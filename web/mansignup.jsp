@@ -4,6 +4,7 @@
     Author     : Thomas
 --%>
 
+<%@page import="com.myapp.struts.ProfileDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="html" uri="http://struts.apache.org/tags-html" %>
 <!DOCTYPE html>
@@ -12,6 +13,14 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="fpcss.css" />
         <title>Crimson Video Store</title>
+        <%
+            response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+            response.setHeader("Pragma", "no-cache");
+            response.setDateHeader("Expires", 0);
+            if (session.getAttribute("sessID") != null) {
+                response.sendRedirect("/FinalShitStruts/");
+            }
+        %>
     </head>
     <body>
 
@@ -25,7 +34,7 @@
 
         <html:errors />
 
-        <html:form action="/signupman">
+        <html:form action="/signupman" focus="firstname">
             <table>
                 <tr>
                     <td>First Name: </td>
@@ -52,6 +61,15 @@
                 </tr>
             </table>
                 &nbsp; Password must have at least eight (8) characters and contains both letters and numbers
+                
+                <br /><br />
+                
+                <table>
+                    <tr>
+                        <td>Enter the unique code provided when you registered your software: </td>
+                        <td><html:text property="uniquecode" size="24" /></td>
+                    </tr>
+                </table>
 
             <br /><br />         
 

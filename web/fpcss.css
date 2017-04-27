@@ -20,9 +20,16 @@ a {
 	color: white;
     text-decoration: none;
 }
+.my-table{
+    width: 100%;
+    border: 1px solid black;
+}
 table {
     width: 400px;
     border: 1px solid black;
+}
+th {
+    border: 2px solid black;
 }
 td {
     width: 200px;

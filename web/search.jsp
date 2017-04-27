@@ -15,11 +15,31 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="stylesheet" href="fpcss.css" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Search Page</title>
+        <%
+            response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+            response.setHeader("Pragma", "no-cache");
+            response.setDateHeader("Expires", 0);
+            if (session.getAttribute("sessID") == null) {
+                response.sendRedirect("/FinalShitStruts/");
+            }
+        %>
     </head>
     <body>
-        <h1>Search</h1>
+        
+        <h1>
+            <div class="align-left-banner">
+                <a href="noise.jsp">Crimson Video Store</a>
+                <div class="align-right-banner">
+                    <a href="profile.jsp">Profile</a> | 
+                    <a href="home.jsp">Sign Out</a>
+                </div>
+            </div>
+        </h1>
+        
+        <br /><br /><br />
 
         <sql:setDataSource var="source" driver="com.mysql.jdbc.Driver"
                            url="jdbc:mysql://localhost:3306/sakila"
@@ -39,26 +59,39 @@
             <html:submit value="More Info"/>
         </html:form>
 
+
         
         <table border="1" width="100%">
             <th>
+=======
+        <html:form action="/description">
+        <table class="my-table">
+            <th width="25%">
+
                 Title 
             </th>
-            <th>
+            <th width="5%">
                 Rating
             </th>
-            <th>
+            <th width="65%">
                 Description
             </th>
-            <th>
+            <th width="5%">
                 Info
             </th>
+
+
+
+            
+            <br />
+        
 
             <c:forEach var="filmInStock" items="${listfilms}">
                 <tr>              
                     <td><c:out value="${filmInStock.title}"/> </td> 
                     <td> <c:out value="${filmInStock.rating}"/></td>  
                     <td> <c:out value="${filmInStock.description}"/></td> 
+
                   
                     <td><c:url var="url1" value="/description">
                             <c:param name="id" value="${filmInStock.title}"/>
@@ -67,6 +100,10 @@
 
                     </td>
                     <td>
+
+
+                    <td align="center">
+                        <html:submit property="${filmInStock.title}" value="Info"/>
 
                     </td>
                 </tr>

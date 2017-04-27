@@ -81,6 +81,7 @@ public class FilmDAO {
                 Statement stGenre = con1.createStatement();
                 ResultSet rsGenre;
 
+
                 if (field.equals("Title") || field.equals("Release Year") || field.equals("Rating")) {
 
                     for (int x = 0; x < searchList.length; x++) {
@@ -138,9 +139,73 @@ public class FilmDAO {
                 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 /////////////////////////////////////////////////////////////////////////////////////////////////////////
                 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+                
+                if (field.equals("Title")|| field.equals("Release Year") || field.equals("Rating")){      
+                  
+                for(int x = 0; x< searchList.length; x++) {
+                  if (field.equals("Rating") && searchList[x].toUpperCase().equals("PG")) {
+                        rs = lookUp.executeQuery("SELECT * FROM film WHERE rating = 'PG' and in_stock = 1");
+                  }
+                  else {
+                      
+                        rs = lookUp.executeQuery("SELECT * FROM film WHERE "+ field +" LIKE '%" + searchList[x] + "%' "
+                            + "and in_stock = 1");
+                  }
+                  
+                    
+                   while(rs.next()){
+                       
+                      String id = rs.getString("film_id");
+                      String title = rs.getString("title");
+                      String actor = null;
+                      String genre = null;
+                      String releaseYear = rs.getString("release_year");
+                      String rating = rs.getString("rating");
+                      String description = rs.getString("description");
+                      String length = rs.getString("length");
+                      
+                      
+                      rsActor = stActor.executeQuery("Select * from film_actor as fa "
+                               + "                    join actor as a"
+                               + "                    on fa.actor_id = a.actor_id"
+                               + "                    where fa.film_id = '" + id+"'");
+                      
+                      int a = 0;
+                     while(rsActor.next()){
+                       if (a>0)
+                           actor += ", ";
+                       a++;
+                         
+                         actor += rsActor.getString("first_name") + " " + rsActor.getString("last_name");
+                     }
+                     
+                      rsGenre = stGenre.executeQuery("Select * from film_category as fc "
+                               + "                    join category as c"
+                               + "                    on fc.category_id = c.category_id"
+                               + "                    where fc.film_id = '" + id+"'");
+                      int g =0;
+                     while(rsGenre.next()){
+                        if (g>0)
+                          genre += ", ";
+                     
+                      genre += rsGenre.getString("name");
+                     }
+                      FilmForm film = new FilmForm(title,actor,genre,releaseYear,rating,description,length);
+                      films.add(film);
+                   
+                 
+                }
+                }
+                
+                }
+                
+                
+
                 /////////////////////////////////////////////////////////////////////////////////////////////////////////
                 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 else if (field.equals("actor")) {
+
                     for (int x = 0; x < searchList.length; x++) {
                         rs = lookUp.executeQuery("SELECT * from actor as a"
                                 + "join film_actor as fa"
@@ -256,6 +321,130 @@ public class FilmDAO {
                         }
                     }
                 }
+
+=======
+                   for(int x = 0; x< searchList.length; x++) {
+                        rs = lookUp.executeQuery("SELECT * from actor as a " +
+                                                  "join film_actor as fa "
+                                                 + "on a.actor_id = fa.actor_id "
+                                                 + "join film as f "
+                                                 + "on f.film_id = fa.film_id "
+                                                 + "where first_name like '" + searchList[x]+ "%'"
+                                                 + " or last_name like '"+ searchList[x] + "%'");
+                        
+               
+                     while(rs.next()){
+                       
+                      String id = rs.getString("film_id");
+                      String title = rs.getString("title");
+                      String actor = null;
+                      String genre = null;
+                      String releaseYear = rs.getString("release_year");
+                      String rating = rs.getString("rating");
+                      String description = rs.getString("description");
+                      String length = rs.getString("length");
+                      
+                      
+                      rsActor = stActor.executeQuery("Select * from film_actor as fa "
+                               + "                    join actor as a "
+                               + "                    on fa.actor_id = a.actor_id "
+                               + "                    where fa.film_id = '" + id+"'");
+                      
+                     
+                       int a = 0;
+                     while(rsActor.next()){
+                       if (a>0)
+                           actor += ", ";
+                       a++;
+                         
+                         actor += rsActor.getString("first_name") + " " + rsActor.getString("last_name");
+                     }
+                     
+                      rsGenre = stGenre.executeQuery("Select * from film_category as fc "
+                               + "                    join category as c "
+                               + "                    on fc.category_id = c.category_id "
+                               + "                    where fc.film_id = '" + id+"'");
+                      
+                     int g =0;
+                     while(rsGenre.next()){
+                        if (g>0)
+                          genre += ", ";
+                     
+                      genre += rsGenre.getString("name");
+                     }
+                     
+                      FilmForm film = new FilmForm(title,actor,genre,releaseYear,rating,description,length);
+                      films.add(film);
+                   }
+                   }
+                 }
+                
+                   /////////////////////////////////////////////////////////////////////////////////////////////////////////
+               ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                   /////////////////////////////////////////////////////////////////////////////////////////////////////////
+               ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                   /////////////////////////////////////////////////////////////////////////////////////////////////////////
+               ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                   /////////////////////////////////////////////////////////////////////////////////////////////////////////
+               ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+              //  \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+                
+                
+                   else if (field.equals("genre")){
+                        for(int x = 0; x< searchList.length; x++) {
+                        rs = lookUp.executeQuery("SELECT * FROM film as f "
+                                + "join film_category as fc "
+                                + "on f.film_id = fc.film_id "
+                                + "join category as c "
+                                + "on c.category_id = fc.category_id "
+                                + "where c.name LIKE '" + searchList[x] + "'");
+                              
+                     while(rs.next()){
+                       
+                      String id = rs.getString("film_id");
+                      String title = rs.getString("title");
+                      String actor = null;
+                      String genre = null;
+                      String releaseYear = rs.getString("release_year");
+                      String rating = rs.getString("rating");
+                      String description = rs.getString("description");
+                      String length = rs.getString("length");
+                      
+                      
+                      rsActor = stActor.executeQuery("Select * from film_actor as fa "
+                               + "                    join actor as a "
+                               + "                    on fa.actor_id = a.actor_id "
+                               + "                    where fa.film_id = '" + id+"'");
+                      
+                     
+                        int a = 0;
+                     while(rsActor.next()){
+                       if (a>0)
+                           actor += ", ";
+                       a++;
+                         
+                         actor += rsActor.getString("first_name") + " " + rsActor.getString("last_name");
+                     }
+                     
+                      rsGenre = stGenre.executeQuery("Select * from film_category as fc "
+                               + "                    join category as c "
+                               + "                    on fc.category_id = c.category_id "
+                               + "                    where fc.film_id= '" + id+"'");
+                      
+                     int g =0;
+                     while(rsGenre.next()){
+                        if (g>0)
+                          genre += ", ";
+                     
+                      genre += rsGenre.getString("name");
+                     }
+                      FilmForm film = new FilmForm(title,actor,genre,releaseYear,rating,description,length);
+                      films.add(film);
+                   }
+                   }
+                 }
+                           
+                        
 
                 ///Trying to add Jake's shit
             } catch (SQLException ex) {

@@ -13,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
@@ -136,6 +137,98 @@ public class customerDAO {
             e.printStackTrace();
         }
         return flag;
+    }
+   
+    public void editCustomer(UpdateForm form) {
+        System.out.println("jdbc connection");
+        DBConnectionUtil DBcon1 = new DBConnectionUtil();
+        Connection con1 = DBcon1.getConnection();
+        
+        try {
+            Timestamp ts = new Timestamp(System.currentTimeMillis());
+            Date date = new Date(ts.getTime());
+            PreparedStatement st = con1.prepareStatement("update customer set first_name=?, last_name=?, email=?, "
+                    + "password=?, address=?, city=?, state=?, zip=?, card_number=?, expiration_date=?, "
+                    + "security_number=?, name_on_card=?, last_update=? where username=?");
+            
+            SimpleDateFormat format = new SimpleDateFormat("MM/yy");
+            java.util.Date parsed = format.parse(form.getExpDate());
+            java.sql.Date eDate = new java.sql.Date(parsed.getTime());
+            
+            st.setString(1, form.getFirstname());
+            st.setString(2, form.getLastname());
+            st.setString(3, form.getEmail());
+            st.setString(4, form.getPassword());
+            st.setString(5, form.getAddress());
+            st.setString(6, form.getCity());
+            st.setString(7, form.getState());
+            st.setString(8, form.getZip());
+            st.setString(9, form.getCardNumber());
+            st.setDate(10, eDate);
+            st.setString(11, form.getSecNum());
+            st.setString(12, form.getNameOnCard());
+            st.setDate(13, date);
+            st.setString(14, form.getUsername());
+            
+            st.executeUpdate();
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    
+    public ArrayList <SignUpForm> getAllCustomers () throws Exception {
+        DBConnectionUtil DBcon = new DBConnectionUtil();
+        Connection con1 = DBcon.getConnection();
+        
+        ArrayList <SignUpForm> customers = new ArrayList <SignUpForm>();//initialize list of films
+        
+        try {
+
+            try {
+              
+                Statement lookUp = con1.createStatement();
+                ResultSet rs;
+                
+                   rs = lookUp.executeQuery("SELECT * from customer where in_stock = 1");
+                    
+                   while(rs.next()){
+                       
+                Timestamp ts = new Timestamp(System.currentTimeMillis());
+                Date date = new Date(ts.getTime());
+                      
+                String first = rs.getString("first_name");
+                String last = rs.getString("last_name");
+                String email = rs.getString("email");
+                String address = rs.getString("address");
+                String city = rs.getString("city");
+                String state = rs.getString("state");
+                String zip = rs.getString("zip");
+                String username =rs.getString("username");
+                String password = rs.getString("password");
+                String cNum = rs.getString("card_number");
+                String expDate = rs.getString("expiration_date");
+                String secNum = rs.getString("security_number");
+                String nameOnCard = rs.getString("name_on_card");
+                      
+                      SignUpForm customer = new SignUpForm(first, last, email, address, city, state, zip, username, password, cNum, expDate, secNum, nameOnCard, date.toString());
+                      customers.add(customer);
+                
+                   }
+       
+        } catch (SQLException ex) {
+                System.out.println("SQL statement is not executed!" + ex);
+            }
+            con1.close();
+        }
+            catch (Exception e) {
+                  e.printStackTrace();
+        }
+        return customers;
+    
     }
 
 }
