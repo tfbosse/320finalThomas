@@ -12,6 +12,19 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <h1>Current Inventory</h1>
+        
+        
+        <c:forEach var="filmInStock" items="${listfilms}">
+                <tr>              
+                    <td><c:out value="${filmInStock.title}"/></td> 
+                    <td> <c:out value="${filmInStock.rating}"/></td>  
+                    <td> <c:out value="${filmInStock.description}"/></td> 
+                    <td> <c:out value="${filmInStock.actor}"/></td> 
+                    <td> <c:out value="${filmInStock.genre}"/></td> 
+                    </html:form>
+                    </td>
+                </tr>
+            </c:forEach>
     </body>
 </html>

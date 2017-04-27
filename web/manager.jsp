@@ -5,6 +5,12 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="html" uri="http://struts.apache.org/tags-html" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
+<%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
+<%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
+<%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -19,7 +25,9 @@
             <th>Description</th>
             </tr>
             <tr>
-                <td><a href="reportCustomer.jsp" target="_blank">Customer Details</a></td>
+                <td><html:form action="/customer">
+                        <html:submit property="${filmInStock.title}" value="Customer Details"/>
+                    </html:form></td>
                 <td>View detailed listing of all customers.</td>
             </tr>
             <tr>
