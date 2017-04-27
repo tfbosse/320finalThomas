@@ -18,6 +18,82 @@ import javax.servlet.http.HttpSession;
  * @author jakeotey
  */
 public class FilmDAO {
+    
+    public FilmForm getAFilm (String title) {
+          DBConnectionUtil DBcon = new DBConnectionUtil();
+        Connection con1 = DBcon.getConnection();
+        
+        FilmForm film = new FilmForm();
+        
+         try {
+
+            try {
+
+                Statement lookUp = con1.createStatement();
+                ResultSet rs;
+                Statement stActor = con1.createStatement();
+                ResultSet rsActor;
+                Statement stGenre = con1.createStatement();
+                ResultSet rsGenre;
+
+                rs = lookUp.executeQuery("SELECT * from film where in_stock = 1");
+
+                while (rs.next()) {
+
+                 
+                    String actor = null;
+                    String genre = null;
+                    String releaseYear = rs.getString("release_year");
+                    String rating = rs.getString("rating");
+                    String description = rs.getString("description");
+                    String length = rs.getString("length");
+                     rsActor = stActor.executeQuery("Select * from film_actor as fa "
+                                    + "                    join actor as a "
+                                    + "                    on fa.actor_id = a.actor_id "
+                                    + "                    where fa.film_id = '" + id + "'");
+
+                            int a = 0;
+                            while (rsActor.next()) {
+                                if (a > 0) {
+                                    actor += ", ";
+                                }
+                                a++;
+
+                                actor += rsActor.getString("first_name") + " " + rsActor.getString("last_name");
+                            }
+
+                            rsGenre = stGenre.executeQuery("Select * from film_category as fc "
+                                    + "                    join category as c "
+                                    + "                    on fc.category_id = c.category_id "
+                                    + "                    where fc.film_id= '" + id + "'");
+
+                            int g = 0;
+                            while (rsGenre.next()) {
+                                if (g > 0) {
+                                    genre += ", ";
+                                }
+
+                                genre += rsGenre.getString("name");
+                            }
+
+                     film = new FilmForm(title, actor, genre, releaseYear, rating, description, length);
+               
+
+                }
+
+            } catch (SQLException ex) {
+                System.out.println("SQL statement is not executed!" + ex);
+            }
+            con1.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return film;
+
+    
+        
+
+    }
 
     public ArrayList<FilmForm> getAllFilms(SearchForm Search) throws Exception {
         DBConnectionUtil DBcon = new DBConnectionUtil();
@@ -64,7 +140,6 @@ public class FilmDAO {
         DBConnectionUtil DBcon = new DBConnectionUtil();
         Connection con1 = DBcon.getConnection();
 
-        System.out.print("Made it here");
         String field = search.getSearchType();
 
         ArrayList<FilmForm> films = new ArrayList<FilmForm>();//initialize list of films
