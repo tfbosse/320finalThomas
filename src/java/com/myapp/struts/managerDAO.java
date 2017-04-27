@@ -12,6 +12,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 /**
  *
@@ -19,6 +21,31 @@ import java.sql.Timestamp;
  */
 public class managerDAO {
 
+    public void editManager(UpdateForm form) {
+        System.out.println("jdbc connection");
+        DBConnectionUtil DBcon1 = new DBConnectionUtil();
+        Connection con1 = DBcon1.getConnection();
+        
+        try {
+            Timestamp ts = new Timestamp(System.currentTimeMillis());
+            Date date = new Date(ts.getTime());
+            PreparedStatement st = con1.prepareStatement("update staff set first_name=?, last_name=?, email=?,"
+                    + " password=?, last_update=? where username=?");
+            
+            st.setString(1, form.getFirstname());
+            st.setString(2, form.getLastname());
+            st.setString(3, form.getEmail());
+            st.setString(4, form.getPassword());
+            st.setDate(5, date);
+            st.setString(6, form.getUsername());
+            
+            st.executeUpdate();
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
     public void insertManager(ManagerForm manager) {
 
         try {

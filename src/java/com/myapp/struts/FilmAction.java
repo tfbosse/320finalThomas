@@ -35,7 +35,7 @@ public class FilmAction extends org.apache.struts.action.Action {
     public ActionForward execute(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
             throws Exception {
-        
+        System.out.println("yo");
         FilmForm filmform = new FilmForm();
         
         String title = filmform.getTitle();
@@ -43,6 +43,7 @@ public class FilmAction extends org.apache.struts.action.Action {
         
         HttpSession ses = request.getSession();
         ses.setAttribute("title", title); 
+        
         
         
        

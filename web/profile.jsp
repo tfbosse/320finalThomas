@@ -14,17 +14,19 @@
         <link rel="stylesheet" href="fpcss.css" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Crimson Video Store</title>
-        <script>
-            function chooseDisp() {
-                if ("<%=(String)session.getAttribute("sessType")%>" === "man") {
-                    document.getElementById("address").style.display = "none";
-                    document.getElementById("card").style.display = "none";
-                }
-                System.out.println("called2");
+        <%
+            response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+            response.setHeader("Pragma", "no-cache");
+            response.setDateHeader("Expires", 0);
+            if (session.getAttribute("sessID") == null) {
+                response.sendRedirect("/FinalShitStruts/");
             }
-        </script>
+            if (session.getAttribute("sessType") == "man") {
+                response.sendRedirect("/FinalShitStruts/manprofile.jsp");
+            }
+        %>
     </head>
-    <body onload="chooseDisp()">
+    <body>
         
         <%
             ProfileDAO pdao = new ProfileDAO();
@@ -33,7 +35,7 @@
         
         <h1>
             <div class="align-left-banner">
-                <a href="base.jsp">Crimson Video Store</a>
+                <a href="noise.jsp">Crimson Video Store</a>
                 <div class="align-right-banner">
                     <a href="search.jsp">Search</a> | 
                     <a href="home.jsp">Sign Out</a>
@@ -47,7 +49,7 @@
         <html:errors />
         <br />
         <html:form action="/update" >
-            <table>
+            <table styleClass=".my-table">
                 <tr>
                     <td>First Name: </td>
                     <td><html:text property="firstname" size="24" value="<%=(String)session.getAttribute("firstname")%>" /></td>
@@ -65,7 +67,7 @@
             <table>
                 <tr>
                     <td>Username: </td>
-                    <td><html:text property="username" size="24" value="<%=(String)session.getAttribute("username")%>"/></td>
+                    <td><html:text readonly="true" property="username" size="24" value="<%=(String)session.getAttribute("username")%>"/></td>
                 </tr>
                 <tr>
                     <td>Password: </td>

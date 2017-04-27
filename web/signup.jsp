@@ -4,6 +4,7 @@
     Author     : Thomas
 --%>
 
+<%@page import="com.myapp.struts.ProfileDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="html" uri="http://struts.apache.org/tags-html" %>
 <%@ taglib prefix="bean" uri="http://struts.apache.org/tags-bean" %>
@@ -13,6 +14,14 @@
         <link rel="stylesheet" href="fpcss.css" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Crimson Video Store</title>
+        <%
+            response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+            response.setHeader("Pragma", "no-cache");
+            response.setDateHeader("Expires", 0);
+            if (session.getAttribute("sessID") != null) {
+                response.sendRedirect("/FinalShitStruts/");
+            }
+        %>
     </head>
     <body>
         <h1>
@@ -26,7 +35,7 @@
         <br />
         <html:errors />
         <br />
-        <html:form action="/signup">
+        <html:form action="/signup" focus="firstname">
             <table>
                 <tr>
                     <td>First Name: </td>

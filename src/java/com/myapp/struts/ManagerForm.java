@@ -11,7 +11,15 @@ package com.myapp.struts;
  */
 public class ManagerForm extends org.apache.struts.action.ActionForm {
     
-    String firstname, lastname, email, username, password;
+    private String firstname, lastname, email, username, password, uniquecode;
+
+    public String getUniquecode() {
+        return uniquecode;
+    }
+
+    public void setUniquecode(String uniquecode) {
+        this.uniquecode = uniquecode;
+    }
          
     public ManagerForm (){
         super();

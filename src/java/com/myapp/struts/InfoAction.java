@@ -5,7 +5,6 @@
  */
 package com.myapp.struts;
 
-import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -16,11 +15,12 @@ import org.apache.struts.action.ActionMapping;
  *
  * @author jakeotey
  */
-public class SearchAction extends org.apache.struts.action.Action {
+public class InfoAction extends org.apache.struts.action.Action {
 
     /* forward name="success" path="" */
     private static final String SUCCESS = "success";
-    private static final String FAILURE = "failure";
+    public static String update = "";
+
     /**
      * This is the action called from the Struts framework.
      *
@@ -35,20 +35,15 @@ public class SearchAction extends org.apache.struts.action.Action {
     public ActionForward execute(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
             throws Exception {
-        SearchForm search = (SearchForm) form;
-        String searchType = search.getSearchType();
-        String searchString = search.getSearchString();
+        FilmDAO filmD = new FilmDAO();
+        FilmForm film = new FilmForm();
         
-        if (getErrors(request).isEmpty()) {
-            FilmDAO film = new FilmDAO();
-            
-          
-            ArrayList<FilmForm> films = new ArrayList<FilmForm>();
-            films = film.getSearch(search);
-            request.setAttribute("listfilms", films);
-            return mapping.findForward(SUCCESS);
-        } else {
-            return mapping.findForward(FAILURE);
-        }
+        update = request.getParameter("id");
+        
+        film = filmD.getInfo(update);
+        
+        
+        request.setAttribute("filmChosen", film);
+        return mapping.findForward(SUCCESS);
     }
 }
