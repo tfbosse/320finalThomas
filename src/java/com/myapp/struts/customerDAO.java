@@ -170,7 +170,7 @@ public class customerDAO {
             st.setDate(13, date);
             st.setString(14, form.getUsername());
             
-            st.executeUpdate();
+            st.execute();
             
         } catch (SQLException e) {
             e.printStackTrace();
@@ -184,7 +184,7 @@ public class customerDAO {
         DBConnectionUtil DBcon = new DBConnectionUtil();
         Connection con1 = DBcon.getConnection();
         
-        ArrayList <SignUpForm> customers = new ArrayList <SignUpForm>();//initialize list of films
+        ArrayList <SignUpForm> customers = new ArrayList <SignUpForm>();
         
         try {
 
@@ -193,7 +193,7 @@ public class customerDAO {
                 Statement lookUp = con1.createStatement();
                 ResultSet rs;
                 
-                   rs = lookUp.executeQuery("SELECT * from customer where in_stock = 1");
+                   rs = lookUp.executeQuery("SELECT * from customer;");
                     
                    while(rs.next()){
                        
@@ -214,8 +214,9 @@ public class customerDAO {
                 String secNum = rs.getString("security_number");
                 String nameOnCard = rs.getString("name_on_card");
                       
-                      SignUpForm customer = new SignUpForm(first, last, email, address, city, state, zip, username, password, cNum, expDate, secNum, nameOnCard, date.toString());
-                      customers.add(customer);
+                SignUpForm customer = new SignUpForm(first, last, email, username, password, address, city, state, 
+                        zip, cNum, expDate, secNum, nameOnCard, date.toString());
+                customers.add(customer);
                 
                    }
        

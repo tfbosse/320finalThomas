@@ -39,7 +39,7 @@ public class managerDAO {
             st.setDate(5, date);
             st.setString(6, form.getUsername());
             
-            st.executeUpdate();
+            st.execute();
             
         } catch (SQLException e) {
             e.printStackTrace();

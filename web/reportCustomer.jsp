@@ -4,6 +4,9 @@
     Author     : landr
 --%>
 
+<%@page import="com.myapp.struts.SignUpForm"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.myapp.struts.customerDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="html" uri="http://struts.apache.org/tags-html" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -41,61 +44,59 @@
         </h1>
 
         <div class="div-center">
-        <h2 class="align-center">
-        <a class="my-link" href="reportCheckouts.jsp">Checkout Reports</a> | 
-        <a class="my-link" href="reportInventory.jsp">Inventory Reports</a> | 
-        <a class="my-link" href="reportRevenue.jsp">Revenue Reports</a> | 
-        <a class="my-link" href="reportSales.jsp">Sales Reports</a>
-        </h2>
+            <h2 class="align-center">
+                <a class="my-link" href="reportCheckouts.jsp">Checkout Reports</a> | 
+                <a class="my-link" href="reportInventory.jsp">Inventory Reports</a> | 
+                <a class="my-link" href="reportRevenue.jsp">Revenue Reports</a> | 
+                <a class="my-link" href="reportSales.jsp">Sales Reports</a>
+            </h2>
         </div>
-        
-        <table border="1" width="100%">
-            <th>
+
+        <%
+            customerDAO custdao = new customerDAO();
+            ArrayList<SignUpForm> customers = custdao.getAllCustomers();
+            request.setAttribute("custList", customers);
+        %>
+
+
+        <table class="my-table">
+            <th width="12.5%">
                 First Name 
             </th>
-            <th>
+            <th width="15%">
                 Last Name
             </th>
-            <th>
+            <th width="20%">
                 Email
             </th>
-            <th>
+            <th width="15%">
                 Username
             </th>
-            <th>
+            <th width="15%">
                 Address
             </th>
-            <th>
+            <th width="12.5%">
                 City
             </th>
-            <th>
+            <th width="5%">
                 State
             </th>
-            <th>
+            <th width="5%">
                 Zip
             </th>
 
             <c:forEach var="customer" items="${custList}">
-                <tr>              
-                    <td><c:out value="${customer.firstname}"/></td> 
-                    <td> <c:out value="${customer.lastname}"/></td>  
-                    <td> <c:out value="${customer.email}"></td> 
-                        <td> <c:out value="${customer.username}"></td> 
-                            <td> <c:out value="${customer.address}"></td> 
-                                <td> <c:out value="${customer.city}"></td>
-                                    <td> <c:out value="${customer.state}"></td> 
-                                        <td> <c:out value="${customer.zip}"></td> 
-
-
-
-                                            </td>
-                                        </tr>
-                                        </c:forEach>
-
-
-
-
-
-
-                                </body>
-                            </html>
+                <tr>
+                    <td><c:out value="${customer.firstname}" /></td>
+                    <td><c:out value="${customer.lastname}" /></td>
+                    <td><c:out value="${customer.email}" /></td>
+                    <td><c:out value="${customer.username}" /></td>
+                    <td><c:out value="${customer.address}" /></td>
+                    <td><c:out value="${customer.city}" /></td>
+                    <td><c:out value="${customer.state}" /></td>
+                    <td><c:out value="${customer.zip}" /></td>
+                </tr>
+            </c:forEach>
+        </table>
+    </body>
+</html>
