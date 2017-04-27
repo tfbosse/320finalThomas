@@ -17,9 +17,28 @@ import org.apache.struts.action.ActionMessage;
  */
 public class SignUpForm extends org.apache.struts.action.ActionForm {
     
+private String firstname, lastname, email, username, password, address, city, state, zip, cardNumber, expDate, secNum, nameOnCard,lastUpdate;
 
-    private String firstname, lastname, email, username, password, address, city, state, zip, cardNumber, expDate, secNum, nameOnCard,lastUpdate;
+    public SignUpForm(String firstname, String lastname, String email, String username,String password, String address, String city,
+            String state, String zip, String cardNumber, String expDate, String secNum, String nameOnCard,String lastUpdate) {
+        this.firstname= firstname;
+        this.lastname=lastname;
+        this.email=email;
+        this.username=username;
+        this.password=password;
+        this.address=address;
+        this.city = city;
+        this.state = state;
+        this.zip = zip;
+        this.cardNumber = cardNumber;
+        this.expDate = expDate;
+        this.secNum = secNum;
+        this.nameOnCard = nameOnCard;
+        this.lastUpdate = lastUpdate;
 
+        
+    }
+    
     public String getCardNumber() {
         return cardNumber;
     }
