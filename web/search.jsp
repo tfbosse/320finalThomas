@@ -19,8 +19,10 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Search Page</title>
         <script>
-            function checkRep() {
-                
+            function checkReps() {
+                if ("<%=(String)session.getAttribute("sessType")%>" == "man") {
+                    document.getElementById("reps").style.display = "inline";
+                }
             }
         </script>
         <%
@@ -32,14 +34,14 @@
             }
         %>
     </head>
-    <body onload="checkRep()">
+    <body onload="checkReps()">
 
         <h1>
             <div class="align-left-banner">
                 <a href="noise.jsp">Crimson Video Store</a>
                 <div class="align-right-banner">
                     <a href="profile.jsp">Profile</a> | 
-                    <a id="rep" href="reports.jsp">Reports</a> | 
+                    <a style="display:none" id="reps" href="reports.jsp">Reports | </a>
                     <a href="home.jsp">Sign Out</a>
                 </div>
             </div>

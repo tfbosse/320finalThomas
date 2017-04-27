@@ -33,8 +33,6 @@
             </div>
         </h1>
         
-        <br/><br/><br/>
-        
         <div class="div-center">
         <h2 class="align-center">
         <a class="my-link" href="reportCheckouts.jsp">Checkout Reports</a> | 
