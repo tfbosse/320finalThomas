@@ -66,13 +66,18 @@
             <forward name="success" path="/reportCustomer.jsp" />
             <forward name="failure" path="/manager.jsp" />
         </action>
+        
         <action input="/" name="FilmForm" path="/bullshit" scope="session" type="com.myapp.struts.InfoAction">
             <forward name="success" path="/reportCustomer.jsp" />
             <forward name="failure" path="/manager.jsp" />
         </action>
-        <action input="/filmPage.jsp" name="FilmForm" path="/GetAFilm" scope="session" type="com.myapp.struts.FilmAction">
-            
+        
+        <action input="/" name="FilmForm" path="/sendToCart" scope="session" type="com.myapp.struts.CartAction">
+            <forward name="success" path="/cart.jsp" />
+            <forward name="failure" path="/search.jsp" />
         </action>
+        <action path="/sendToCart" type="com.myapp.struts.CartAction"/>
+        
        
        
        

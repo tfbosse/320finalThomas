@@ -60,11 +60,19 @@
             <html:text property="searchString"/>
             <html:submit value="Search"/>
         </html:form><br>
+        
         Please Enter the Title of the Film you would like to have more Information on 
         <html:form action="/moreInfo">
             <html:text property="title"/>
             <html:submit value="More Info"/>
+        </html:form><br>
+        
+        Please Enter the Title of the Film you would like to Send To Cart
+        <html:form action="/sendToCart">
+            <html:text property="title"/>
+            <html:submit value="Send To Cart"/>
         </html:form>
+        
         <table class="my-table">
             <th width="25%">
 
@@ -76,9 +84,7 @@
             <th width="65%">
                 Description
             </th>
-            <th width="5%">
-                Info
-            </th>
+            
 
             <br />
 
@@ -88,11 +94,6 @@
                     <td class="hyper"> <c:out value="${filmInStock.title}"/> </td> 
                     <td> <c:out value="${filmInStock.rating}"/></td>  
                     <td> <c:out value="${filmInStock.description}"/></td> 
-
-
-
-
-                    <td align="center"> <html:submit property="${filmInStock.title}" value="Info"/></td>
                 </tr>
             </c:forEach>
 

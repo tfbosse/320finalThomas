@@ -16,7 +16,7 @@ import org.apache.struts.action.ActionMapping;
  *
  * @author jakeotey
  */
-public class FilmAction extends org.apache.struts.action.Action {
+public class CartAction extends org.apache.struts.action.Action {
 
     /* forward name="success" path="" */
     private static final String SUCCESS = "success";
@@ -44,9 +44,6 @@ public class FilmAction extends org.apache.struts.action.Action {
         info = dao.getAFilm(info.getTitle());
         request.setAttribute("film",info);
         
-        
-       
         return mapping.findForward(SUCCESS);
-        //return null;
     }
 }

@@ -37,7 +37,7 @@
             FilmDAO pdao = new FilmDAO();
             pdao.setValues(session);
         %>
-        <h1>Hello World!</h1>
+        <h1>Film Information</h1>
          
             
             <table>
