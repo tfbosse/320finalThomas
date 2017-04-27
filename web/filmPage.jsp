@@ -20,10 +20,7 @@
     <body>
         
         <h1>Hello World!</h1>
-         <%
-            FilmDAO pdao = new FilmDAO();
-            pdao.setValues(session);
-        %>
+         
             
             <table >
             <th>
@@ -31,38 +28,18 @@
             </th>
             
             <<table>
+                <c:forEach var="film" items="${filmChosen}">
+                <tr>              
+                    <td><c:out value="${film.title}"/> </td> 
+                    <td> <c:out value="${film.rating}"/></td>  
+                    <td> <c:out value="${film.genre}"/></td>
+                    <td> <c:out value="${film.releaseYear}"/></td>
+                    <td> <c:out value="${film.rating}"/></td>
+                    <td> <c:out value="${film.length}"/></td>
+                    <td> <c:out value="${film.actor}"/></td>
+                    <td> <c:out value="${film.description}"/></td>
                 <tr>
-                    <td>
-                      Title:   
-                    </td>
-                    <td>
-                        <html:text property="title" size="24" value="<%=(String)session.getAttribute("title")%>"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Actor(s):</td>
-                    <td><html:text property="actor" size="100" value="<%=(String)session.getAttribute("actor")%>"/></td>
-                </tr>
-                <tr>
-                    <td>Genre:</td>
-                    <td><html:text property="genre" size="24" value="<%=(String)session.getAttribute("genre")%>"/></td>
-                </tr>
-                <tr>
-                    <td>Release Year:</td>
-                    <td><html:text property="realeaseYear" size="24" value="<%=(String)session.getAttribute("releaseYear")%>"/></td>
-                </tr>
-                <tr>
-                    <td>Rating</td>
-                    <td><html:text property="rating" size="24" value="<%=(String)session.getAttribute("rating")%>"/></td>
-                </tr>
-                <tr>
-                    <td>Description:</td>
-                    <td><html:text property="description" size="24" value="<%=(String)session.getAttribute("description")%>"/></td>
-                </tr>
-                <tr>
-                    <td>Length</td>
-                    <td><html:text property="length" size="24" value="<%=(String)session.getAttribute("length")%>"/></td>
-                </tr>
+                </c:forEach>    
 
             </table>
            
