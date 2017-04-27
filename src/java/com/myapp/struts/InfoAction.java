@@ -7,6 +7,7 @@ package com.myapp.struts;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
@@ -35,15 +36,12 @@ public class InfoAction extends org.apache.struts.action.Action {
     public ActionForward execute(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
             throws Exception {
-        FilmDAO filmD = new FilmDAO();
-        FilmForm film = new FilmForm();
+
+        InfoForm info = (InfoForm) form;
         
-        update = request.getParameter("id");
+        HttpSession ses = request.getSession();
+        ses.setAttribute("title", info.getTitle());
         
-        film = filmD.getInfo(update);
-        
-        
-        request.setAttribute("filmChosen", film);
         return mapping.findForward(SUCCESS);
     }
 }

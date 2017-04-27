@@ -51,7 +51,7 @@
             <forward name="failure" path="/noise.jsp" />
         </action>
         
-        <action input="/search.jsp" name="InfoForm" path="/description" scope="session" type="com.myapp.struts.InfoAction">
+        <action input="/" name="InfoForm" path="/moreInfo" scope="session" type="com.myapp.struts.InfoAction">
             <forward name="success" path="/filmPage.jsp" />
             <forward name="failure" path="/noise.jsp" />
         </action>
