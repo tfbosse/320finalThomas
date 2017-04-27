@@ -137,5 +137,58 @@ public class customerDAO {
         }
         return flag;
     }
+    
+    
+    
+    public ArrayList <SignUpForm> getAllCustomers () throws Exception {
+        DBConnectionUtil DBcon = new DBConnectionUtil();
+        Connection con1 = DBcon.getConnection();
+        
+        ArrayList <SignUpForm> customers = new ArrayList <SignUpForm>();//initialize list of films
+        
+        try {
+
+            try {
+              
+                Statement lookUp = con1.createStatement();
+                ResultSet rs;
+                
+                   rs = lookUp.executeQuery("SELECT * from customer where in_stock = 1");
+                    
+                   while(rs.next()){
+                       
+                Timestamp ts = new Timestamp(System.currentTimeMillis());
+                Date date = new Date(ts.getTime());
+                      
+                String first = rs.getString("first_name");
+                String last = rs.getString("last_name");
+                String email = rs.getString("email");
+                String address = rs.getString("address");
+                String city = rs.getString("city");
+                String state = rs.getString("state");
+                String zip = rs.getString("zip");
+                String username =rs.getString("username");
+                String password = rs.getString("password");
+                String cNum = rs.getString("card_number");
+                String expDate = rs.getString("expiration_date");
+                String secNum = rs.getString("security_number");
+                String nameOnCard = rs.getString("name_on_card");
+                      
+                      SignUpForm customer = new SignUpForm(first, last, email, address, city, state, zip, username, password, cNum, expDate, secNum, nameOnCard, date.toString());
+                      customers.add(customer);
+                
+                   }
+       
+        } catch (SQLException ex) {
+                System.out.println("SQL statement is not executed!" + ex);
+            }
+            con1.close();
+        }
+            catch (Exception e) {
+                  e.printStackTrace();
+        }
+        return customers;
+    
+    }
 
 }
