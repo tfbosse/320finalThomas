@@ -44,26 +44,26 @@
             <th>
                 Film 
             </th>
-            
+            <html:form action="/bullshit">
             <<table>
                 
                 <tr>
-                    <td>
+                    <td id="title">
                         <html:text property="title" value="<%=(String)session.getAttribute("title")%>"/> 
                     </td>
                 </tr>
                 <tr>
-                    <td>
+                    <td id="description">
                         <html:text property="actor" value="<%=(String)session.getAttribute("actor")%>"/> 
                     </td>
                 </tr>
                 <tr>
-                    <td>
+                    <td id="actors">
                         <html:text property="genre" value="<%=(String)session.getAttribute("genre")%>"/> 
                     </td>
                 </tr>
                 <tr>
-                    <td>
+                    <td id="genre">
                         <html:text property="releaseYear" value="<%=(String)session.getAttribute("releaseYear")%>"/> 
                     </td>
                 </tr>
@@ -79,13 +79,28 @@
                 </tr>
                 <tr>
                     <td>
-                        <html:text property="descripiton" value="<%=(String)session.getAttribute("description")%>"/> 
+                        <html:text property="description" value="<%=(String)session.getAttribute("description")%>"/> 
                     </td>
                 </tr>
 
             </table>
-           
+            </html:form>
 
         </table>
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+        <script>
+            $(document).ready(function(){
+                var title = $('#title').innerHTML;
+                $.ajax({
+                    type: "Get",
+                    url: "/FinalShitStruts/GetAFilm.do",
+                    data: "title="+ title,
+                    datatype: "json",
+                    success: function(data){
+                        $.each(function(data))
+                    }
+                });
+            });
+        </script>
     </body>
 </html>

@@ -11,7 +11,7 @@ package com.myapp.struts;
  */
 public class FilmForm extends org.apache.struts.action.ActionForm {
     
-    private String title, actor, genre, releaseYear, rating, description,length;
+    private String title, actor, genre, releaseYear, rating, description,length, shownTitle;
     
     public FilmForm(){
         super();
@@ -21,7 +21,6 @@ public class FilmForm extends org.apache.struts.action.ActionForm {
         this.title = title;
     }
    
-    
     public FilmForm(String title, String actor, String genre, String releaseYear, String rating, String description, String length){
         this.title = title;
         this.actor= actor;
@@ -30,6 +29,18 @@ public class FilmForm extends org.apache.struts.action.ActionForm {
         this.rating = rating;
         this.description = description;
         this.length = length;
+        
+    }
+    
+    public FilmForm(String title, String actor, String genre, String releaseYear, String rating, String description, String length, String shownTitle){
+        this.title = title;
+        this.actor= actor;
+        this.genre = genre;
+        this.releaseYear = releaseYear;
+        this.rating = rating;
+        this.description = description;
+        this.length = length;
+        this.shownTitle = shownTitle;
         
     }
 
@@ -88,5 +99,14 @@ public class FilmForm extends org.apache.struts.action.ActionForm {
     public void setRating(String rating) {
         this.rating = rating;
     }
-            
+
+    public String getShownTitle() {
+        return shownTitle;
+    }
+
+    public void setShownTitle(String shownTitle) {
+        this.shownTitle = shownTitle;
+    }
+        
+    
 }
