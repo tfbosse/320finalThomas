@@ -31,7 +31,7 @@
 
         <h1>
             <div class="align-left-banner">
-                <a href="base.jsp">Crimson Video Store</a>
+                <a href="noise.jsp">Crimson Video Store</a>
                 <div class="align-right-banner">
                     <a href="search.jsp">Search</a> | 
                     <a href="home.jsp">Sign Out</a>

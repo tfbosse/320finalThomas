@@ -14,8 +14,12 @@
         <link rel="stylesheet" href="fpcss.css" />
         <title>Crimson Video Store</title>
         <%
-            ProfileDAO pdao = new ProfileDAO();
-            pdao.signOut(session);
+            response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+            response.setHeader("Pragma", "no-cache");
+            response.setDateHeader("Expires", 0);
+            if (session.getAttribute("sessID") != null) {
+                response.sendRedirect("/FinalShitStruts/");
+            }
         %>
     </head>
     <body>
@@ -57,6 +61,15 @@
                 </tr>
             </table>
                 &nbsp; Password must have at least eight (8) characters and contains both letters and numbers
+                
+                <br /><br />
+                
+                <table>
+                    <tr>
+                        <td>Enter the unique code provided when you registered your software: </td>
+                        <td><html:text property="uniquecode" size="24" /></td>
+                    </tr>
+                </table>
 
             <br /><br />         
 

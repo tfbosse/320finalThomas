@@ -17,6 +17,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -266,7 +267,11 @@ public class SignUpAction extends org.apache.struts.action.Action {
         String code = signUpForm.getSecNum();
         String cardname = signUpForm.getNameOnCard();
         
-        if (firstname.isEmpty()) {
+        customerDAO cust = new customerDAO();
+        
+        if (cust.searchCustomer(username)) {
+            errors.add("username", new ActionMessage("errors.exists", "User"));
+        } else if (firstname.isEmpty()) {
             errors.add("firstname", new ActionMessage("errors.required", "A first name"));
         } else if (firstname.length() > 45) {
             errors.add("firstname", new ActionMessage("errors.maxlength", "First name", "45"));
@@ -339,8 +344,23 @@ public class SignUpAction extends org.apache.struts.action.Action {
         this.saveErrors(request, errors);
         
         if (getErrors(request).isEmpty()) {
-            customerDAO cust = new customerDAO();
             cust.insertCustomer(signUpForm);
+            signUpForm.setFirstname("");
+            signUpForm.setLastname("");
+            signUpForm.setEmail("");
+            signUpForm.setUsername("");
+            signUpForm.setPassword("");
+            signUpForm.setAddress("");
+            signUpForm.setCity("");
+            signUpForm.setState("");
+            signUpForm.setZip("");
+            signUpForm.setCardNumber("");
+            signUpForm.setExpDate("");
+            signUpForm.setSecNum("");
+            signUpForm.setNameOnCard("");
+            
+            HttpSession ses = request.getSession();
+            ses.setAttribute("sessID", 0);
             return mapping.findForward(SUCCESS);
         } else {
             return mapping.findForward(FAILURE);
