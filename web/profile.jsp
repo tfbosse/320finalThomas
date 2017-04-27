@@ -49,7 +49,7 @@
         <html:errors />
         <br />
         <html:form action="/update" >
-            <table>
+            <table styleClass=".my-table">
                 <tr>
                     <td>First Name: </td>
                     <td><html:text property="firstname" size="24" value="<%=(String)session.getAttribute("firstname")%>" /></td>

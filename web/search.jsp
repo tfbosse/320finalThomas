@@ -14,6 +14,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="stylesheet" href="fpcss.css" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Search Page</title>
         <%
@@ -26,7 +27,18 @@
         %>
     </head>
     <body>
-        <h1>Search</h1>
+        
+        <h1>
+            <div class="align-left-banner">
+                <a href="noise.jsp">Crimson Video Store</a>
+                <div class="align-right-banner">
+                    <a href="profile.jsp">Profile</a> | 
+                    <a href="home.jsp">Sign Out</a>
+                </div>
+            </div>
+        </h1>
+        
+        <br /><br /><br />
 
         <sql:setDataSource var="source" driver="com.mysql.jdbc.Driver"
                            url="jdbc:mysql://localhost:3306/sakila"
@@ -42,28 +54,29 @@
         </html:form>
 
         <html:form action="/description">
-        <table border="1" width="100%">
-            <th>
+        <table class="my-table">
+            <th width="25%">
                 Title 
             </th>
-            <th>
+            <th width="5%">
                 Rating
             </th>
-            <th>
+            <th width="65%">
                 Description
             </th>
-            <th>
+            <th width="5%">
                 Info
             </th>
-        System.out.println("yo1");
+            
+            <br />
         
             <c:forEach var="filmInStock" items="${listfilms}">
                 <tr>              
                     <td><c:out value="${filmInStock.title}"/></td> 
                     <td> <c:out value="${filmInStock.rating}"/></td>  
                     <td> <c:out value="${filmInStock.description}"/></td> 
-                    <td>
-                        <html:submit  property="${filmInStock.title}" value="Info"/>
+                    <td align="center">
+                        <html:submit property="${filmInStock.title}" value="Info"/>
                     
                     </td>
                 </tr>
