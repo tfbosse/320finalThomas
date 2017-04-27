@@ -276,6 +276,49 @@ public class FilmDAO {
         try {
             String title = (String) session.getAttribute("title");
 
+            String actorF = "", actorL = "", actorName = "", genre = "", releaseYear = "", rating = "", length = "", description = "";
+
+            System.out.println("jdbc connection");
+            DBConnectionUtil DBcon1 = new DBConnectionUtil();
+            Connection con1 = DBcon1.getConnection();
+
+            //first PS to grab film info and category (genre)
+            PreparedStatement ps = con1.prepareStatement("select F.title, F.release_year, F.rating, F.length, F.description, "
+                    + "C.name "
+                    + "from film as F "
+                    + "join film_category as FC on F.film_id=FC.film_id "
+                    + "join category as C on FC.category_id=C.category_id "
+                    + "where title=?");
+            ps.setString(1, title);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                
+                genre = rs.getString("genre");
+                releaseYear = rs.getString("release_year");
+                rating = rs.getString("rating");
+                length = rs.getString("length");
+                description = rs.getString("description");
+
+            }
+            
+            //second PS to grab actor name
+            PreparedStatement ps2 = con1.prepareStatement("select A.first_name, A.last_name "
+                    + "from film as F "
+                    + "join film_actor as FA on F.film_id=FA.film_id "
+                    + "join actor as A on FA.actor_id=A.actor_id "
+                    + "where title=?");
+            ps2.setString(1, title);
+            ResultSet rs2 = ps2.executeQuery();
+            while (rs2.next()) {
+                
+                actorF = rs2.getString("first_name");
+                actorL = rs2.getString("last_name");
+                actorName = actorF + " " + actorL;
+            }
+            
+            session.setAttribute("title", title);
+            session.setAttribute("actor", actorName);
+
             String actor = "", genre = "", releaseYear = "", rating = "", length = "";
 
             System.out.println("jdbc connection");
@@ -300,6 +343,8 @@ public class FilmDAO {
             session.setAttribute("releaseYear", releaseYear);
             session.setAttribute("rating", rating);
             session.setAttribute("length", length);
+            session.setAttribute("description", description);
+
 
         } catch (Exception e) {
             e.printStackTrace();

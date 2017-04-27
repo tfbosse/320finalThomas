@@ -52,7 +52,11 @@
             <html:text property="searchString"/>
             <html:submit value="Search"/>
         </html:form><br>
-
+        Please Enter the Title of the Film you would like to have more Information on 
+        <html:form action="/moreInfo">
+            <html:text property="title"/>
+            <html:submit value="More Info"/>
+        </html:form>
         <table class="my-table">
             <th width="25%">
 
