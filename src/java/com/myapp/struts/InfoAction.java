@@ -19,6 +19,7 @@ public class InfoAction extends org.apache.struts.action.Action {
 
     /* forward name="success" path="" */
     private static final String SUCCESS = "success";
+    public static String update = "";
 
     /**
      * This is the action called from the Struts framework.
@@ -34,7 +35,15 @@ public class InfoAction extends org.apache.struts.action.Action {
     public ActionForward execute(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
             throws Exception {
+        FilmDAO filmD = new FilmDAO();
+        FilmForm film = new FilmForm();
         
+        update = request.getParameter("id");
+        
+        film = filmD.getInfo(update);
+        
+        
+        request.setAttribute("filmChosen", film);
         return mapping.findForward(SUCCESS);
     }
 }

@@ -12,7 +12,7 @@
         <form-bean name="LoginForm" type="com.myapp.struts.LoginForm"/>
         <form-bean name="SignUpForm" type="com.myapp.struts.SignUpForm"/>
         <form-bean name="ManagerForm" type="com.myapp.struts.ManagerForm"/>
-        <form-bean name="InfoForm" type="com.myapp.struts.InfoForm"/>
+        <form-bean name="InfoForm" type="com.myapp.struts.FilmForm"/>
         <form-bean name="SearchForm" type="com.myapp.struts.SearchForm"/>
     
     </form-beans>

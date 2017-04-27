@@ -11,6 +11,7 @@
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -49,13 +50,24 @@
         <html:form action="/search">
 
             <html:text property="searchType"/>
-                <html:text property="searchString"/>
-                <html:submit value="Search"/>
+            <html:text property="searchString"/>
+            <html:submit value="Search"/>
+        </html:form><br>
+        Please Enter the Title of the Fil
+        <html:form action="/moreInfo">
+            <html:text property="title"/>
+            <html:submit value="More Info"/>
         </html:form>
 
+
+        
+        <table border="1" width="100%">
+            <th>
+=======
         <html:form action="/description">
         <table class="my-table">
             <th width="25%">
+
                 Title 
             </th>
             <th width="5%">
@@ -67,25 +79,40 @@
             <th width="5%">
                 Info
             </th>
+
+
+
             
             <br />
         
+
             <c:forEach var="filmInStock" items="${listfilms}">
                 <tr>              
-                    <td><c:out value="${filmInStock.title}"/></td> 
+                    <td><c:out value="${filmInStock.title}"/> </td> 
                     <td> <c:out value="${filmInStock.rating}"/></td>  
                     <td> <c:out value="${filmInStock.description}"/></td> 
+
+                  
+                    <td><c:url var="url1" value="/description">
+                            <c:param name="id" value="${filmInStock.title}"/>
+                        </c:url>
+                        <a href="${url1}">Info</a>
+
+                    </td>
+                    <td>
+
+
                     <td align="center">
                         <html:submit property="${filmInStock.title}" value="Info"/>
-                    
+
                     </td>
                 </tr>
             </c:forEach>
-                
+
 
 
         </table>
+        
 
-        </html:form>
     </body>
 </html>

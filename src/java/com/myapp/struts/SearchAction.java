@@ -41,6 +41,7 @@ public class SearchAction extends org.apache.struts.action.Action {
         
         if (getErrors(request).isEmpty()) {
             FilmDAO film = new FilmDAO();
+            
           
             ArrayList<FilmForm> films = new ArrayList<FilmForm>();
             films = film.getSearch(search);
