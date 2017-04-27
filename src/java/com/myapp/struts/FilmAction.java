@@ -36,15 +36,17 @@ public class FilmAction extends org.apache.struts.action.Action {
             HttpServletRequest request, HttpServletResponse response)
             throws Exception {
         
-        
+        FilmDAO dao = new FilmDAO();
         FilmForm info = (FilmForm) form;
         
         HttpSession ses = request.getSession();
         ses.setAttribute("title", info.getTitle());
+        info = dao.getAFilm(info.getTitle());
+        request.setAttribute("film",info);
         
-        
-        
+        System.out.println(info.getGenre());
        
         return mapping.findForward(SUCCESS);
+        //return null;
     }
 }
