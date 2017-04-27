@@ -59,7 +59,12 @@
             <forward name="success" path="/noise.jsp" />
             <forward name="failure" path="manprofile.jsp" />
         </action>
-      
+        
+        <action input="/manager.jsp" name="SignUpForm" path="/customer" scope="session" type="com.myapp.struts.ReportCustomerAction">
+            <forward name="success" path="/reportCustomer.jsp" />
+            <forward name="failure" path="/manager.jsp" />
+        </action>
+       
        
     </action-mappings>
     
