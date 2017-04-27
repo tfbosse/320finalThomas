@@ -40,7 +40,7 @@ public class FilmDAO {
 
                 while (rs.next()) {
 
-                 
+                    String id = rs.getString("film_id");
                     String actor = null;
                     String genre = null;
                     String releaseYear = rs.getString("release_year");
