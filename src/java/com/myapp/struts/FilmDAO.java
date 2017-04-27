@@ -21,7 +21,7 @@ import javax.servlet.http.HttpSession;
 public class FilmDAO {
     
     public FilmForm getAFilm (String title) {
-          DBConnectionUtil DBcon = new DBConnectionUtil();
+        DBConnectionUtil DBcon = new DBConnectionUtil();
         Connection con1 = DBcon.getConnection();
         
         FilmForm film = new FilmForm();
@@ -42,8 +42,8 @@ public class FilmDAO {
                 while (rs.next()) {
 
                     String id = rs.getString("film_id");
-                    String actor = null;
-                    String genre = null;
+                    String actor = "";
+                    String genre = "";
                     String releaseYear = rs.getString("release_year");
                     String rating = rs.getString("rating");
                     String description = rs.getString("description");
@@ -200,8 +200,8 @@ public class FilmDAO {
                             
                             
                             
-                            String actor = null;
-                            String genre = null;
+                            String actor = "";
+                            String genre = "";
                             String releaseYear = rs.getString("release_year");
                             String rating = rs.getString("rating");
                             String description = rs.getString("description");
@@ -262,8 +262,8 @@ public class FilmDAO {
 
                             String id = rs.getString("film_id");
                             String title = rs.getString("title");
-                            String actor = null;
-                            String genre = null;
+                            String actor = "";
+                            String genre = "";
                             String releaseYear = rs.getString("release_year");
                             String rating = rs.getString("rating");
                             String description = rs.getString("description");
@@ -324,8 +324,8 @@ public class FilmDAO {
 
                             String id = rs.getString("film_id");
                             String title = rs.getString("title");
-                            String actor = null;
-                            String genre = null;
+                            String actor = "";
+                            String genre = "";
                             String releaseYear = rs.getString("release_year");
                             String rating = rs.getString("rating");
                             String description = rs.getString("description");
@@ -401,8 +401,8 @@ public class FilmDAO {
 
                     String id = rs.getString("film_id");
                     String title =rs.getString("title");
-                    String actor = null;
-                    String genre = null;
+                    String actor = "";
+                    String genre = "";
                     String releaseYear = rs.getString("release_year");
                     String rating = rs.getString("rating");
                     String description = rs.getString("description");
