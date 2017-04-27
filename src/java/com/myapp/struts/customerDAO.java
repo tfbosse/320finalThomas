@@ -222,7 +222,6 @@ public class customerDAO {
         } catch (SQLException ex) {
                 System.out.println("SQL statement is not executed!" + ex);
             }
-            con1.close();
         }
             catch (Exception e) {
                   e.printStackTrace();

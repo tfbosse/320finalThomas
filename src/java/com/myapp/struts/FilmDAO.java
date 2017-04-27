@@ -5,6 +5,7 @@
  */
 package com.myapp.struts;
 
+import com.sun.xml.internal.ws.util.StringUtils;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -95,7 +96,7 @@ public class FilmDAO {
 
     }
 
-    public ArrayList<FilmForm> getAllFilms(SearchForm Search) throws Exception {
+    public ArrayList<FilmForm> getAllFilms() throws Exception {
         DBConnectionUtil DBcon = new DBConnectionUtil();
         Connection con1 = DBcon.getConnection();
 
@@ -113,8 +114,35 @@ public class FilmDAO {
                 while (rs.next()) {
 
                     String title = rs.getString("title");
-                    String actor = null;
-                    String genre = null;
+                    
+                    Statement stActor = con1.createStatement();
+                    String actor = "";
+                    ResultSet rsActor = stActor.executeQuery("Select * from film_actor as fa join actor as a on "
+                            + "fa.actor_id = a.actor_id where fa.film_id = '" + rs.getString("film_id") + "'");
+
+                    int a = 0;
+                    while (rsActor.next()) {
+                        if (a > 0) {
+                            actor += ", ";
+                        }
+                        a++;
+
+                        actor += rsActor.getString("first_name") + " " + rsActor.getString("last_name");
+                    }
+
+                    String genre = "";
+                    Statement stGenre = con1.createStatement();
+                    ResultSet rsGenre = stGenre.executeQuery("Select * from film_category as fc join category as c "
+                            + "on fc.category_id = c.category_id where fc.film_id = '" + rs.getString("film_id") + "'");
+                    int g = 0;
+                    while (rsGenre.next()) {
+                        if (g > 0) {
+                            genre += ", ";
+                        }
+
+                        genre += rsGenre.getString("name");
+                    }
+
                     String releaseYear = rs.getString("release_year");
                     String rating = rs.getString("rating");
                     String description = rs.getString("description");
@@ -128,7 +156,6 @@ public class FilmDAO {
             } catch (SQLException ex) {
                 System.out.println("SQL statement is not executed!" + ex);
             }
-            con1.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -171,6 +198,9 @@ public class FilmDAO {
 
                             String id = rs.getString("film_id");
                             String title = rs.getString("title");
+                            
+                            
+                            
                             String actor = null;
                             String genre = null;
                             String releaseYear = rs.getString("release_year");
@@ -341,7 +371,6 @@ public class FilmDAO {
             } catch (SQLException ex) {
                 System.out.println("SQL statement is not executed!" + ex);
             }
-            //  con1.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
