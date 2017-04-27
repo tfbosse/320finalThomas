@@ -36,7 +36,7 @@ public class FilmDAO {
                 Statement stGenre = con1.createStatement();
                 ResultSet rsGenre;
 
-                rs = lookUp.executeQuery("SELECT * from film where in_stock = 1");
+                rs = lookUp.executeQuery("SELECT * from film where in_stock > 0 and title like '"+ title +"'");
 
                 while (rs.next()) {
 
@@ -345,6 +345,81 @@ public class FilmDAO {
         }
         return films;
     }
+    
+    
+    public ArrayList<FilmForm> getCart (String cust) {
+   
+        DBConnectionUtil DBcon = new DBConnectionUtil();
+        Connection con1 = DBcon.getConnection();
+        
+        ArrayList<FilmForm> films = new ArrayList<FilmForm>();
+        
+         try {
+
+            try {
+
+                Statement lookUp = con1.createStatement();
+                ResultSet rs;
+                Statement stActor = con1.createStatement();
+                ResultSet rsActor;
+                Statement stGenre = con1.createStatement();
+                ResultSet rsGenre;
+
+                rs = lookUp.executeQuery("SELECT * from film where in_stock = 1");
+
+                while (rs.next()) {
+
+                    String id = rs.getString("film_id");
+                    String title =rs.getString("title");
+                    String actor = null;
+                    String genre = null;
+                    String releaseYear = rs.getString("release_year");
+                    String rating = rs.getString("rating");
+                    String description = rs.getString("description");
+                    String length = rs.getString("length");
+                     rsActor = stActor.executeQuery("Select * from film_actor as fa "
+                                    + "                    join actor as a "
+                                    + "                    on fa.actor_id = a.actor_id "
+                                    + "                    where fa.film_id = '" + id + "'");
+
+                            int a = 0;
+                            while (rsActor.next()) {
+                                if (a > 0) {
+                                    actor += ", ";
+                                }
+                                a++;
+
+                                actor += rsActor.getString("first_name") + " " + rsActor.getString("last_name");
+                            }
+
+                            rsGenre = stGenre.executeQuery("Select * from film_category as fc "
+                                    + "                    join category as c "
+                                    + "                    on fc.category_id = c.category_id "
+                                    + "                    where fc.film_id= '" + id + "'");
+
+                            int g = 0;
+                            while (rsGenre.next()) {
+                                if (g > 0) {
+                                    genre += ", ";
+                                }
+
+                                genre += rsGenre.getString("name");
+                            }
+                     FilmForm film = new FilmForm(title, actor, genre, releaseYear, rating, description, length);
+                     films.add(film);
+                }
+            } catch (SQLException ex) {
+                System.out.println("SQL statement is not executed!" + ex);
+            }
+            con1.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return films;
+
+    }
+    
+    
 
     public void setValues(HttpSession session) {
 
