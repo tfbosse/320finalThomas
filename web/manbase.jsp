@@ -1,6 +1,6 @@
 <%-- 
-    Document   : base
-    Created on : Apr 4, 2017, 5:26:55 PM
+    Document   : manbase
+    Created on : Apr 26, 2017, 11:17:45 PM
     Author     : Thomas
 --%>
 
@@ -19,9 +19,6 @@
             if (session.getAttribute("sessID") == null) {
                 response.sendRedirect("/FinalShitStruts/");
             }
-            if ((String)session.getAttribute("sessType") == "man") {
-                response.sendRedirect("/FinalShitStruts/manbase.jsp");
-            }
         %>
     </head>
     <body>
@@ -32,6 +29,7 @@
                 <div class="align-right-banner">
                     <a href="search.jsp">Search</a> | 
                     <a href="profile.jsp">Profile</a> | 
+                    <a href="reports.jsp">Reports</a> | 
                     <a href="home.jsp">Sign Out</a>
                 </div>
             </div>
