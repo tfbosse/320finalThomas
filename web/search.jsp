@@ -28,7 +28,7 @@
         %>
     </head>
     <body>
-        
+
         <h1>
             <div class="align-left-banner">
                 <a href="noise.jsp">Crimson Video Store</a>
@@ -38,7 +38,7 @@
                 </div>
             </div>
         </h1>
-        
+
         <br /><br /><br />
 
         <sql:setDataSource var="source" driver="com.mysql.jdbc.Driver"
@@ -48,23 +48,11 @@
 
 
         <html:form action="/search">
-
             <html:text property="searchType"/>
             <html:text property="searchString"/>
             <html:submit value="Search"/>
         </html:form><br>
-        Please Enter the Title of the Fil
-        <html:form action="/moreInfo">
-            <html:text property="title"/>
-            <html:submit value="More Info"/>
-        </html:form>
 
-
-        
-        <table border="1" width="100%">
-            <th>
-=======
-        <html:form action="/description">
         <table class="my-table">
             <th width="25%">
 
@@ -80,11 +68,8 @@
                 Info
             </th>
 
-
-
-            
             <br />
-        
+
 
             <c:forEach var="filmInStock" items="${listfilms}">
                 <tr>              
@@ -92,27 +77,17 @@
                     <td> <c:out value="${filmInStock.rating}"/></td>  
                     <td> <c:out value="${filmInStock.description}"/></td> 
 
-                  
-                    <td><c:url var="url1" value="/description">
-                            <c:param name="id" value="${filmInStock.title}"/>
-                        </c:url>
-                        <a href="${url1}">Info</a>
-
-                    </td>
-                    <td>
 
 
-                    <td align="center">
-                        <html:submit property="${filmInStock.title}" value="Info"/>
 
-                    </td>
+                    <td align="center"><html:submit property="${filmInStock.title}" value="Info"/></td>
                 </tr>
             </c:forEach>
 
 
 
         </table>
-        
+
 
     </body>
 </html>
