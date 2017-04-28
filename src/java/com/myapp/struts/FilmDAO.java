@@ -186,11 +186,17 @@ public class FilmDAO {
 
                 if (field.equals("Title") || field.equals("Release Year") || field.equals("Rating")) {
 
+                   
+                    
                     for (int x = 0; x < searchList.length; x++) {
                         if (field.equals("Rating") && searchList[x].toUpperCase().equals("PG")) {
                             rs = lookUp.executeQuery("SELECT * FROM film WHERE rating = 'PG' and in_stock > 0");
-                        } else {
-
+                        }
+                        else if (field.equals("Release Year")){
+                           rs = lookUp.executeQuery("SELECT * FROM film WHERE release_year LIKE '" + searchList[x] + "%' "
+                                    + "and in_stock > 0");
+                        }
+                        else {
                             rs = lookUp.executeQuery("SELECT * FROM film WHERE " + field + " LIKE '%" + searchList[x] + "%' "
                                     + "and in_stock > 0");
                         }
@@ -250,7 +256,7 @@ public class FilmDAO {
                 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 /////////////////////////////////////////////////////////////////////////////////////////////////////////
                 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                else if (field.equals("actor")) {
+                else if (field.equals("Actor")) {
                     for (int x = 0; x < searchList.length; x++) {
                         rs = lookUp.executeQuery("SELECT * from actor as a "
                                 + "join film_actor as fa "
@@ -313,7 +319,7 @@ public class FilmDAO {
                 /////////////////////////////////////////////////////////////////////////////////////////////////////////
                 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 //  \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-                else if (field.equals("genre")) {
+                else if (field.equals("Genre")) {
                     for (int x = 0; x < searchList.length; x++) {
                         rs = lookUp.executeQuery("SELECT * FROM film as f "
                                 + "join film_category as fc "
