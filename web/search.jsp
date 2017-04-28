@@ -59,7 +59,7 @@
             <html:text property="searchType"/>
             <html:text property="searchString"/>
             <html:submit value="Search"/>
-        </html:form><br>
+        </html:form>
         Please Enter the Title of the Film you would like to have more Information on 
         <html:form action="/moreInfo">
             <html:text property="title"/>

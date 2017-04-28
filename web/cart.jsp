@@ -27,6 +27,15 @@
         %>
     </head>
     <body>
+        
+        <sql:setDataSource var="snapshot" driver="com.mysql.jdbc.Driver"
+                           url="jdbc:mysql://localhost:3306/sakila?zeroDateTimeBehavior=convertToNull"
+                           user="root"  password="nbuser"/>
+
+        <sql:query dataSource="${snapshot}" var="cartFilms">
+            SELECT F.title, F.rating, F.description from film as F join cart as C on F.film_id=C.film_id where F.film_id=C.film_id;
+        </sql:query>
+        
         <h1></h1>
         
         <table>
@@ -36,12 +45,12 @@
                 <th>Cost</th>
                 <th>Description</th>
             </tr>
-           <c:forEach var="filmInStock" items="${listfilms}">
+           <c:forEach var="filmInCart" items="${cartFilms.rows}">
                 <tr>              
-                    <td><c:out value="${filmInStock.title}"/> </td> 
-                    <td> <c:out value="${filmInStock.rating}"/></td>  
+                    <td><c:out value="${filmInCart.title}"/> </td> 
+                    <td> <c:out value="${filmInCart.rating}"/></td>  
                     <td><c:out value="$5"/></td>
-                    <td> <c:out value="${filmInStock.description}"/></td>
+                    <td> <c:out value="${filmInCart.description}"/></td>
                 </tr>
             </c:forEach>
         </table>
