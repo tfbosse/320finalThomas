@@ -51,10 +51,10 @@
                 <div class="align-right-banner">
                     <a href="search.jsp">Search</a> | 
                     <a href="profile.jsp">Profile</a> | 
-                    <a style="display:none" id="reps" href="reports.jsp">Reports | </a>
-                    <a style="display:inline" id="cart" href="cart.jsp">Cart | </a>
-                    <a style="display:inline" id="wish" href="wishList.jsp">Wish List | </a>
-                    <a style="display:none" id="inv" href="inventory.jsp">Inventory | </a>
+                    <div style="display:none" id="reps" ><a href="reports.jsp">Reports</a> | </div>
+                    <div style="display:inline" id="cart"><a href="cart.jsp">Cart</a> | </div>
+                    <div style="display:inline" id="wish"><a href="wishList.jsp">Wish List</a> | </div>
+                    <div style="display:none" id="inv"><a href="inventory.jsp">Inventory</a> | </div>
                     <a href="home.jsp">Sign Out</a>
                 </div>
             </div>
