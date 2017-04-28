@@ -79,6 +79,14 @@
             <forward name="failure" path="/search.jsp" />
         </action>
         
+        <action input="/" name="SignUpForm" path="/custRepFilter" scope="session" type="com.myapp.struts.CustRepAction">
+            <forward name="success" path="/reportCustomer.jsp" />
+        </action>
+        
+        <action input="/" name="FilmForm" path="/invRepFilter" scope="session" type="com.myapp.struts.InvRepAction">
+            <forward name="success" path="/reportInventory.jsp" />
+        </action>
+        
        
        
     </action-mappings>

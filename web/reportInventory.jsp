@@ -15,12 +15,49 @@
 <%@page import="com.myapp.struts.FilmDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
 <!DOCTYPE html>
 <html>
     <head>
         <link rel="stylesheet" href="fpcss.css" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Crimson Video Store</title>
+        <script>
+            function filterResults() {
+                var filter = "<%=request.getAttribute("filter")%>";
+                if (filter == "Title") {
+                    document.getElementById("bytitle").style.display = "block";
+                    document.getElementById("byrating").style.display = "none";
+                    document.getElementById("bydesc").style.display = "none";
+                    document.getElementById("byactor").style.display = "none";
+                    document.getElementById("bygenre").style.display = "none";
+                } else if (filter == "Rating") {
+                    document.getElementById("byrating").style.display = "block";
+                    document.getElementById("bytitle").style.display = "none";
+                    document.getElementById("bydesc").style.display = "none";
+                    document.getElementById("byactor").style.display = "none";
+                    document.getElementById("bygenre").style.display = "none";
+                } else if (filter == "Desc") {
+                    document.getElementById("bydesc").style.display = "block";
+                    document.getElementById("bytitle").style.display = "none";
+                    document.getElementById("byrating").style.display = "none";
+                    document.getElementById("byactor").style.display = "none";
+                    document.getElementById("bygenre").style.display = "none";
+                } else if (filter == "Actor") {
+                    document.getElementById("byactor").style.display = "block";
+                    document.getElementById("bytitle").style.display = "none";
+                    document.getElementById("byrating").style.display = "none";
+                    document.getElementById("bydesc").style.display = "none";
+                    document.getElementById("bygenre").style.display = "none";
+                } else if (filter == "Genre") {
+                    document.getElementById("bygenre").style.display = "block";
+                    document.getElementById("bytitle").style.display = "none";
+                    document.getElementById("byrating").style.display = "none";
+                    document.getElementById("bydesc").style.display = "none";
+                    document.getElementById("byactor").style.display = "none";
+                }
+            }
+        </script>
         <%
             response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
             response.setHeader("Pragma", "no-cache");
@@ -30,7 +67,7 @@
             }
         %>
     </head>
-    <body>
+    <body onload="filterResults()">
 
         <h1 id="top">
             <div class="align-left-banner">
@@ -73,6 +110,20 @@
             request.setAttribute("filmGenre", filmByGenre);
         %>
         
+        <html:form action="/invRepFilter">
+            <html:select property="field" >
+                
+                <html:option value="default">(Select a filter)</html:option>
+                <html:option value="Title">Title</html:option>
+                <html:option value="Rating" >Rating</html:option>
+                <html:option value="Desc">Description</html:option>
+                <html:option value="Actor">Actor</html:option>
+                <html:option value="Genre">Genre</html:option>
+           
+            </html:select>
+            <html:submit value="Sort"/>
+        </html:form>
+        
         <h3> Sort: 
             <a href="#bytitle">By Title</a> | 
             <a href="#byrating">By Rating</a> | 
@@ -82,7 +133,7 @@
             <a href="#top">Return to Top</a>
         </h3>
 
-        <table id="bytitle" class="my-table">
+        <table style="display:block" id="bytitle" class="my-table">
             <th width="15%">Title</th>
             <th width="5%">Rating</th>
             <th width="35%">Description</th>
@@ -100,16 +151,7 @@
             </c:forEach>
         </table>
         
-        <h3> Sort: 
-            <a href="#bytitle">By Title</a> | 
-            <a href="#byrating">By Rating</a> | 
-            <a href="#bydesc">By Description</a> | 
-            <a href="#byactor">By Actor</a> | 
-            <a href="#bygenre">By Genre</a> | 
-            <a href="#top">Return to Top</a>
-        </h3>
-        
-        <table id="byrating" class="my-table">
+        <table style="display:none" id="byrating" class="my-table">
             <th width="15%">Title</th>
             <th width="5%">Rating</th>
             <th width="35%">Description</th>
@@ -127,16 +169,7 @@
             </c:forEach>
         </table>
         
-        <h3> Sort: 
-            <a href="#bytitle">By Title</a> | 
-            <a href="#byrating">By Rating</a> | 
-            <a href="#bydesc">By Description</a> | 
-            <a href="#byactor">By Actor</a> | 
-            <a href="#bygenre">By Genre</a> | 
-            <a href="#top">Return to Top</a>
-        </h3>
-        
-        <table id="bydesc" class="my-table">
+        <table style="display:none" id="bydesc" class="my-table">
             <th width="15%">Title</th>
             <th width="5%">Rating</th>
             <th width="35%">Description</th>
@@ -154,16 +187,7 @@
             </c:forEach>
         </table>
         
-        <h3> Sort: 
-            <a href="#bytitle">By Title</a> | 
-            <a href="#byrating">By Rating</a> | 
-            <a href="#bydesc">By Description</a> | 
-            <a href="#byactor">By Actor</a> | 
-            <a href="#bygenre">By Genre</a> | 
-            <a href="#top">Return to Top</a>
-        </h3>
-        
-        <table id="byactor" class="my-table">
+        <table style="display:none" id="byactor" class="my-table">
             <th width="15%">Title</th>
             <th width="5%">Rating</th>
             <th width="35%">Description</th>
@@ -181,16 +205,7 @@
             </c:forEach>
         </table>
         
-        <h3> Sort: 
-            <a href="#bytitle">By Title</a> | 
-            <a href="#byrating">By Rating</a> | 
-            <a href="#bydesc">By Description</a> | 
-            <a href="#byactor">By Actor</a> | 
-            <a href="#bygenre">By Genre</a> | 
-            <a href="#top">Return to Top</a>
-        </h3>
-        
-        <table id="bygenre" class="my-table">
+        <table style="display:none" id="bygenre" class="my-table">
             <th width="15%">Title</th>
             <th width="5%">Rating</th>
             <th width="35%">Description</th>
@@ -207,15 +222,6 @@
                 </tr>
             </c:forEach>
         </table>
-        
-        <h3> Sort: 
-            <a href="#bytitle">By Title</a> | 
-            <a href="#byrating">By Rating</a> | 
-            <a href="#bydesc">By Description</a> | 
-            <a href="#byactor">By Actor</a> | 
-            <a href="#bygenre">By Genre</a> | 
-            <a href="#top">Return to Top</a>
-        </h3>
         
     </body>
 </html>

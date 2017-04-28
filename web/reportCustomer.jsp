@@ -30,6 +30,84 @@
         <link rel="stylesheet" href="fpcss.css" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Crimson Video Store</title>
+        <script>
+            function filterResults() {
+                var filter = "<%=request.getAttribute("filter")%>";
+                if (filter == "FirstName") {
+                    document.getElementById("byname").style.display = "block";
+                    document.getElementById("bylname").style.display = "none";
+                    document.getElementById("byemail").style.display = "none";
+                    document.getElementById("byusername").style.display = "none";
+                    document.getElementById("byaddress").style.display = "none";
+                    document.getElementById("bycity").style.display = "none";
+                    document.getElementById("bystate").style.display = "none";
+                    document.getElementById("byzip").style.display = "none";
+                } else if (filter == "LastName") {
+                    document.getElementById("bylname").style.display = "block";
+                    document.getElementById("byname").style.display = "none";
+                    document.getElementById("byemail").style.display = "none";
+                    document.getElementById("byusername").style.display = "none";
+                    document.getElementById("byaddress").style.display = "none";
+                    document.getElementById("bycity").style.display = "none";
+                    document.getElementById("bystate").style.display = "none";
+                    document.getElementById("byzip").style.display = "none";
+                } else if (filter == "Email") {
+                    document.getElementById("byemail").style.display = "block";
+                    document.getElementById("bylname").style.display = "none";
+                    document.getElementById("byname").style.display = "none";
+                    document.getElementById("byusername").style.display = "none";
+                    document.getElementById("byaddress").style.display = "none";
+                    document.getElementById("bycity").style.display = "none";
+                    document.getElementById("bystate").style.display = "none";
+                    document.getElementById("byzip").style.display = "none";
+                } else if (filter == "Username") {
+                    document.getElementById("byusername").style.display = "block";
+                    document.getElementById("bylname").style.display = "none";
+                    document.getElementById("byemail").style.display = "none";
+                    document.getElementById("byname").style.display = "none";
+                    document.getElementById("byaddress").style.display = "none";
+                    document.getElementById("bycity").style.display = "none";
+                    document.getElementById("bystate").style.display = "none";
+                    document.getElementById("byzip").style.display = "none";
+                } else if (filter == "Address") {
+                    document.getElementById("byaddress").style.display = "block";
+                    document.getElementById("bylname").style.display = "none";
+                    document.getElementById("byemail").style.display = "none";
+                    document.getElementById("byusername").style.display = "none";
+                    document.getElementById("byname").style.display = "none";
+                    document.getElementById("bycity").style.display = "none";
+                    document.getElementById("bystate").style.display = "none";
+                    document.getElementById("byzip").style.display = "none";
+                } else if (filter == "City") {
+                    document.getElementById("bycity").style.display = "block";
+                    document.getElementById("bylname").style.display = "none";
+                    document.getElementById("byemail").style.display = "none";
+                    document.getElementById("byusername").style.display = "none";
+                    document.getElementById("byaddress").style.display = "none";
+                    document.getElementById("byname").style.display = "none";
+                    document.getElementById("bystate").style.display = "none";
+                    document.getElementById("byzip").style.display = "none";
+                } else if (filter == "State") {
+                    document.getElementById("bystate").style.display = "block";
+                    document.getElementById("bylname").style.display = "none";
+                    document.getElementById("byemail").style.display = "none";
+                    document.getElementById("byusername").style.display = "none";
+                    document.getElementById("byaddress").style.display = "none";
+                    document.getElementById("bycity").style.display = "none";
+                    document.getElementById("byname").style.display = "none";
+                    document.getElementById("byzip").style.display = "none";
+                } else if (filter == "Zip") {
+                    document.getElementById("byzip").style.display = "block";
+                    document.getElementById("bylname").style.display = "none";
+                    document.getElementById("byemail").style.display = "none";
+                    document.getElementById("byusername").style.display = "none";
+                    document.getElementById("byaddress").style.display = "none";
+                    document.getElementById("bycity").style.display = "none";
+                    document.getElementById("bystate").style.display = "none";
+                    document.getElementById("byname").style.display = "none";
+                }
+            }
+        </script>
         <%
             response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
             response.setHeader("Pragma", "no-cache");
@@ -39,7 +117,7 @@
             }
         %>
     </head>
-    <body>
+    <body onload="filterResults()">
 
         <h1 id="top">
             <div class="align-left-banner">
@@ -91,21 +169,28 @@
             request.setAttribute("custZip", custByZip);
         %>
         
-        <br/><br/>
+        <br/>
         
-        <h3> Sort: 
-        <a href="#byname">By First Name</a> | 
-        <a href="#bylname">By Last Name</a> | 
-        <a href="#byemail">By Email</a> | 
-        <a href="#byusername">By Username</a> | 
-        <a href="#byaddress">By Address</a> | 
-        <a href="#bycity">By City</a> | 
-        <a href="#bystate">By State</a> | 
-        <a href="#byzip">By Zip</a> | 
-        <a href="#top">Return to Top</a>
-        </h3>
+        <html:form action="/custRepFilter">
+            <html:select property="filter" >
+                
+                <html:option value="default">(Select a filter)</html:option>
+                <html:option value="FirstName">First Name</html:option>
+                <html:option value="LastName" >Last Name</html:option>
+                <html:option value="Email">Email</html:option>
+                <html:option value="Username">Username</html:option>
+                <html:option value="Address">Address</html:option>
+                <html:option value="City">City</html:option>
+                <html:option value="State">State</html:option>
+                <html:option value="Zip">Zip</html:option>
+           
+            </html:select>
+            <html:submit value="Sort"/>
+        </html:form>
+                
+                <br/>
         
-        <table id="byname" class="my-table">
+        <table style="display:block" id="byname" class="my-table">
             <th width="12.5%">First Name</th>
             <th width="15%">Last Name</th>
             <th width="20%">Email</th>
@@ -129,19 +214,7 @@
             </c:forEach>
         </table>
         
-        <h3> Sort: 
-        <a href="#byname">By First Name</a> | 
-        <a href="#bylname">By Last Name</a> | 
-        <a href="#byemail">By Email</a> | 
-        <a href="#byusername">By Username</a> | 
-        <a href="#byaddress">By Address</a> | 
-        <a href="#bycity">By City</a> | 
-        <a href="#bystate">By State</a> | 
-        <a href="#byzip">By Zip</a> | 
-        <a href="#top">Return to Top</a>
-        </h3>
-        
-        <table id="bylname" class="my-table">
+        <table style="display:none" id="bylname" class="my-table">
             <th width="12.5%">First Name</th>
             <th width="15%">Last Name</th>
             <th width="20%">Email</th>
@@ -165,19 +238,7 @@
             </c:forEach>
         </table>
         
-        <h3> Sort: 
-        <a href="#byname">By First Name</a> | 
-        <a href="#bylname">By Last Name</a> | 
-        <a href="#byemail">By Email</a> | 
-        <a href="#byusername">By Username</a> | 
-        <a href="#byaddress">By Address</a> | 
-        <a href="#bycity">By City</a> | 
-        <a href="#bystate">By State</a> | 
-        <a href="#byzip">By Zip</a> | 
-        <a href="#top">Return to Top</a>
-        </h3>
-        
-        <table id="byemail" class="my-table">
+        <table style="display:none" id="byemail" class="my-table">
             <th width="12.5%">First Name</th>
             <th width="15%">Last Name</th>
             <th width="20%">Email</th>
@@ -201,19 +262,7 @@
             </c:forEach>
         </table>
         
-        <h3> Sort: 
-        <a href="#byname">By First Name</a> | 
-        <a href="#bylname">By Last Name</a> | 
-        <a href="#byemail">By Email</a> | 
-        <a href="#byusername">By Username</a> | 
-        <a href="#byaddress">By Address</a> | 
-        <a href="#bycity">By City</a> | 
-        <a href="#bystate">By State</a> | 
-        <a href="#byzip">By Zip</a> | 
-        <a href="#top">Return to Top</a>
-        </h3>
-        
-        <table id="byusername" class="my-table">
+        <table style="display:none" id="byusername" class="my-table">
             <th width="12.5%">First Name</th>
             <th width="15%">Last Name</th>
             <th width="20%">Email</th>
@@ -237,19 +286,7 @@
             </c:forEach>
         </table>
         
-        <h3> Sort: 
-        <a href="#byname">By First Name</a> | 
-        <a href="#bylname">By Last Name</a> | 
-        <a href="#byemail">By Email</a> | 
-        <a href="#byusername">By Username</a> | 
-        <a href="#byaddress">By Address</a> | 
-        <a href="#bycity">By City</a> | 
-        <a href="#bystate">By State</a> | 
-        <a href="#byzip">By Zip</a> | 
-        <a href="#top">Return to Top</a>
-        </h3>
-        
-        <table id="byaddress" class="my-table">
+        <table style="display:none" id="byaddress" class="my-table">
             <th width="12.5%">First Name</th>
             <th width="15%">Last Name</th>
             <th width="20%">Email</th>
@@ -273,19 +310,7 @@
             </c:forEach>
         </table>
         
-        <h3> Sort: 
-        <a href="#byname">By First Name</a> | 
-        <a href="#bylname">By Last Name</a> | 
-        <a href="#byemail">By Email</a> | 
-        <a href="#byusername">By Username</a> | 
-        <a href="#byaddress">By Address</a> | 
-        <a href="#bycity">By City</a> | 
-        <a href="#bystate">By State</a> | 
-        <a href="#byzip">By Zip</a> | 
-        <a href="#top">Return to Top</a>
-        </h3>
-        
-        <table id="bycity" class="my-table">
+        <table style="display:none" id="bycity" class="my-table">
             <th width="12.5%">First Name</th>
             <th width="15%">Last Name</th>
             <th width="20%">Email</th>
@@ -309,19 +334,7 @@
             </c:forEach>
         </table>
         
-        <h3> Sort: 
-        <a href="#byname">By First Name</a> | 
-        <a href="#bylname">By Last Name</a> | 
-        <a href="#byemail">By Email</a> | 
-        <a href="#byusername">By Username</a> | 
-        <a href="#byaddress">By Address</a> | 
-        <a href="#bycity">By City</a> | 
-        <a href="#bystate">By State</a> | 
-        <a href="#byzip">By Zip</a> | 
-        <a href="#top">Return to Top</a>
-        </h3>
-        
-        <table id="bystate" class="my-table">
+        <table style="display:none" id="bystate" class="my-table">
             <th width="12.5%">First Name</th>
             <th width="15%">Last Name</th>
             <th width="20%">Email</th>
@@ -345,19 +358,7 @@
             </c:forEach>
         </table>
         
-        <h3> Sort: 
-        <a href="#byname">By First Name</a> | 
-        <a href="#bylname">By Last Name</a> | 
-        <a href="#byemail">By Email</a> | 
-        <a href="#byusername">By Username</a> | 
-        <a href="#byaddress">By Address</a> | 
-        <a href="#bycity">By City</a> | 
-        <a href="#bystate">By State</a> | 
-        <a href="#byzip">By Zip</a> | 
-        <a href="#top">Return to Top</a>
-        </h3>
-        
-        <table id="byzip" class="my-table">
+        <table style="display:none" id="byzip" class="my-table">
             <th width="12.5%">First Name</th>
             <th width="15%">Last Name</th>
             <th width="20%">Email</th>
@@ -380,18 +381,6 @@
                 </tr>
             </c:forEach>
         </table>
-        
-        <h3> Sort: 
-        <a href="#byname">By First Name</a> | 
-        <a href="#bylname">By Last Name</a> | 
-        <a href="#byemail">By Email</a> | 
-        <a href="#byusername">By Username</a> | 
-        <a href="#byaddress">By Address</a> | 
-        <a href="#bycity">By City</a> | 
-        <a href="#bystate">By State</a> | 
-        <a href="#byzip">By Zip</a> | 
-        <a href="#top">Return to Top</a>
-        </h3>
         
     </body>
 </html>

@@ -12,6 +12,7 @@ package com.myapp.struts;
 public class FilmForm extends org.apache.struts.action.ActionForm {
     
     private String title, actor, genre, releaseYear, rating, description, length, shownTitle;
+    private String field;
     
     public FilmForm(){
         super();
@@ -44,6 +45,14 @@ public class FilmForm extends org.apache.struts.action.ActionForm {
         
     }
 
+    public String getField() {
+        return field;
+    }
+
+    public void setField(String field) {
+        this.field = field;
+    }
+    
     public String getDescription() {
         return description;
     }
