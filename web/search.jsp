@@ -48,16 +48,26 @@
 
 
         <html:form action="/search">
-            <html:text property="searchType"/>
+            <html:select property="searchType" >
+                
+                <html:option value="Search Criteria">(Search Criteria)</html:option>
+                <html:option value="Title" >Title</html:option>
+                <html:option value="Genre">Genre</html:option>
+                <html:option value="Actor">Actor</html:option>
+                <html:option value="Release Year">Release Year</html:option>
+                <html:option value="Rating">Rating</html:option>
+           
+            </html:select>
             <html:text property="searchString"/>
             <html:submit value="Search"/>
         </html:form>
+                
         Please Enter the Title of the Film you would like to have more Information on 
         <html:form action="/moreInfo">
             <html:text property="title"/>
             <html:submit value="More Info"/>
         </html:form>
-        
+
         Please Enter the Title of the Film you would like to Send to the Cart 
         <html:form action="/sendToCart">
             <html:text property="title"/>
@@ -95,6 +105,5 @@
 </html>
 
 
-        
-            
-            
+
+
