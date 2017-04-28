@@ -47,7 +47,8 @@ public class SearchAction extends org.apache.struts.action.Action {
             films = film.getSearch(search);
             request.setAttribute("listfilms", films);
             return mapping.findForward(SUCCESS);
-        } else {
+        } 
+        else {
             return mapping.findForward(FAILURE);
         }
     }
