@@ -36,7 +36,8 @@ public class SortAction extends org.apache.struts.action.Action {
             HttpServletRequest request, HttpServletResponse response)
             throws Exception {
         
-        System.out.println("yay!");
+        System.out.println(request.getAttribute("id"));
+        System.out.println("printed");
         
         return mapping.findForward(SUCCESS);
     }
