@@ -1,11 +1,10 @@
 <%-- 
-    Document   : manbase
-    Created on : Apr 26, 2017, 11:17:45 PM
+    Document   : inventory
+    Created on : Apr 28, 2017, 4:51:15 AM
     Author     : Thomas
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib prefix="html" uri="http://struts.apache.org/tags-html" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -19,6 +18,9 @@
             if (session.getAttribute("sessID") == null) {
                 response.sendRedirect("/FinalShitStruts/");
             }
+            if (session.getAttribute("sessType") == "cust") {
+                response.sendRedirect("/FinalShitStruts/noise.jsp");
+            }
         %>
     </head>
     <body>
@@ -30,17 +32,10 @@
                     <a href="search.jsp">Search</a> | 
                     <a href="profile.jsp">Profile</a> | 
                     <a href="reports.jsp">Reports</a> | 
-                    <a href="inventory.jsp">Inventory</a> | 
                     <a href="home.jsp">Sign Out</a>
                 </div>
             </div>
         </h1>
-        
-        <br/><br/><br/>
-        
-    <center>
-        <img src="welcome.gif"/>
-    </center>
-        
+    
     </body>
 </html>
