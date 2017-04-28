@@ -90,7 +90,7 @@
             <html:submit value="Send to Wish List"/>   
         </html:form>
 
-        <a href="/wishList.jsp">Go To Wish List</a>
+        <a href="wishList.jsp">Go to Wish List</a> 
 
 
         <table class="my-table">
