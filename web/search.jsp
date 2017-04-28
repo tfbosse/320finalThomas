@@ -18,6 +18,13 @@
         <link rel="stylesheet" href="fpcss.css" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Search Page</title>
+        <script>
+            function checkReps() {
+                if ("<%=(String)session.getAttribute("sessType")%>" == "man") {
+                    document.getElementById("reps").style.display = "inline";
+                }
+            }
+        </script>
         <%
             response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
             response.setHeader("Pragma", "no-cache");
@@ -27,13 +34,14 @@
             }
         %>
     </head>
-    <body>
+    <body onload="checkReps()">
 
         <h1>
             <div class="align-left-banner">
                 <a href="noise.jsp">Crimson Video Store</a>
                 <div class="align-right-banner">
                     <a href="profile.jsp">Profile</a> | 
+                    <a id="reps" style="display:none" href="reports.jsp">Reports | </a>
                     <a href="home.jsp">Sign Out</a>
                 </div>
             </div>
