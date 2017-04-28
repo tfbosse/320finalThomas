@@ -86,6 +86,7 @@ public class FilmDAO {
             } catch (SQLException ex) {
                 System.out.println("SQL statement is not executed!" + ex);
             }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
