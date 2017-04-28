@@ -20,7 +20,7 @@ import javax.servlet.http.HttpSession;
  */
 public class FilmDAO {
     
-    
+    //
     public FilmForm getAFilm (String title) {
         DBConnectionUtil DBcon = new DBConnectionUtil();
         Connection con1 = DBcon.getConnection();
@@ -86,7 +86,7 @@ public class FilmDAO {
             } catch (SQLException ex) {
                 System.out.println("SQL statement is not executed!" + ex);
             }
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -446,7 +446,6 @@ public class FilmDAO {
             } catch (SQLException ex) {
                 System.out.println("SQL statement is not executed!" + ex);
             }
-            con1.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -586,7 +585,6 @@ public class FilmDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
-       con1.close();
    }
 }
 
