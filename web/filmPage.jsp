@@ -81,7 +81,13 @@
                     </tr>
 
                 </table>
+            </html:form><br>
+            
+            <html:form action="/sendToCart">
+                <html:submit value="Send to Cart"/>
             </html:form>
+        
+        
 
         
 
