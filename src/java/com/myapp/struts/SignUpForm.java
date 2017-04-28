@@ -18,6 +18,7 @@ import org.apache.struts.action.ActionMessage;
 public class SignUpForm extends org.apache.struts.action.ActionForm {
     
 private String firstname, lastname, email, username, password, address, city, state, zip, cardNumber, expDate, secNum, nameOnCard,lastUpdate;
+private String filter;
 
     public SignUpForm(String firstname, String lastname, String email, String username,String password, String address, String city,
             String state, String zip, String cardNumber, String expDate, String secNum, String nameOnCard,String lastUpdate) {
@@ -38,6 +39,16 @@ private String firstname, lastname, email, username, password, address, city, st
 
         
     }
+
+    public String getFilter() {
+        return filter;
+    }
+
+    public void setFilter(String filter) {
+        this.filter = filter;
+    }
+    
+    
     
     public String getCardNumber() {
         return cardNumber;
