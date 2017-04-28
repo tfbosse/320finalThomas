@@ -49,6 +49,10 @@
         </sql:query>
 
             <br/><br/><br/>
+            
+            <html:form action="/search">
+            <html:submit value="<<< Go Back To Search"/>
+        </html:form>
 
         <table class="my-table">
             <tr>
