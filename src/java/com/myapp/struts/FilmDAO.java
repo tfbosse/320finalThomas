@@ -19,15 +19,15 @@ import javax.servlet.http.HttpSession;
  * @author jakeotey
  */
 public class FilmDAO {
-    
+
     //
-    public FilmForm getAFilm (String title) {
+    public FilmForm getAFilm(String title) {
         DBConnectionUtil DBcon = new DBConnectionUtil();
         Connection con1 = DBcon.getConnection();
-        
+
         FilmForm film = new FilmForm();
-        
-         try {
+
+        try {
 
             try {
 
@@ -38,7 +38,7 @@ public class FilmDAO {
                 Statement stGenre = con1.createStatement();
                 ResultSet rsGenre;
 
-                rs = lookUp.executeQuery("SELECT * from film where in_stock > 0 and title like '"+ title +"'");
+                rs = lookUp.executeQuery("SELECT * from film where in_stock > 0 and title like '" + title + "'");
 
                 while (rs.next()) {
 
@@ -49,37 +49,36 @@ public class FilmDAO {
                     String rating = rs.getString("rating");
                     String description = rs.getString("description");
                     String length = rs.getString("length");
-                     rsActor = stActor.executeQuery("Select * from film_actor as fa "
-                                    + "                    join actor as a "
-                                    + "                    on fa.actor_id = a.actor_id "
-                                    + "                    where fa.film_id = '" + id + "'");
+                    rsActor = stActor.executeQuery("Select * from film_actor as fa "
+                            + "                    join actor as a "
+                            + "                    on fa.actor_id = a.actor_id "
+                            + "                    where fa.film_id = '" + id + "'");
 
-                            int a = 0;
-                            while (rsActor.next()) {
-                                if (a > 0) {
-                                    actor += ", ";
-                                }
-                                a++;
+                    int a = 0;
+                    while (rsActor.next()) {
+                        if (a > 0) {
+                            actor += ", ";
+                        }
+                        a++;
 
-                                actor += rsActor.getString("first_name") + " " + rsActor.getString("last_name");
-                            }
+                        actor += rsActor.getString("first_name") + " " + rsActor.getString("last_name");
+                    }
 
-                            rsGenre = stGenre.executeQuery("Select * from film_category as fc "
-                                    + "                    join category as c "
-                                    + "                    on fc.category_id = c.category_id "
-                                    + "                    where fc.film_id= '" + id + "'");
+                    rsGenre = stGenre.executeQuery("Select * from film_category as fc "
+                            + "                    join category as c "
+                            + "                    on fc.category_id = c.category_id "
+                            + "                    where fc.film_id= '" + id + "'");
 
-                            int g = 0;
-                            while (rsGenre.next()) {
-                                if (g > 0) {
-                                    genre += ", ";
-                                }
+                    int g = 0;
+                    while (rsGenre.next()) {
+                        if (g > 0) {
+                            genre += ", ";
+                        }
 
-                                genre += rsGenre.getString("name");
-                            }
+                        genre += rsGenre.getString("name");
+                    }
 
-                     film = new FilmForm(title, actor, genre, releaseYear, rating, description, length);
-               
+                    film = new FilmForm(title, actor, genre, releaseYear, rating, description, length);
 
                 }
 
@@ -91,9 +90,6 @@ public class FilmDAO {
             e.printStackTrace();
         }
         return film;
-
-    
-        
 
     }
 
@@ -115,7 +111,7 @@ public class FilmDAO {
                 while (rs.next()) {
 
                     String title = rs.getString("title");
-                    
+
                     Statement stActor = con1.createStatement();
                     String actor = "";
                     ResultSet rsActor = stActor.executeQuery("Select * from film_actor as fa join actor as a on "
@@ -157,7 +153,7 @@ public class FilmDAO {
             } catch (SQLException ex) {
                 System.out.println("SQL statement is not executed!" + ex);
             }
-        
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -187,17 +183,13 @@ public class FilmDAO {
 
                 if (field.equals("Title") || field.equals("Release Year") || field.equals("Rating")) {
 
-                   
-                    
                     for (int x = 0; x < searchList.length; x++) {
                         if (field.equals("Rating") && searchList[x].toUpperCase().equals("PG")) {
                             rs = lookUp.executeQuery("SELECT * FROM film WHERE rating = 'PG' and in_stock > 0");
-                        }
-                        else if (field.equals("Release Year")){
-                           rs = lookUp.executeQuery("SELECT * FROM film WHERE release_year LIKE '" + searchList[x] + "%' "
+                        } else if (field.equals("Release Year")) {
+                            rs = lookUp.executeQuery("SELECT * FROM film WHERE release_year LIKE '" + searchList[x] + "%' "
                                     + "and in_stock > 0");
-                        }
-                        else {
+                        } else {
                             rs = lookUp.executeQuery("SELECT * FROM film WHERE " + field + " LIKE '%" + searchList[x] + "%' "
                                     + "and in_stock > 0");
                         }
@@ -206,9 +198,7 @@ public class FilmDAO {
 
                             String id = rs.getString("film_id");
                             String title = rs.getString("title");
-                            
-                            
-                            
+
                             String actor = "";
                             String genre = "";
                             String releaseYear = rs.getString("release_year");
@@ -243,8 +233,8 @@ public class FilmDAO {
 
                                 genre += rsGenre.getString("name");
                             }
-                            
-                            String shownTitle = "<a href=filmPage.jsp?title="+title+"&actor="+actor+"&genre="+genre+"&releaseYear="+releaseYear+"&rating="+rating+"&description="+description+"&length="+length+">"+title+"</a>";
+
+                            String shownTitle = "<a href=filmPage.jsp?title=" + title + "&actor=" + actor + "&genre=" + genre + "&releaseYear=" + releaseYear + "&rating=" + rating + "&description=" + description + "&length=" + length + ">" + title + "</a>";
                             FilmForm film = new FilmForm(title, actor, genre, releaseYear, rating, description, length, shownTitle);
                             films.add(film);
 
@@ -379,23 +369,22 @@ public class FilmDAO {
             } catch (SQLException ex) {
                 System.out.println("SQL statement is not executed!" + ex);
             }
-              
+
         } catch (Exception e) {
             e.printStackTrace();
         }
-  
+
         return films;
     }
-    
-    
-    public ArrayList<FilmForm> getCart (String cust) {
-   
+
+    public ArrayList<FilmForm> getCart(String cust) {
+
         DBConnectionUtil DBcon = new DBConnectionUtil();
         Connection con1 = DBcon.getConnection();
-        
+
         ArrayList<FilmForm> films = new ArrayList<FilmForm>();
-        
-         try {
+
+        try {
 
             try {
 
@@ -411,43 +400,43 @@ public class FilmDAO {
                 while (rs.next()) {
 
                     String id = rs.getString("film_id");
-                    String title =rs.getString("title");
+                    String title = rs.getString("title");
                     String actor = "";
                     String genre = "";
                     String releaseYear = rs.getString("release_year");
                     String rating = rs.getString("rating");
                     String description = rs.getString("description");
                     String length = rs.getString("length");
-                     rsActor = stActor.executeQuery("Select * from film_actor as fa "
-                                    + "                    join actor as a "
-                                    + "                    on fa.actor_id = a.actor_id "
-                                    + "                    where fa.film_id = '" + id + "'");
+                    rsActor = stActor.executeQuery("Select * from film_actor as fa "
+                            + "                    join actor as a "
+                            + "                    on fa.actor_id = a.actor_id "
+                            + "                    where fa.film_id = '" + id + "'");
 
-                            int a = 0;
-                            while (rsActor.next()) {
-                                if (a > 0) {
-                                    actor += ", ";
-                                }
-                                a++;
+                    int a = 0;
+                    while (rsActor.next()) {
+                        if (a > 0) {
+                            actor += ", ";
+                        }
+                        a++;
 
-                                actor += rsActor.getString("first_name") + " " + rsActor.getString("last_name");
-                            }
+                        actor += rsActor.getString("first_name") + " " + rsActor.getString("last_name");
+                    }
 
-                            rsGenre = stGenre.executeQuery("Select * from film_category as fc "
-                                    + "                    join category as c "
-                                    + "                    on fc.category_id = c.category_id "
-                                    + "                    where fc.film_id= '" + id + "'");
+                    rsGenre = stGenre.executeQuery("Select * from film_category as fc "
+                            + "                    join category as c "
+                            + "                    on fc.category_id = c.category_id "
+                            + "                    where fc.film_id= '" + id + "'");
 
-                            int g = 0;
-                            while (rsGenre.next()) {
-                                if (g > 0) {
-                                    genre += ", ";
-                                }
+                    int g = 0;
+                    while (rsGenre.next()) {
+                        if (g > 0) {
+                            genre += ", ";
+                        }
 
-                                genre += rsGenre.getString("name");
-                            }
-                     FilmForm film = new FilmForm(title, actor, genre, releaseYear, rating, description, length);
-                     films.add(film);
+                        genre += rsGenre.getString("name");
+                    }
+                    FilmForm film = new FilmForm(title, actor, genre, releaseYear, rating, description, length);
+                    films.add(film);
                 }
             } catch (SQLException ex) {
                 System.out.println("SQL statement is not executed!" + ex);
@@ -458,8 +447,6 @@ public class FilmDAO {
         return films;
 
     }
-    
-    
 
     public void setValues(HttpSession session) {
 
@@ -482,7 +469,7 @@ public class FilmDAO {
             ps.setString(1, title);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                
+
                 genre = rs.getString("genre");
                 releaseYear = rs.getString("release_year");
                 rating = rs.getString("rating");
@@ -490,7 +477,7 @@ public class FilmDAO {
                 description = rs.getString("description");
 
             }
-            
+
             //second PS to grab actor name
             PreparedStatement ps2 = con1.prepareStatement("select A.first_name, A.last_name "
                     + "from film as F "
@@ -500,13 +487,12 @@ public class FilmDAO {
             ps2.setString(1, title);
             ResultSet rs2 = ps2.executeQuery();
             while (rs2.next()) {
-                
+
                 actorF = rs2.getString("first_name");
                 actorL = rs2.getString("last_name");
                 actorName = actorF + " " + actorL;
             }
-            
-            
+
             session.setAttribute("actor", actorName);
             session.setAttribute("genre", genre);
             session.setAttribute("releaseYear", releaseYear);
@@ -514,145 +500,61 @@ public class FilmDAO {
             session.setAttribute("length", length);
             session.setAttribute("description", description);
 
-
         } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
-                
-            public void insertIntoCart(String title, String username) throws SQLException{
-       DBConnectionUtil DBcon = new DBConnectionUtil();
+
+    public void insertIntoCart(String title, String username) throws SQLException {
+        DBConnectionUtil DBcon = new DBConnectionUtil();
         Connection con1 = DBcon.getConnection();
-        
+
         int custID = 0, filmID = 0;
-        
+
         try {
 
             try {
 
-                Statement lookUpFilmID= con1.createStatement();
+                Statement lookUpFilmID = con1.createStatement();
                 ResultSet rs;
                 Statement lookUpCustomerID = con1.createStatement();
                 ResultSet rs2;
-                
-               
 
                 PreparedStatement ps = con1.prepareStatement("SELECT film_id from film where title =?");
                 ps.setString(1, title);
-                
+
                 rs = ps.executeQuery();
-                while(rs.next()){
+                while (rs.next()) {
                     filmID = rs.getInt("film_id");
                 }
-                
-                
+
                 PreparedStatement ps2 = con1.prepareStatement("SELECT customer_id from customer where username =?");
                 ps2.setString(1, username);
-                
+
                 rs2 = ps2.executeQuery();
-                while(rs2.next()){
+                while (rs2.next()) {
                     custID = rs2.getInt("customer_id");
                 }
-                
-                
-                
-                
-
 
             } catch (SQLException ex) {
                 System.out.println("SQL statement is not executed!" + ex);
             }
-           
+
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
-       try {
+
+        try {
 
             try {
-                
+
                 PreparedStatement st = con1.prepareStatement("INSERT INTO cart(customer_id,film_id)"
                         + "VALUES(?,?)");
 
-               
-
                 //change storeID to 1      
                 st.setInt(1, custID);
                 st.setInt(2, filmID);
-                
-
-                st.execute();
-
-            } catch (SQLException ex) {
-                System.out.println("SQL statement is not executed!" + ex);
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-   }
-            
-    public void insertIntoWishList(String title, String username) throws SQLException{
-       DBConnectionUtil DBcon = new DBConnectionUtil();
-        Connection con1 = DBcon.getConnection();
-        
-        int custID = 0, filmID = 0;
-        
-        try {
-
-            try {
-
-                Statement lookUpFilmID= con1.createStatement();
-                ResultSet rs;
-                Statement lookUpCustomerID = con1.createStatement();
-                ResultSet rs2;
-                
-               
-
-                PreparedStatement ps = con1.prepareStatement("SELECT film_id from film where title =?");
-                ps.setString(1, title);
-                
-                rs = ps.executeQuery();
-                while(rs.next()){
-                    filmID = rs.getInt("film_id");
-                }
-                
-                
-                PreparedStatement ps2 = con1.prepareStatement("SELECT customer_id from customer where username =?");
-                ps2.setString(1, username);
-                
-                rs2 = ps2.executeQuery();
-                while(rs2.next()){
-                    custID = rs2.getInt("customer_id");
-                }
-                
-                
-                
-                
-
-
-            } catch (SQLException ex) {
-                System.out.println("SQL statement is not executed!" + ex);
-            }
-           
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        
-       try {
-
-            try {
-                
-                PreparedStatement st = con1.prepareStatement("INSERT INTO wish_list_detail(customer_id,film_id)"
-                        + "VALUES(?,?)");
-
-               //
-
-                //change storeID to 1      
-                st.setInt(1, custID);
-                st.setInt(2, filmID);
-                
 
                 st.execute();
 
@@ -664,40 +566,114 @@ public class FilmDAO {
             e.printStackTrace();
         }
     }
-   
-  
-                    
-      public boolean fiveFilmCheck(String custID){
+
+    public void insertIntoWishList(String title, String username) throws SQLException {
         DBConnectionUtil DBcon = new DBConnectionUtil();
         Connection con1 = DBcon.getConnection();
-          boolean check = true;
-          int count = 0;
-          
-          try{
-              try{
-                  
-                  PreparedStatement st = con1.prepareStatement("SELECT count(*) from cart where customer_id =?");
-                  st.setString(1, custID);
-                  
-                  ResultSet rs = st.executeQuery();
-                  
-                  int result;
-                  while (rs.next()) {
-                      result = rs.getInt(0);
-                  }
-                  
-              }
-              catch (Exception e) {
+
+        int custID = 0, filmID = 0;
+
+        try {
+
+            try {
+
+                Statement lookUpFilmID = con1.createStatement();
+                ResultSet rs;
+                Statement lookUpCustomerID = con1.createStatement();
+                ResultSet rs2;
+
+                PreparedStatement ps = con1.prepareStatement("SELECT film_id from film where title =?");
+                ps.setString(1, title);
+
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    filmID = rs.getInt("film_id");
+                }
+
+                PreparedStatement ps2 = con1.prepareStatement("SELECT customer_id from customer where username =?");
+                ps2.setString(1, username);
+
+                rs2 = ps2.executeQuery();
+                while (rs2.next()) {
+                    custID = rs2.getInt("customer_id");
+                }
+
+            } catch (SQLException ex) {
+                System.out.println("SQL statement is not executed!" + ex);
+            }
+
+        } catch (Exception e) {
             e.printStackTrace();
-              }
-            
-          }catch (Exception e) {
+        }
+
+        try {
+
+            try {
+
+                PreparedStatement st = con1.prepareStatement("INSERT INTO wish_list_detail(customer_id,film_id)"
+                        + "VALUES(?,?)");
+
+                //
+                //change storeID to 1      
+                st.setInt(1, custID);
+                st.setInt(2, filmID);
+
+                st.execute();
+
+            } catch (SQLException ex) {
+                System.out.println("SQL statement is not executed!" + ex);
+            }
+
+        } catch (Exception e) {
             e.printStackTrace();
-          }
-          
-          return check;
-      }
-          
+        }
+    }
+
+    //
+    public boolean fiveFilmCheck(String custID) {
+        DBConnectionUtil DBcon = new DBConnectionUtil();
+        Connection con1 = DBcon.getConnection();
+        boolean check = false;
+        
+
+        try {
+            try {
+                int count = 0;
+                int id = 0;
+                ResultSet rs2;
+                PreparedStatement ps2 = con1.prepareStatement("SELECT customer_id from customer where username =?");
+                ps2.setString(1, custID);
+
+                rs2 = ps2.executeQuery();
+                while (rs2.next()) {
+                    id = rs2.getInt("customer_id");
+                }
+                System.out.println(id);
+
+                PreparedStatement st = con1.prepareStatement("SELECT count(film_id) from cart where customer_id =?");
+                st.setInt(1, id);
+
+                ResultSet rs = st.executeQuery();
+                while(rs.next()){
+                count = rs.getInt(0);
+                }
+                if (count < 5) {
+                    check = false;
+                } else {
+                    check = true;
+                }
+                System.out.println(count);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return check;
+    }
+
 }
 
 //TODO 

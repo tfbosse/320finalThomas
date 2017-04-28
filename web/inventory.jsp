@@ -1,7 +1,7 @@
 <%-- 
-    Document   : reportRevenue
-    Created on : Apr 26, 2017, 6:47:34 PM
-    Author     : landr
+    Document   : inventory
+    Created on : Apr 28, 2017, 4:51:15 AM
+    Author     : Thomas
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -17,6 +17,9 @@
             response.setDateHeader("Expires", 0);
             if (session.getAttribute("sessID") == null) {
                 response.sendRedirect("/FinalShitStruts/");
+            }
+            if (session.getAttribute("sessType") == "cust") {
+                response.sendRedirect("/FinalShitStruts/noise.jsp");
             }
         %>
     </head>
@@ -34,16 +37,6 @@
                 </div>
             </div>
         </h1>
-        
-        <div class="div-center">
-        <h2 class="align-center">
-        <a class="my-link" href="reportCheckouts.jsp">Checkout Reports</a> | 
-        <a class="my-link" href="reportCustomer.jsp">Customer Reports</a> | 
-        <a class="my-link" href="reportInventory.jsp">Inventory Reports</a> |  
-        <a class="my-link" href="reportSales.jsp">Rental Reports</a> | 
-        <a class="my-link" href="reportRevenue.jsp">Revenue Reports</a>
-        </h2>
-        </div>
-        
+    
     </body>
 </html>

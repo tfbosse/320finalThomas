@@ -20,6 +20,7 @@ public class CartAction extends org.apache.struts.action.Action {
 
     /* forward name="success" path="" */
     private static final String SUCCESS = "success";
+    private static final String FAILURE = "failure";
 
     /**
      * This is the action called from the Struts framework.
@@ -38,6 +39,7 @@ public class CartAction extends org.apache.struts.action.Action {
         
         FilmDAO dao = new FilmDAO();
         FilmForm info = (FilmForm) form;
+        boolean check;
         
         String f, u;
         
@@ -45,12 +47,18 @@ public class CartAction extends org.apache.struts.action.Action {
         ses.setAttribute("title", info.getTitle());       
         f = (String) ses.getAttribute("title");      
         System.out.println(f);
-        
+        //
         u = (String) ses.getAttribute("sessID");    
         System.out.println(u);
+        check = dao.fiveFilmCheck(u);
+        System.out.println(check);
+        if(!check){
         dao.insertIntoCart(f,u);
-        
         return mapping.findForward(SUCCESS);
+        }
+        else{
+        return mapping.findForward(FAILURE);
+        }
     }
 }
 

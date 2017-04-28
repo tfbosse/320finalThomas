@@ -26,6 +26,7 @@
                     document.getElementById("sendToCart").style.display = "none";
                     document.getElementById("wishlist").style.display = "none";
                     document.getElementById("sendToWish").style.display = "none";
+                    document.getElementById("inv").style.display = "inline";
                 }
             }
         </script>
@@ -44,10 +45,12 @@
             <div class="align-left-banner">
                 <a href="noise.jsp">Crimson Video Store</a>
                 <div class="align-right-banner">
+                    <a href="seach.jsp">Search</a> | 
                     <a href="profile.jsp">Profile</a> | 
-                    <a id="reps" style="display:none" href="reports.jsp">Reports | </a>
-                    <a id="cart" style="display:inline" href="cart.jsp">Cart | </a>
-                    <a id="wishlist" sytle="display:inline" href="wishList.jsp">Wish List | </a>
+                    <div id="reps" style="display:none"><a href="reports.jsp">Reports</a> | </div>
+                    <div id="cart" style="display:inline"><a href="cart.jsp">Cart</a> | </div>
+                    <div id="wishlist" style="display:inline"><a href="wishList.jsp">Wish List</a> | </div>
+                    <div id="inv" style="display:none"><a href="inventory.jsp">Inventory</a> | </div>
                     <a href="home.jsp">Sign Out</a>
                 </div>
             </div>
@@ -100,6 +103,7 @@
             <html:text property="title"/>
             <html:submit value="Send to Wish List"/>   
         </html:form>
+        </div>
 
 
         <table class="my-table">

@@ -34,6 +34,7 @@
                     <a href="search.jsp">Search</a> | 
                     <a href="profile.jsp">Profile</a> | 
                     <a href="reports.jsp">Reports</a> | 
+                    <a href="inventory.jsp">Inventory</a> | 
                     <a href="home.jsp">Sign Out</a>
                 </div>
             </div>
@@ -44,6 +45,7 @@
         <a class="my-link" href="reportCheckouts.jsp">Checkout Reports</a> | 
         <a class="my-link" href="reportCustomer.jsp">Customer Reports</a> | 
         <a class="my-link" href="reportInventory.jsp">Inventory Reports</a> | 
+        <a class="my-link" href="reportSales.jsp">Rental Reports</a> | 
         <a class="my-link" href="reportRevenue.jsp">Revenue Reports</a>
         </h2>
         </div>
