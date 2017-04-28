@@ -110,6 +110,8 @@
             request.setAttribute("filmGenre", filmByGenre);
         %>
         
+        <br/>
+        
         <html:form action="/invRepFilter">
             <html:select property="field" >
                 
@@ -123,16 +125,9 @@
             </html:select>
             <html:submit value="Sort"/>
         </html:form>
+                
+        <br/>
         
-        <h3> Sort: 
-            <a href="#bytitle">By Title</a> | 
-            <a href="#byrating">By Rating</a> | 
-            <a href="#bydesc">By Description</a> | 
-            <a href="#byactor">By Actor</a> | 
-            <a href="#bygenre">By Genre</a> | 
-            <a href="#top">Return to Top</a>
-        </h3>
-
         <table style="display:block" id="bytitle" class="my-table">
             <th width="15%">Title</th>
             <th width="5%">Rating</th>
