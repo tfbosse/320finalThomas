@@ -509,6 +509,79 @@ public class FilmDAO {
         }
 
     }
+                
+            public void insertIntoCart(String title, String username) throws SQLException{
+       DBConnectionUtil DBcon = new DBConnectionUtil();
+        Connection con1 = DBcon.getConnection();
+        
+        int custID = 0, filmID = 0;
+        
+        try {
+
+            try {
+
+                Statement lookUpFilmID= con1.createStatement();
+                ResultSet rs;
+                Statement lookUpCustomerID = con1.createStatement();
+                ResultSet rs2;
+                
+               
+
+                PreparedStatement ps = con1.prepareStatement("SELECT film_id from film where title =?");
+                ps.setString(1, title);
+                
+                rs = ps.executeQuery();
+                while(rs.next()){
+                    filmID = rs.getInt("film_id");
+                }
+                
+                
+                PreparedStatement ps2 = con1.prepareStatement("SELECT customer_id from customer where username =?");
+                ps2.setString(1, username);
+                
+                rs2 = ps2.executeQuery();
+                while(rs2.next()){
+                    custID = rs2.getInt("customer_id");
+                }
+                
+                
+                
+                
+
+
+            } catch (SQLException ex) {
+                System.out.println("SQL statement is not executed!" + ex);
+            }
+           
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+       try {
+
+            try {
+                
+                PreparedStatement st = con1.prepareStatement("INSERT INTO cart(customer_id,film_id)"
+                        + "VALUES(?,?)");
+
+               
+
+                //change storeID to 1      
+                st.setInt(1, custID);
+                st.setInt(2, filmID);
+                
+
+                st.execute();
+
+            } catch (SQLException ex) {
+                System.out.println("SQL statement is not executed!" + ex);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+       con1.close();
+   }
 }
 
 //TODO 

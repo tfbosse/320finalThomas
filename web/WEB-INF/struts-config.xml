@@ -77,7 +77,12 @@
         <action input="/" name="SignUpForm" path="/sort" scope="session" type="com.myapp.struts.SortAction">
             <forward name="success" path="/reportCustomer.jsp" />
         </action>
-       
+        
+       <action input="/" name="FilmForm" path="/sendToCart" scope="session" type="com.myapp.struts.CartAction">
+            <forward name="success" path="/cart.jsp" />
+            <forward name="failure" path="/search.jsp" />
+        </action>
+        
        
        
     </action-mappings>

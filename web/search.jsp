@@ -18,13 +18,6 @@
         <link rel="stylesheet" href="fpcss.css" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Search Page</title>
-        <script>
-            function checkReps() {
-                if ("<%=(String)session.getAttribute("sessType")%>" == "man") {
-                    document.getElementById("reps").style.display = "inline";
-                }
-            }
-        </script>
         <%
             response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
             response.setHeader("Pragma", "no-cache");
@@ -34,14 +27,13 @@
             }
         %>
     </head>
-    <body onload="checkReps()">
+    <body>
 
         <h1>
             <div class="align-left-banner">
                 <a href="noise.jsp">Crimson Video Store</a>
                 <div class="align-right-banner">
                     <a href="profile.jsp">Profile</a> | 
-                    <a style="display:none" id="reps" href="reports.jsp">Reports | </a>
                     <a href="home.jsp">Sign Out</a>
                 </div>
             </div>
@@ -55,7 +47,7 @@
 
 
 
-        <html:form focus="searchType" action="/search">
+        <html:form action="/search">
             <html:text property="searchType"/>
             <html:text property="searchString"/>
             <html:submit value="Search"/>
@@ -65,6 +57,12 @@
             <html:text property="title"/>
             <html:submit value="More Info"/>
         </html:form>
+        
+        Please Enter the Title of the Film you would like to Send to the Cart 
+        <html:form action="/sendToCart">
+            <html:text property="title"/>
+            <html:submit value="Send to Cart"/>
+        </html:form>
         <table class="my-table">
             <th width="25%">
 
@@ -73,8 +71,11 @@
             <th width="5%">
                 Rating
             </th>
-            <th width="70%">
+            <th width="65%">
                 Description
+            </th>
+            <th width="5%">
+                Info
             </th>
 
             <br />
@@ -82,9 +83,9 @@
 
             <c:forEach var="filmInStock" items="${listfilms}">
                 <tr>              
-                    <td> <c:out value="${filmInStock.title}"/> </td> 
+                    <td><c:out value="${filmInStock.title}"/> </td> 
                     <td> <c:out value="${filmInStock.rating}"/></td>  
-                    <td> <c:out value="${filmInStock.description}"/></td>
+                    <td> <c:out value="${filmInStock.description}"/></td>   
                 </tr>
             </c:forEach>
 
@@ -92,14 +93,11 @@
 
         </table>
 
-        <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-        <script>
-            $(document).ready(function(){
-                var links = document.getElementsByClassName("hyper");
-                for(i=0;i<links.length;i++){
-                    links[i].innerHTML = "<a href=\"filmPage.jsp?title=" + links[i].innerHTML + "\"> " + links[i].innerHTML + " </a>";
-                 }
-            });
-        </script>
+
     </body>
 </html>
+
+
+        
+            
+            
