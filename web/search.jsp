@@ -22,6 +22,7 @@
             function checkReps() {
                 if ("<%=(String)session.getAttribute("sessType")%>" == "man") {
                     document.getElementById("reps").style.display = "inline";
+                    document.getElementById("cart").style.display = "none";
                 }
             }
         </script>
@@ -34,7 +35,7 @@
             }
         %>
     </head>
-    
+    <body onload="checkReps()"> 
 
         <h1>
             <div class="align-left-banner">
@@ -42,6 +43,7 @@
                 <div class="align-right-banner">
                     <a href="profile.jsp">Profile</a> | 
                     <a id="reps" style="display:none" href="reports.jsp">Reports | </a>
+                    <a id="cart" style="display:inline" href="cart.jsp">Cart | </a>
                     <a href="home.jsp">Sign Out</a>
                 </div>
             </div>
@@ -103,13 +105,7 @@
                     <td> <c:out value="${filmInStock.description}"/></td>   
                 </tr>
             </c:forEach>
-
-
-
         </table>
-
-
-    
 </html>
 
 
