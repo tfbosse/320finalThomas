@@ -85,6 +85,7 @@ public class FilmDAO {
             } catch (SQLException ex) {
                 System.out.println("SQL statement is not executed!" + ex);
             }
+            con1.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -108,7 +109,7 @@ public class FilmDAO {
                 Statement lookUp = con1.createStatement();
                 ResultSet rs;
 
-                rs = lookUp.executeQuery("SELECT * from film where in_stock = 1");
+                rs = lookUp.executeQuery("SELECT * from film where in_stock > 0");
 
                 while (rs.next()) {
 
@@ -155,6 +156,7 @@ public class FilmDAO {
             } catch (SQLException ex) {
                 System.out.println("SQL statement is not executed!" + ex);
             }
+        
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -186,11 +188,11 @@ public class FilmDAO {
 
                     for (int x = 0; x < searchList.length; x++) {
                         if (field.equals("Rating") && searchList[x].toUpperCase().equals("PG")) {
-                            rs = lookUp.executeQuery("SELECT * FROM film WHERE rating = 'PG' and in_stock = 1");
+                            rs = lookUp.executeQuery("SELECT * FROM film WHERE rating = 'PG' and in_stock > 0");
                         } else {
 
                             rs = lookUp.executeQuery("SELECT * FROM film WHERE " + field + " LIKE '%" + searchList[x] + "%' "
-                                    + "and in_stock = 1");
+                                    + "and in_stock > 0");
                         }
 
                         while (rs.next()) {
@@ -370,9 +372,11 @@ public class FilmDAO {
             } catch (SQLException ex) {
                 System.out.println("SQL statement is not executed!" + ex);
             }
+              
         } catch (Exception e) {
             e.printStackTrace();
         }
+  
         return films;
     }
     
@@ -395,7 +399,7 @@ public class FilmDAO {
                 Statement stGenre = con1.createStatement();
                 ResultSet rsGenre;
 
-                rs = lookUp.executeQuery("SELECT * from film where in_stock = 1");
+                rs = lookUp.executeQuery("SELECT * from film where in_stock > 0");
 
                 while (rs.next()) {
 
@@ -441,6 +445,7 @@ public class FilmDAO {
             } catch (SQLException ex) {
                 System.out.println("SQL statement is not executed!" + ex);
             }
+            con1.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
