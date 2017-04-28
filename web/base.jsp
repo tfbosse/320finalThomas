@@ -25,7 +25,7 @@
         %>
     </head>
     <body>
-        
+        background-image: url("gopher.jpg");
         <h1>
             <div class="align-left-banner">
                 <a href="noise.jsp">Crimson Video Store</a>
@@ -37,16 +37,6 @@
                 </div>
             </div>
         </h1>
-        
-        <br/><br/><br/><br/>
-        
-    <center>
-        <a href="search.jsp">
-        <div text-align="center">
-        <img  width="75%" src="groundhog.png"/>
-        </div>
-        </a>
-    </center>
         
     </body>
 </html>
