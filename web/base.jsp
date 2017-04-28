@@ -38,15 +38,5 @@
             </div>
         </h1>
         
-        <br/><br/><br/><br/>
-        
-    <center>
-        <a href="search.jsp">
-        <div text-align="center">
-        <img  width="75%" src="groundhog.png"/>
-        </div>
-        </a>
-    </center>
-        
     </body>
 </html>
