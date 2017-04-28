@@ -16,7 +16,7 @@ import org.apache.struts.action.ActionMapping;
  *
  * @author jakeotey
  */
-public class FilmAction extends org.apache.struts.action.Action {
+public class CartAction extends org.apache.struts.action.Action {
 
     /* forward name="success" path="" */
     private static final String SUCCESS = "success";
@@ -35,18 +35,22 @@ public class FilmAction extends org.apache.struts.action.Action {
     public ActionForward execute(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
             throws Exception {
-
+        
         FilmDAO dao = new FilmDAO();
         FilmForm info = (FilmForm) form;
-
+        
+        String f, u;
+        
         HttpSession ses = request.getSession();
-        ses.setAttribute("title", info.getTitle());
-        info = dao.getAFilm(info.getTitle());
-        request.setAttribute("film", info);
-
-        System.out.println(info.getGenre());
-
+        ses.setAttribute("title", info.getTitle());       
+        f = (String) ses.getAttribute("title");      
+        System.out.println(f);
+        
+        u = (String) ses.getAttribute("sessID");    
+        System.out.println(u);
+        dao.insertIntoCart(f,u);
+        
         return mapping.findForward(SUCCESS);
-        //return null;
     }
 }
+
