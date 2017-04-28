@@ -47,7 +47,7 @@ public class CartAction extends org.apache.struts.action.Action {
         ses.setAttribute("title", info.getTitle());       
         f = (String) ses.getAttribute("title");      
         System.out.println(f);
-        
+        //
         u = (String) ses.getAttribute("sessID");    
         System.out.println(u);
         check = dao.fiveFilmCheck(u);
