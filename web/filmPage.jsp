@@ -92,7 +92,7 @@
         <br><br><br>
         
            <html:form action="/search">
-            <html:submit value="Go Back To Search"/>
+            <html:submit value="<<< Go Back To Search"/>
         </html:form>
         
         
