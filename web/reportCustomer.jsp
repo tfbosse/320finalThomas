@@ -57,33 +57,18 @@
             ArrayList<SignUpForm> customers = custdao.getAllCustomers();
             request.setAttribute("custList", customers);
         %>
-
+        
+        <html:link  action="/sort" paramId="custs" paramName="custList">Sort</html:link>
 
         <table class="my-table">
-            <th width="12.5%">
-                First Name 
-            </th>
-            <th width="15%">
-                Last Name
-            </th>
-            <th width="20%">
-                Email
-            </th>
-            <th width="15%">
-                Username
-            </th>
-            <th width="15%">
-                Address
-            </th>
-            <th width="12.5%">
-                City
-            </th>
-            <th width="5%">
-                State
-            </th>
-            <th width="5%">
-                Zip
-            </th>
+            <th width="12.5%">First Name</th>
+            <th width="15%">Last Name</th>
+            <th width="20%">Email</th>
+            <th width="15%">Username</th>
+            <th width="15%">Address</th>
+            <th width="12.5%">City</th>
+            <th width="5%">State</th>
+            <th width="5%">Zip</th>
 
             <c:forEach var="customer" items="${custList}">
                 <tr>
