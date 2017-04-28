@@ -7,6 +7,7 @@ package com.myapp.struts;
 
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -32,14 +33,13 @@ public class PaymentDAO {
             try {
 
                 Statement lookUp = con1.createStatement();
-                ResultSet rs;
-         
+                 
                 Timestamp ts = new Timestamp(System.currentTimeMillis());
                 Date date = new Date(ts.getTime());
 
-                rs = lookUp.executeQuery("SELECT * from rentals as r"
-                        + "join film as f"
-                        + "on r.film_id = f.film_id"
+                ResultSet rs = lookUp.executeQuery("SELECT * from rental as r "
+                        + "join film as f "
+                        + "on r.film_id = f.film_id "
                         + "where r.duedate <= "+ date);
 
                 while (rs.next()) {
@@ -51,11 +51,8 @@ public class PaymentDAO {
                   String duedate = rs.getString("due_date");
                    
 
-                 
-
                      CheckOutForm checkOut = new CheckOutForm(title, rentalid, rentaldate, returndate, duedate);
-               
-
+                     checkOuts.add(checkOut);
                 }
 
             } catch (SQLException ex) {
@@ -64,9 +61,7 @@ public class PaymentDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
         return checkOuts;
-
 }
     
      public ArrayList<CheckOutForm> getRentals (){
@@ -75,21 +70,17 @@ public class PaymentDAO {
         
         ArrayList<CheckOutForm> checkOuts = new ArrayList<CheckOutForm>();
        
-        
          try {
-
             try {
 
                 Statement lookUp = con1.createStatement();
                 ResultSet rs;
          
-                Timestamp ts = new Timestamp(System.currentTimeMillis());
-                Date date = new Date(ts.getTime());
 
-                rs = lookUp.executeQuery("SELECT * from rentals as r"
+                rs = lookUp.executeQuery("SELECT * from rental as r"
                         + "join film as f"
-                        + "on r.film_id = f.film_id"
-                        + "where r.duedate <= "+ date);
+                        + "on r.film_id = f.film_id");
+                     
 
                 while (rs.next()) {
 
@@ -99,12 +90,8 @@ public class PaymentDAO {
                   String returndate = rs.getString("return_date");
                   String duedate = rs.getString("due_date");
                    
-
-                 
-
                      CheckOutForm checkOut = new CheckOutForm(title, rentalid, rentaldate, returndate, duedate);
-               
-
+                     checkOuts.add(checkOut);
                 }
 
             } catch (SQLException ex) {
@@ -117,4 +104,32 @@ public class PaymentDAO {
         return checkOuts;
 
 }
+    @SuppressWarnings("empty-statement")
+     public int getTotalRevenue (){
+        int result = 0;
+         
+        DBConnectionUtil DBcon = new DBConnectionUtil();
+        Connection con1 = DBcon.getConnection();    
+        
+         try {
+            try {
+
+                PreparedStatement st = con1.prepareStatement("SELECT sum(penalty + sum(line_total) from rental");
+                ResultSet rs = st.executeQuery();
+              
+                 while (rs.next()) {
+                     result = rs.getInt(0);
+                  }
+                                 
+             
+            } catch (SQLException ex) {
+                System.out.println("SQL statement is not executed!" + ex);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+                
+         return result;
+     }
+         
 }

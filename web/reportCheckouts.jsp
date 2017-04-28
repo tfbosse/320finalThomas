@@ -41,7 +41,7 @@
         
         <div class="div-center">
         <h2 class="align-center">
-        <a class="my-link" href="reportCheckouts.jsp">Checkout Reports</a> | 
+        <a class="my-link" href="reportSales.jsp">Checkout Reports</a> | 
         <a class="my-link" href="reportCustomer.jsp">Customer Reports</a> | 
         <a class="my-link" href="reportInventory.jsp">Inventory Reports</a> | 
         <a class="my-link" href="reportRevenue.jsp">Revenue Reports</a>
