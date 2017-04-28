@@ -38,5 +38,11 @@
             </div>
         </h1>
         
+        <br/><br/><br/>
+        
+    <center>
+        <img src="welcome.gif"/>
+    </center>
+        
     </body>
 </html>
