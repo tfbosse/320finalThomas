@@ -74,9 +74,6 @@
             <th width="65%">
                 Description
             </th>
-            <th width="5%">
-                Info
-            </th>
 
             <br />
 
