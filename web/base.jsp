@@ -25,7 +25,7 @@
         %>
     </head>
     <body>
-        
+        background-image: url("gopher.jpg");
         <h1>
             <div class="align-left-banner">
                 <a href="noise.jsp">Crimson Video Store</a>
