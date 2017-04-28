@@ -73,11 +73,8 @@
             <th width="5%">
                 Rating
             </th>
-            <th width="65%">
+            <th width="70%">
                 Description
-            </th>
-            <th width="5%">
-                Info
             </th>
 
             <br />
