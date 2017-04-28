@@ -15,8 +15,16 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="stylesheet" href="fpcss.css" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Film Page</title>
+        <script>
+            function checkReps() {
+                if ("<%=(String)session.getAttribute("sessType")%>" == "man") {
+                    document.getElementById("reps").style.display = "inline";
+                }
+            }
+        </script>
         <%
             response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
             response.setHeader("Pragma", "no-cache");
@@ -24,71 +32,58 @@
             if (session.getAttribute("sessID") == null) {
                 response.sendRedirect("/FinalShitStruts/");
             }
-            //init dao
-            //call dao method: dao.method(session);
-                //in dao method -- use session to get title: session.getAttribute("title");
-                //use title to query db for other info
-                //then, session.setAttribute("other info", other info); for all variables
-            //in html:text tags set value="<%=session.getAttribute("whatever");percent>"
         %>
     </head>
-    <body>
+    <body onload="checkReps()">
+        
         <%
             FilmDAO pdao = new FilmDAO();
             pdao.setValues(session);
         %>
-        <h1>Hello World!</h1>
-         
-            
-            <table>
-            <th>
+
+        <h1>
+            <div class="align-left-banner">
+                <a href="noise.jsp">Crimson Video Store</a>
+                <div class="align-right-banner">
+                    <a href="profile.jsp">Profile</a> | 
+                    <a href="search.jsp">Search</a> | 
+                    <a style="display:none" id="reps" href="reports.jsp">Reports | </a>
+                    <a href="home.jsp">Sign Out</a>
+                </div>
+            </div>
+        </h1>
+        
+        <br/><br/><br/>
+
+        <table class="my-table">
+            <th width="100%">
                 Film 
             </th>
+        </table>
             <html:form action="/bullshit">
-                <div class="temo"></div>
-            <table>
-                
-                
-                <tr>
-                    <td>
-                        Title: <bean:write name="film" property="title" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Actors: <bean:write name="film" property="actor" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Genre: <bean:write name="film" property="genre" /> 
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Release Year: <bean:write name="film" property="releaseYear" /> 
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Rating: <bean:write name="film" property="rating" /> 
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Description: <bean:write name="film" property="description" /> 
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Length: <bean:write name="film" property="length" /> Minutes
-                    </td>
-                </tr>
+                <table class="my-table">
+                        <th width="10%">Title</th>
+                        <th width="37.5%">Actors</th>
+                        <th width="10%">Genre</th>
+                        <th width="5%">Release Year</th>
+                        <th width="2.5%">Rating</th>
+                        <th width="30%">Description</th>
+                        <th width="5%">Length</th>
 
-            </table>
+                    <tr>
+                        <td><bean:write name="film" property="title" /></td>
+                        <td><bean:write name="film" property="actor" /></td>
+                        <td><bean:write name="film" property="genre" /></td>
+                        <td><bean:write name="film" property="releaseYear" /></td>
+                        <td><bean:write name="film" property="rating" /></td>
+                        <td><bean:write name="film" property="description" /></td>
+                        <td><bean:write name="film" property="length" /> min</td>
+                    </tr>
+
+                </table>
             </html:form>
 
         </table>
-        
+
     </body>
 </html>

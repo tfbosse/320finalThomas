@@ -55,7 +55,7 @@
 
 
 
-        <html:form action="/search">
+        <html:form focus="searchType" action="/search">
             <html:text property="searchType"/>
             <html:text property="searchString"/>
             <html:submit value="Search"/>
@@ -85,14 +85,9 @@
 
             <c:forEach var="filmInStock" items="${listfilms}">
                 <tr>              
-                    <td class="hyper"> <c:out value="${filmInStock.title}"/> </td> 
+                    <td> <c:out value="${filmInStock.title}"/> </td> 
                     <td> <c:out value="${filmInStock.rating}"/></td>  
-                    <td> <c:out value="${filmInStock.description}"/></td> 
-
-
-
-
-                    <td align="center"> <html:submit property="${filmInStock.title}" value="Info"/></td>
+                    <td> <c:out value="${filmInStock.description}"/></td>
                 </tr>
             </c:forEach>
 
