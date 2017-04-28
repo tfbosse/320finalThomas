@@ -70,8 +70,12 @@
             <forward name="success" path="/reportCustomer.jsp" />
             <forward name="failure" path="/manager.jsp" />
         </action>
+        
         <action input="/filmPage.jsp" name="FilmForm" path="/GetAFilm" scope="session" type="com.myapp.struts.FilmAction">
-            
+        </action>
+        
+        <action input="/" name="SignUpForm" path="/sort" scope="session" type="com.myapp.struts.SortAction">
+            <forward name="success" path="/reportCustomer.jsp" />
         </action>
        
        
