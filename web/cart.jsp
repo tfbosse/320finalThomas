@@ -25,6 +25,9 @@
             if (session.getAttribute("sessID") == null) {
                 response.sendRedirect("/FinalShitStruts/");
             }
+            if (session.getAttribute("sessType") == "man") {
+                response.sendRedirect("/FinalShitStruts/noise.jsp");
+            }
         %>
     </head>
     <body>
@@ -35,6 +38,7 @@
                 <div class="align-right-banner">
                     <a href="search.jsp">Search</a> |  
                     <a href="profile.jsp">Profile</a> | 
+                    <a href="wishList.jsp">Wish List</a> | 
                     <a href="home.jsp">Sign Out</a>
                 </div>
             </div>
@@ -49,10 +53,6 @@
         </sql:query>
 
             <br/><br/><br/>
-            
-            <html:form action="/search">
-            <html:submit value="<<< Go Back To Search"/>
-        </html:form>
 
         <table class="my-table">
             <tr>

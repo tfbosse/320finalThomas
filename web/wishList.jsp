@@ -15,6 +15,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="stylesheet" href="fpcss.css" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Wish List Page</title>
         <%
@@ -23,6 +24,9 @@
             response.setDateHeader("Expires", 0);
             if (session.getAttribute("sessID") == null) {
                 response.sendRedirect("/FinalShitStruts/");
+            }
+            if (session.getAttribute("sessType") == "man") {
+                response.sendRedirect("/FinalShitStruts/noise.jsp");
             }
         %>
     </head>

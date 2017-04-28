@@ -24,6 +24,8 @@
                     document.getElementById("reps").style.display = "inline";
                     document.getElementById("cart").style.display = "none";
                     document.getElementById("sendToCart").style.display = "none";
+                    document.getElementById("wishlist").style.display = "none";
+                    document.getElementById("sendToWish").style.display = "none";
                 }
             }
         </script>
@@ -45,18 +47,19 @@
                     <a href="profile.jsp">Profile</a> | 
                     <a id="reps" style="display:none" href="reports.jsp">Reports | </a>
                     <a id="cart" style="display:inline" href="cart.jsp">Cart | </a>
+                    <a id="wishlist" sytle="display:inline" href="wishList.jsp">Wish List | </a>
                     <a href="home.jsp">Sign Out</a>
                 </div>
             </div>
         </h1>
 
-        <br /><br /><br />
+        
 
         <sql:setDataSource var="source" driver="com.mysql.jdbc.Driver"
                            url="jdbc:mysql://localhost:3306/sakila"
                            user="root"  password="nbuser"/>
 
-
+<br /><br /><br /><br/><br/>
 
         <html:form action="/search">
             <html:select property="searchType" >
@@ -70,12 +73,16 @@
             <html:text property="searchString"/>
             <html:submit value="Search"/>
         </html:form>
+                
+                <br/>
 
         Please Enter the Title of the Film you would like to have more Information on 
         <html:form action="/moreInfo">
             <html:text property="title"/>
             <html:submit value="More Info"/>
         </html:form>
+        
+        <br/>
 
         <div style="display:block" id="sendToCart">
             Please Enter the Title of the Film you would like to Send to the Cart 
@@ -85,12 +92,14 @@
             </html:form>
         </div>
 
+        <br/>
+        
+        <div stype="display:block" id="sendToWish">
+        Please Enter the Title of the Film you would like to Send to the Wish List
         <html:form action="/sendToWishList">
             <html:text property="title"/>
             <html:submit value="Send to Wish List"/>   
         </html:form>
-
-        <a href="wishList.jsp">Go to Wish List</a> 
 
 
         <table class="my-table">
