@@ -91,7 +91,7 @@
             <forward name="success" path="/wishList.jsp" />
             <forward name="failure" path="/search.jsp" />
         </action>
-       
+        
        
     </action-mappings>
     

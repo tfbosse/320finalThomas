@@ -25,6 +25,7 @@
         %>
     </head>
     <body>
+
         <h1>
             <div class="align-left-banner">
                 <a href="noise.jsp">Crimson Video Store</a>

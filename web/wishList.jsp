@@ -43,6 +43,7 @@
         <h1></h1>
 
         <table>
+            
             <tr>
                 <th>Title</th>
                 <th>Rating</th>

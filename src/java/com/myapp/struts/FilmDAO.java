@@ -593,7 +593,7 @@ public class FilmDAO {
         }
    }
             
-                    public void insertIntoWishList(String title, String username) throws SQLException{
+    public void insertIntoWishList(String title, String username) throws SQLException{
        DBConnectionUtil DBcon = new DBConnectionUtil();
         Connection con1 = DBcon.getConnection();
         
@@ -663,8 +663,41 @@ public class FilmDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
-       
-   }
+    }
+   
+  
+                    
+      public boolean fiveFilmCheck(String custID){
+        DBConnectionUtil DBcon = new DBConnectionUtil();
+        Connection con1 = DBcon.getConnection();
+          boolean check = true;
+          int count = 0;
+          
+          try{
+              try{
+                  
+                  PreparedStatement st = con1.prepareStatement("SELECT count(*) from cart where customer_id =?");
+                  st.setString(1, custID);
+                  
+                  ResultSet rs = st.executeQuery();
+                  
+                  int result;
+                  while (rs.next()) {
+                      result = rs.getInt(0);
+                  }
+                  
+              }
+              catch (Exception e) {
+            e.printStackTrace();
+              }
+            
+          }catch (Exception e) {
+            e.printStackTrace();
+          }
+          
+          return check;
+      }
+          
 }
 
 //TODO 

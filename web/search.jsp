@@ -100,7 +100,7 @@
             <html:text property="title"/>
             <html:submit value="Send to Wish List"/>   
         </html:form>
-        </div>
+
 
         <table class="my-table">
             <th width="25%">
