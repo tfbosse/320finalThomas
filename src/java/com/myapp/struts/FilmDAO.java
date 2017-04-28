@@ -327,7 +327,7 @@ public class FilmDAO {
                                 + "on f.film_id = fc.film_id "
                                 + "join category as c "
                                 + "on c.category_id = fc.category_id "
-                                + "where c.name LIKE '" + searchList[x] + "'");
+                                + "where c.name LIKE '%" + searchList[x] + "%'");
 
                         while (rs.next()) {
 
