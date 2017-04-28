@@ -48,7 +48,7 @@
         <br />
         <html:errors />
         <br />
-        <html:form action="/update" >
+        <html:form action="/update" focus="firstname">
             <table styleClass=".my-table">
                 <tr>
                     <td>First Name: </td>

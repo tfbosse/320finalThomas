@@ -45,7 +45,7 @@
         <br />
         <html:errors />
         <br />
-        <html:form action="/manupdate" >
+        <html:form action="/manupdate" focus="firstname">
             <table>
                 <tr>
                     <td>First Name: </td>
