@@ -20,7 +20,7 @@
         <title>Search Page</title>
         <script>
             function checkReps() {
-                if ("<%=(String)session.getAttribute("sessType")%>" == "man") {
+                if ("<%=(String) session.getAttribute("sessType")%>" == "man") {
                     document.getElementById("reps").style.display = "inline";
                     document.getElementById("cart").style.display = "none";
                     document.getElementById("sendToCart").style.display = "none";
@@ -60,33 +60,39 @@
 
         <html:form action="/search">
             <html:select property="searchType" >
-                
                 <html:option value="Search Criteria">(Search Criteria)</html:option>
                 <html:option value="Title" >Title</html:option>
                 <html:option value="Genre">Genre</html:option>
                 <html:option value="Actor">Actor</html:option>
                 <html:option value="Release Year">Release Year</html:option>
                 <html:option value="Rating">Rating</html:option>
-           
             </html:select>
             <html:text property="searchString"/>
             <html:submit value="Search"/>
         </html:form>
-                
+
         Please Enter the Title of the Film you would like to have more Information on 
         <html:form action="/moreInfo">
             <html:text property="title"/>
             <html:submit value="More Info"/>
         </html:form>
-        
+
         <div style="display:block" id="sendToCart">
-        Please Enter the Title of the Film you would like to Send to the Cart 
-        <html:form action="/sendToCart">
-            <html:text property="title"/>
-            <html:submit value="Send to Cart"/>
-        </html:form>
+            Please Enter the Title of the Film you would like to Send to the Cart 
+            <html:form action="/sendToCart">
+                <html:text property="title"/>
+                <html:submit value="Send to Cart"/>
+            </html:form>
         </div>
-        
+
+        <html:form action="/sendToWishList">
+            <html:text property="title"/>
+            <html:submit value="Send to Wish List"/>   
+        </html:form>
+
+        <a href="/wishList.jsp">Go To Wish List</a>
+
+
         <table class="my-table">
             <th width="25%">
 
