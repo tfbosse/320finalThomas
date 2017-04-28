@@ -11,7 +11,7 @@ package com.myapp.struts;
  */
 public class FilmForm extends org.apache.struts.action.ActionForm {
     
-    private String title, actor, genre, releaseYear, rating, description,length, shownTitle;
+    private String title, actor, genre, releaseYear, rating, description, length, shownTitle;
     
     public FilmForm(){
         super();
