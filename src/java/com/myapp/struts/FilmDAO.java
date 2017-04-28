@@ -681,9 +681,9 @@ public class FilmDAO {
                   
                   ResultSet rs = st.executeQuery();
                   
-                  int result;
+                  
                   while (rs.next()) {
-                      result = rs.getInt(0);
+                      count = rs.getInt(0);
                   }
                   
               }
@@ -693,6 +693,12 @@ public class FilmDAO {
             
           }catch (Exception e) {
             e.printStackTrace();
+          }
+          if(count<=5){
+              check = true;
+          }
+          else{
+              check = false;
           }
           
           return check;
