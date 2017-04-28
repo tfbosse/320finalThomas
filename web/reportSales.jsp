@@ -4,7 +4,12 @@
     Author     : landr
 --%>
 
+<%@page import="com.myapp.struts.CheckOutForm"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.myapp.struts.PaymentDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -42,6 +47,31 @@
         <a class="my-link" href="reportRevenue.jsp">Revenue Reports</a>
         </h2>
         </div>
+        
+          <%
+           PaymentDAO cDAO = new PaymentDAO();
+            ArrayList<CheckOutForm> checkOuts = cDAO.getRentals();
+            request.setAttribute("listCheckOuts", checkOuts);
+        %>
+
+        <table class="my-table">
+            <th width="30%">Title</th>
+            <th width="10%">Rating</th>
+            <th width="20%">Description</th>
+            <th width="20%">Actor(s)</th>
+            <th width="20%">Genre</th>
+        <c:forEach var="checkouts" items="${listCheckOuts}">
+        <tr>              
+            <td><c:out value="${checkouts.title}"/></td> 
+            <td> <c:out value="${checkouts.rentalid}"/></td>  
+            <td> <c:out value="${checkouts.rentaldate}"/></td> 
+            <td> <c:out value="${checkouts.returndate}"/></td> 
+            <td> <c:out value="${checkouts.duedate}"/></td>
+        </td>
+    </tr>
+</c:forEach>
+        </table>
+        
         
     </body>
 </html>

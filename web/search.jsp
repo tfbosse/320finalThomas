@@ -34,7 +34,7 @@
             }
         %>
     </head>
-    <body onload="checkReps()">
+    
 
         <h1>
             <div class="align-left-banner">
@@ -109,7 +109,7 @@
         </table>
 
 
-    </body>
+    
 </html>
 
 
