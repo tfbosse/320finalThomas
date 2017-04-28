@@ -23,6 +23,7 @@
                 if ("<%=(String)session.getAttribute("sessType")%>" == "man") {
                     document.getElementById("reps").style.display = "inline";
                     document.getElementById("cart").style.display = "none";
+                    document.getElementById("sendToCart").style.display = "none";
                 }
             }
         </script>
@@ -77,12 +78,15 @@
             <html:text property="title"/>
             <html:submit value="More Info"/>
         </html:form>
-
+        
+        <div style="display:block" id="sendToCart">
         Please Enter the Title of the Film you would like to Send to the Cart 
         <html:form action="/sendToCart">
             <html:text property="title"/>
             <html:submit value="Send to Cart"/>
         </html:form>
+        </div>
+        
         <table class="my-table">
             <th width="25%">
 
