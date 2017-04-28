@@ -72,8 +72,13 @@
         </action>
         
         <action input="/filmPage.jsp" name="FilmForm" path="/GetAFilm" scope="session" type="com.myapp.struts.FilmAction">
+      </action>
+        
+       <action input="/" name="FilmForm" path="/sendToCart" scope="session" type="com.myapp.struts.CartAction">
+            <forward name="success" path="/cart.jsp" />
+            <forward name="failure" path="/search.jsp" />
         </action>
-       
+        
        
        
     </action-mappings>
