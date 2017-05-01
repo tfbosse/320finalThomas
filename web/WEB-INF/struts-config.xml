@@ -92,6 +92,10 @@
             <forward name="failure" path="/search.jsp" />
         </action>
         
+        <action input="/" name="FilmForm" path="/invFilter" scope="session" type="com.myapp.struts.InventoryFilter">
+            <forward name="success" path="/inventory.jsp" />
+        </action>
+        
        
     </action-mappings>
     
