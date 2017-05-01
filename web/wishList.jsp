@@ -50,7 +50,7 @@
                     <a href="search.jsp">Search</a> |  
                     <a href="profile.jsp">Profile</a> | 
                     <a href="cart.jsp">Cart</a> | 
-                    <a href="wishList.jsp">Wish List</a> | 
+                    <a class="blue-link" href="wishList.jsp">Wish List</a> | 
                     <a href="customer.jsp">Customer</a> | 
                     <a href="home.jsp">Sign Out</a>
                 </div>
@@ -58,7 +58,7 @@
         </h1>
             
             <br/><br/><br/>
-            <h3>Wish List</h3>
+            
 
         <table class="my-table">
             

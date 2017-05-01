@@ -31,14 +31,12 @@
                     <a href="profile.jsp">Profile</a> | 
                     <a href="cart.jsp">Cart</a> | 
                     <a href="wishList.jsp">Wish List</a> | 
-                    <a href="customer.jsp">Customer</a> | 
+                    <a class="blue-link" href="customer.jsp">Customer</a> | 
                     <a href="home.jsp">Sign Out</a>
                 </div>
             </div>
         </h1>
         
-        <br/>
-        <h3>Customer History</h3>
         
         <%
             HttpSession ses = request.getSession();
@@ -49,12 +47,13 @@
             request.setAttribute("hlist",hlist);
         %>
         
-       
+
+        <br/><br/><br/>
         
-        <table>
+        <table class="my-table">
             <th width="12.5%">Title</th>
-            <th width="15%">Return Date</th>
-            <th width="20%">Rental Date</th>
+            <th width="15%">Rental Date</th>
+            <th width="20%">Return Date</th>
             <th width="15%">Cost</th>
             <th width="15%">Penalty</th>
             

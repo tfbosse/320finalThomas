@@ -50,7 +50,7 @@
             <div class="align-left-banner">
                 <a href="noise.jsp">Crimson Video Store</a>
                 <div class="align-right-banner">
-                    <a href="search.jsp">Search</a> | 
+                    <a class="blue-link" href="search.jsp">Search</a> | 
                     <a href="profile.jsp">Profile</a> | 
                     <div style="display:none" id="reps" ><a href="reports.jsp">Reports</a> | </div>
                     <div style="display:inline" id="cart"><a href="cart.jsp">Cart</a> | </div>
@@ -62,11 +62,7 @@
             </div>
         </h1>
         
-        <br/><br/><br/>
-        
-        <h3>
-            Film Detail
-        </h3>
+        <br/><br/>
 
         <br/>
         <table class="my-table">

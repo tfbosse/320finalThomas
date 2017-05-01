@@ -38,7 +38,7 @@
                 <a href="noise.jsp">Crimson Video Store</a>
                 <div class="align-right-banner">
                     <a href="search.jsp">Search</a> | 
-                    <a href="profile.jsp">Profile</a> | 
+                    <a class="blue-link" href="profile.jsp">Profile</a> | 
                     <a href="cart.jsp">Cart</a> | 
                     <a href="wishList.jsp">Wish List</a> | 
                     <a href="customer.jsp">Customer</a> | 
@@ -47,8 +47,6 @@
             </div>
         </h1>
         
-        <br/>
-        <h3>Profile</h3>
         
         <br />
         <br />
