@@ -16,7 +16,7 @@
             response.setHeader("Pragma", "no-cache");
             response.setDateHeader("Expires", 0);
             if (session.getAttribute("sessID") == null) {
-                response.sendRedirect("/FinalShitStruts/");
+                response.sendRedirect("/FinalStruts/");
             }
         %>
     </head>

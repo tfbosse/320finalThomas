@@ -18,10 +18,10 @@
             response.setHeader("Pragma", "no-cache");
             response.setDateHeader("Expires", 0);
             if (session.getAttribute("sessID") == null) {
-                response.sendRedirect("/FinalShitStruts/");
+                response.sendRedirect("/FinalStruts/");
             }
             if ((String)session.getAttribute("sessType") == "man") {
-                response.sendRedirect("/FinalShitStruts/manbase.jsp");
+                response.sendRedirect("/FinalStruts/manbase.jsp");
             }
         %>
     </head>
