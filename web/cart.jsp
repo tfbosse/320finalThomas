@@ -38,7 +38,9 @@
                 <div class="align-right-banner">
                     <a href="search.jsp">Search</a> |  
                     <a href="profile.jsp">Profile</a> | 
+                    <a href="cart.jsp">Cart</a> | 
                     <a href="wishList.jsp">Wish List</a> | 
+                    <a href="customer.jsp">Customer</a> | 
                     <a href="home.jsp">Sign Out</a>
                 </div>
             </div>

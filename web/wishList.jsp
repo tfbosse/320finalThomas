@@ -40,15 +40,29 @@
             SELECT F.title, F.rating, F.description from film as F join wish_list_detail as C on F.film_id=C.film_id where F.film_id=C.film_id;
         </sql:query>
         
-        <h1></h1>
+        <h1>
+            <div class="align-left-banner">
+                <a href="noise.jsp">Crimson Video Store</a>
+                <div class="align-right-banner">
+                    <a href="search.jsp">Search</a> |  
+                    <a href="profile.jsp">Profile</a> | 
+                    <a href="cart.jsp">Cart</a> | 
+                    <a href="wishList.jsp">Wish List</a> | 
+                    <a href="customer.jsp">Customer</a> | 
+                    <a href="home.jsp">Sign Out</a>
+                </div>
+            </div>
+        </h1>
+            
+            <br/><br/><br/>
 
-        <table>
+        <table class="my-table">
             
             <tr>
-                <th>Title</th>
-                <th>Rating</th>
-                <th>Cost</th>
-                <th>Description</th>
+                <th width="20%">Title</th>
+                <th width="5%">Rating</th>
+                <th width="5%">Cost</th>
+                <th width="70%">Description</th>
             </tr>
            <c:forEach var="filmInCart" items="${wishFilms.rows}">
                 <tr>              

@@ -26,7 +26,7 @@
         %>
     </head>
     <body>
-        
+
         <h1>
             <div class="align-left-banner">
                 <a href="noise.jsp">Crimson Video Store</a>
@@ -34,22 +34,26 @@
                     <a href="search.jsp">Search</a> | 
                     <a href="profile.jsp">Profile</a> | 
                     <a href="reports.jsp">Reports</a> | 
+                    <a href="inventory.jsp">Inventory</a> | 
                     <a href="home.jsp">Sign Out</a>
                 </div>
             </div>
         </h1>
-        
+
         <div class="div-center">
-        <h2 class="align-center">
-        <a class="my-link" href="reportCheckouts.jsp">Checkout Reports</a> | 
-        <a class="my-link" href="reportCustomer.jsp">Customer Reports</a> | 
-        <a class="my-link" href="reportInventory.jsp">Inventory Reports</a> | 
-        <a class="my-link" href="reportRevenue.jsp">Revenue Reports</a>
-        </h2>
+
+            <h2 class="align-center">
+                <a class="my-link" href="reportCheckouts.jsp">Checkout Reports</a> | 
+                <a class="my-link" href="reportCustomer.jsp">Customer Reports</a> | 
+                <a class="my-link" href="reportInventory.jsp">Inventory Reports</a> | 
+                <a class="my-link" href="reportSales.jsp">Rental Reports</a> | 
+                <a class="my-link" href="reportRevenue.jsp">Revenue Reports</a>
+            </h2>
+
         </div>
-        
-          <%
-           PaymentDAO cDAO = new PaymentDAO();
+
+        <%
+            PaymentDAO cDAO = new PaymentDAO();
             ArrayList<CheckOutForm> checkOuts = cDAO.getCheckouts();
             request.setAttribute("listCheckOuts", checkOuts);
         %>
@@ -60,18 +64,18 @@
             <th width="20%">Description</th>
             <th width="20%">Actor(s)</th>
             <th width="20%">Genre</th>
-        <c:forEach var="checkouts" items="${listCheckOuts}">
-        <tr>              
-            <td><c:out value="${checkouts.title}"/></td> 
-            <td> <c:out value="${checkouts.rentalid}"/></td>  
-            <td> <c:out value="${checkouts.rentaldate}"/></td> 
-            <td> <c:out value="${checkouts.returndate}"/></td> 
-            <td> <c:out value="${checkouts.duedate}"/></td>
-        </td>
-    </tr>
-</c:forEach>
+                <c:forEach var="checkouts" items="${listCheckOuts}">
+                <tr>              
+                    <td><c:out value="${checkouts.title}"/></td> 
+                    <td> <c:out value="${checkouts.rentalid}"/></td>  
+                    <td> <c:out value="${checkouts.rentaldate}"/></td> 
+                    <td> <c:out value="${checkouts.returndate}"/></td> 
+                    <td> <c:out value="${checkouts.duedate}"/></td>
+                    </td>
+                </tr>
+            </c:forEach>
         </table>
-        
-        
+
+
     </body>
 </html>

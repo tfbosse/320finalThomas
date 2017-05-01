@@ -22,6 +22,11 @@
             function checkReps() {
                 if ("<%=(String)session.getAttribute("sessType")%>" == "man") {
                     document.getElementById("reps").style.display = "inline";
+                    document.getElementById("sendToCart").style.display = "none";
+                    document.getElementById("inv").style.display = "inline";
+                    document.getElementById("cart").style.display = "none";
+                    document.getElementById("wish").style.display = "none";
+                    document.getElementById("cust").style.display = "none";
                 }
             }
         </script>
@@ -45,9 +50,13 @@
             <div class="align-left-banner">
                 <a href="noise.jsp">Crimson Video Store</a>
                 <div class="align-right-banner">
-                    <a href="profile.jsp">Profile</a> | 
                     <a href="search.jsp">Search</a> | 
-                    <a style="display:none" id="reps" href="reports.jsp">Reports | </a>
+                    <a href="profile.jsp">Profile</a> | 
+                    <div style="display:none" id="reps" ><a href="reports.jsp">Reports</a> | </div>
+                    <div style="display:inline" id="cart"><a href="cart.jsp">Cart</a> | </div>
+                    <div style="display:inline" id="wish"><a href="wishList.jsp">Wish List</a> | </div>
+                    <div style="display:none" id="inv"><a href="inventory.jsp">Inventory</a> | </div>
+                    <div style="display:inline" id="cust"><a href="customer.jsp">Customer</a> | </div>
                     <a href="home.jsp">Sign Out</a>
                 </div>
             </div>
@@ -83,23 +92,18 @@
                 </table>
             </html:form><br>
             
+            <div style="display:block" id="sendToCart">
             <html:form action="/sendToCart">
                 <html:submit value="Send to Cart"/>
             </html:form>
+
             <br>
             <html:form action="/sendToWL">
                 <html:submit value="Send to Wish List"/>
             </html:form>
-        
-        
 
-        <br><br><br>
-        
-           <html:form action="/search">
-            <html:submit value="<<< Go Back To Search"/>
-        </html:form>
-        
-        
+            </div>
 
+        
     </body>
 </html>

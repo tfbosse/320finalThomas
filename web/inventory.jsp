@@ -1,7 +1,7 @@
 <%-- 
-    Document   : reportInventory
-    Created on : Apr 26, 2017, 6:48:08 PM
-    Author     : landr
+    Document   : inventory
+    Created on : Apr 28, 2017, 4:51:15 AM
+    Author     : Thomas
 --%>
 
 <%@page import="com.tfbosse.comparators.FilmGenreComp"%>
@@ -10,8 +10,8 @@
 <%@page import="com.tfbosse.comparators.FilmRatingComp"%>
 <%@page import="com.tfbosse.comparators.FilmTitleComp"%>
 <%@page import="java.util.Collections"%>
-<%@page import="com.myapp.struts.FilmForm"%>
 <%@page import="java.util.ArrayList"%>
+<%@page import="com.myapp.struts.FilmForm"%>
 <%@page import="com.myapp.struts.FilmDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -26,35 +26,35 @@
             function filterResults() {
                 var filter = "<%=request.getAttribute("filter")%>";
                 if (filter == "Title") {
-                    document.getElementById("bytitle").style.display = "block";
-                    document.getElementById("byrating").style.display = "none";
-                    document.getElementById("bydesc").style.display = "none";
-                    document.getElementById("byactor").style.display = "none";
-                    document.getElementById("bygenre").style.display = "none";
+                    document.getElementById("bytitleinv").style.display = "block";
+                    document.getElementById("byratinginv").style.display = "none";
+                    document.getElementById("bydescinv").style.display = "none";
+                    document.getElementById("byactorinv").style.display = "none";
+                    document.getElementById("bygenreinv").style.display = "none";
                 } else if (filter == "Rating") {
-                    document.getElementById("byrating").style.display = "block";
-                    document.getElementById("bytitle").style.display = "none";
-                    document.getElementById("bydesc").style.display = "none";
-                    document.getElementById("byactor").style.display = "none";
-                    document.getElementById("bygenre").style.display = "none";
+                    document.getElementById("bytitleinv").style.display = "none";
+                    document.getElementById("byratinginv").style.display = "block";
+                    document.getElementById("bydescinv").style.display = "none";
+                    document.getElementById("byactorinv").style.display = "none";
+                    document.getElementById("bygenreinv").style.display = "none";
                 } else if (filter == "Desc") {
-                    document.getElementById("bydesc").style.display = "block";
-                    document.getElementById("bytitle").style.display = "none";
-                    document.getElementById("byrating").style.display = "none";
-                    document.getElementById("byactor").style.display = "none";
-                    document.getElementById("bygenre").style.display = "none";
+                    document.getElementById("bytitleinv").style.display = "none";
+                    document.getElementById("byratinginv").style.display = "none";
+                    document.getElementById("bydescinv").style.display = "block";
+                    document.getElementById("byactorinv").style.display = "none";
+                    document.getElementById("bygenreinv").style.display = "none";
                 } else if (filter == "Actor") {
-                    document.getElementById("byactor").style.display = "block";
-                    document.getElementById("bytitle").style.display = "none";
-                    document.getElementById("byrating").style.display = "none";
-                    document.getElementById("bydesc").style.display = "none";
-                    document.getElementById("bygenre").style.display = "none";
+                    document.getElementById("bytitleinv").style.display = "none";
+                    document.getElementById("byratinginv").style.display = "none";
+                    document.getElementById("bydescinv").style.display = "none";
+                    document.getElementById("byactorinv").style.display = "block";
+                    document.getElementById("bygenreinv").style.display = "none";
                 } else if (filter == "Genre") {
-                    document.getElementById("bygenre").style.display = "block";
-                    document.getElementById("bytitle").style.display = "none";
-                    document.getElementById("byrating").style.display = "none";
-                    document.getElementById("bydesc").style.display = "none";
-                    document.getElementById("byactor").style.display = "none";
+                    document.getElementById("bytitleinv").style.display = "none";
+                    document.getElementById("byratinginv").style.display = "none";
+                    document.getElementById("bydescinv").style.display = "none";
+                    document.getElementById("byactorinv").style.display = "none";
+                    document.getElementById("bygenreinv").style.display = "block";
                 }
             }
         </script>
@@ -65,33 +65,14 @@
             if (session.getAttribute("sessID") == null) {
                 response.sendRedirect("/FinalShitStruts/");
             }
+            if (session.getAttribute("sessType") == "cust") {
+                response.sendRedirect("/FinalShitStruts/noise.jsp");
+            }
         %>
     </head>
+    
     <body onload="filterResults()">
-
-        <h1 id="top">
-            <div class="align-left-banner">
-                <a href="noise.jsp">Crimson Video Store</a>
-                <div class="align-right-banner">
-                    <a href="search.jsp">Search</a> | 
-                    <a href="profile.jsp">Profile</a> | 
-                    <a href="reports.jsp">Reports</a> | 
-                    <a href="inventory.jsp">Inventory</a> | 
-                    <a href="home.jsp">Sign Out</a>
-                </div>
-            </div>
-        </h1>
-
-        <div class="div-center">
-            <h2 class="align-center">
-                <a class="my-link" href="reportCheckouts.jsp">Checkout Reports</a> | 
-                <a class="my-link" href="reportCustomer.jsp">Customer Reports</a> | 
-                <a class="my-link" href="reportInventory.jsp">Inventory Reports</a> | 
-                <a class="my-link" href="reportSales.jsp">Rental Reports</a> | 
-                <a class="my-link" href="reportRevenue.jsp">Revenue Reports</a>
-            </h2>
-        </div>
-
+        
         <%
             FilmDAO fdao = new FilmDAO();
             ArrayList<FilmForm> films = fdao.getAllFilms();
@@ -112,9 +93,24 @@
             request.setAttribute("filmGenre", filmByGenre);
         %>
         
+        <h1>
+            <div class="align-left-banner">
+                <a href="noise.jsp">Crimson Video Store</a>
+                <div class="align-right-banner">
+                    <a href="search.jsp">Search</a> | 
+                    <a href="profile.jsp">Profile</a> | 
+                    <a href="reports.jsp">Reports</a> | 
+                    <a href="inventory.jsp">Inventory</a> | 
+                    <a href="home.jsp">Sign Out</a>
+                </div>
+            </div>
+        </h1>
+        
+        <br/><br/><br/>
+        
         <br/>
         
-        <html:form action="/invRepFilter">
+        <html:form action="/invFilter">
             <html:select property="field" >
                 
                 <html:option value="default">(Select a filter)</html:option>
@@ -130,7 +126,7 @@
                 
         <br/>
         
-        <table style="display:block" id="bytitle" class="my-table">
+        <table style="display:block" id="bytitleinv" class="my-table">
             <th width="15%">Title</th>
             <th width="5%">Rating</th>
             <th width="35%">Description</th>
@@ -148,7 +144,7 @@
             </c:forEach>
         </table>
         
-        <table style="display:none" id="byrating" class="my-table">
+        <table style="display:none" id="byratinginv" class="my-table">
             <th width="15%">Title</th>
             <th width="5%">Rating</th>
             <th width="35%">Description</th>
@@ -166,7 +162,7 @@
             </c:forEach>
         </table>
         
-        <table style="display:none" id="bydesc" class="my-table">
+        <table style="display:none" id="bydescinv" class="my-table">
             <th width="15%">Title</th>
             <th width="5%">Rating</th>
             <th width="35%">Description</th>
@@ -184,7 +180,7 @@
             </c:forEach>
         </table>
         
-        <table style="display:none" id="byactor" class="my-table">
+        <table style="display:none" id="byactorinv" class="my-table">
             <th width="15%">Title</th>
             <th width="5%">Rating</th>
             <th width="35%">Description</th>
@@ -202,7 +198,7 @@
             </c:forEach>
         </table>
         
-        <table style="display:none" id="bygenre" class="my-table">
+        <table style="display:none" id="bygenreinv" class="my-table">
             <th width="15%">Title</th>
             <th width="5%">Rating</th>
             <th width="35%">Description</th>
@@ -219,6 +215,6 @@
                 </tr>
             </c:forEach>
         </table>
-        
+    
     </body>
 </html>
