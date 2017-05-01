@@ -122,12 +122,18 @@
             <forward name="success" path="/checkout.jsp"/>
         </action>
         
+        <action input="/" name="FilmForm" path="/returnFilm" scope="session" type="com.myapp.struts.ReturnAction">
+            <forward name="success" path="/checkout.jsp" />
+        </action>
         
 
         <action input="/" name="FilmForm" path="/addFilm" scope="session" type="com.myapp.struts.AddFilm">
             <forward name="success" path="/inventory.jsp" />
             <forward name="failure" path="/addfilm.jsp" />
         </action>
+        
+        
+        
         
 
 

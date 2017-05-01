@@ -41,16 +41,16 @@
             </div>
         </h1>
         
-        <h3>Home</h3>
-        
         <br/><br/><br/>
         <%
          customerDAO cdao = new customerDAO();
          cdao.clearCart();   
         %>
         
+        <h3>Welcome, <%=session.getAttribute("sessID")%>!</h3>
+        
     <center>
-        <img src="welcome.gif"/>
+        <img src="welcome1.gif"/>
     </center>
         
     </body>

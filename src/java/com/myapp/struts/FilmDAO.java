@@ -253,7 +253,7 @@ public class FilmDAO {
                 Statement stGenre = con1.createStatement();
                 ResultSet rsGenre;
 
-                if (field.equals("Title") || field.equals("Release Year") || field.equals("Rating")) {
+                if (field.equals("Title") || field.equals("Release Year") || field.equals("Rating") ) {
 
                     for (int x = 0; x < searchList.length; x++) {
                         if (field.equals("Rating") && searchList[x].toUpperCase().equals("PG")) {
@@ -434,7 +434,71 @@ public class FilmDAO {
                             films.add(film);
                         }
                     }
-                } else {
+                }
+
+                
+                
+                else {
+                     for (int x = 0; x < searchList.length; x++) {
+                        rs = lookUp.executeQuery("select * from film as f "
+                                + "join film_actor as fa "
+                                + "on f.film_id = fa.film_id "
+                                + "join actor as a "
+                                + "on fa.actor_id = a.actor_id "
+                                + "join film_category as fc "
+                                + "on f.film_id = fc.film_id "
+                                + "join category as c "
+                                + "on fc.category_id = c.category_id "
+                                + "where f.title = '" + searchList[x] + "' or f.rating = '"+ searchList[x] +"' or "
+                                + "f.release_year = '" + searchList[x] + "' or a.first_name = '" + searchList[x]  
+                                + "' a.last_name = '" + searchList[x] + "' or c.name = '" + searchList[x] + "'");
+                        
+
+                        while (rs.next()) {
+
+                            String id = rs.getString("film_id");
+                            String title = rs.getString("title");
+                            String actor = "";
+                            String genre = "";
+                            String releaseYear = rs.getString("release_year");
+                            String rating = rs.getString("rating");
+                            String description = rs.getString("description");
+                            String length = rs.getString("length");
+
+                            rsActor = stActor.executeQuery("Select * from film_actor as fa "
+                                    + "                    join actor as a "
+                                    + "                    on fa.actor_id = a.actor_id "
+                                    + "                    where fa.film_id = '" + id + "'");
+
+                            int a = 0;
+                            while (rsActor.next()) {
+                                if (a > 0) {
+                                    actor += ", ";
+                                }
+                                a++;
+
+                                actor += rsActor.getString("first_name") + " " + rsActor.getString("last_name");
+                            }
+
+                            rsGenre = stGenre.executeQuery("Select * from film_category as fc "
+                                    + "                    join category as c "
+                                    + "                    on fc.category_id = c.category_id "
+                                    + "                    where fc.film_id = '" + id + "'");
+
+                            int g = 0;
+                            while (rsGenre.next()) {
+                                if (g > 0) {
+                                    genre += ", ";
+                                }
+
+                                genre += rsGenre.getString("name");
+                            }
+
+                            FilmForm film = new FilmForm(title, actor, genre, releaseYear, rating, description, length);
+                            films.add(film);
+                        }
+                    }
+                    
 
                 }
 
@@ -1111,6 +1175,9 @@ public class FilmDAO {
 
             }
 
+            
+            
+            
             java.sql.Date rentalDate = date;
             java.sql.Date lastUpdate = date;
 
@@ -1119,7 +1186,7 @@ public class FilmDAO {
             st4.setDate(2, rentalDate);
             st4.setDate(3, lastUpdate);
             st4.setInt(4, id);
-            st4.setNull(5, java.sql.Types.DATE);
+            st4.setDate(5, new Date(System.currentTimeMillis()+7*1440*60*1000));
             st4.setNull(6, java.sql.Types.DATE);
             st4.setInt(7, 5);
             st4.setInt(8, 0);
@@ -1133,6 +1200,62 @@ public class FilmDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    
+    public void returnFilm(String title){
+        DBConnectionUtil DBcon = new DBConnectionUtil();
+        Connection con1 = DBcon.getConnection();
+        int fid=0;
+        
+        try {
+            Timestamp ts = new Timestamp(System.currentTimeMillis());
+            Date date = new Date(ts.getTime());
+
+            PreparedStatement ps1 = con1.prepareStatement("SELECT film_id from film where title =?");
+            ps1.setString(1, title);
+            
+            ResultSet rs1 = ps1.executeQuery();
+            while (rs1.next()) {
+                fid = rs1.getInt("film_id");
+            }
+            
+            PreparedStatement ps2 = con1.prepareStatement("UPDATE film set in_stock=in_stock+1 where film_id=?");
+            ps2.setInt(1, fid);
+
+            ps2.execute();
+            
+            
+            PreparedStatement ps3 = con1.prepareStatement("UPDATE rental set return_date=? where film_id=?");
+            ps3.setDate(1, date);
+            ps3.setInt(2, fid);
+
+            ps3.execute();
+            
+            //update penalty here 
+            
+            
+            
+            PreparedStatement ps4 = con1.prepareStatement("UPDATE rental set line_total=line_total + penalty where film_id=?");
+            ps4.setInt(1, fid);
+            ps4.execute();
+            
+
+            
+            
+        }
+            catch (SQLException ex) {
+            System.out.println("SQL statement is not executed!" + ex);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+            
+            
+            
+        
+        
+        
+        
+        
     }
 
 }
