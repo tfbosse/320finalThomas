@@ -68,8 +68,8 @@
                 <tr>              
                     <td><c:out value="${checkouts.title}"/></td> 
                     <td> <c:out value="${checkouts.rentalid}"/></td>  
-                    <td> <c:out value="${checkouts.rentaldate}"/></td> 
-                    <td> <c:out value="${checkouts.returndate}"/></td> 
+                    <td> <c:out value="${checkouts.startdate}"/></td> 
+                    <td> <c:out value="${checkouts.enddate}"/></td> 
                     <td> <c:out value="${checkouts.duedate}"/></td>
                     </td>
                 </tr>

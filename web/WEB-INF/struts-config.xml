@@ -7,6 +7,7 @@
 
 <struts-config>
     <form-beans>
+        <form-bean name="InventoryAssorted" type="com.myapp.struts.InventoryAssorted"/>
         <form-bean name="InfoActionForm" type="com.myapp.struts.InfoActionForm"/>
         <form-bean name="UpdateForm" type="com.myapp.struts.UpdateForm"/>
         <form-bean name="LoginForm" type="com.myapp.struts.LoginForm"/>
@@ -102,11 +103,12 @@
             <forward name="success" path="/wishList.jsp" />
             <forward name="failure" path="/wishList.jsp" />
         </action>
-        
-        
-        
 
         <action input="/" name="FilmForm" path="/invFilter" scope="session" type="com.myapp.struts.InventoryFilter">
+            <forward name="success" path="/inventory.jsp" />
+        </action>
+        
+        <action input="/" name="InventoryAssorted" path="/invDelete" scope="session" type="com.myapp.struts.InventoryDelete">
             <forward name="success" path="/inventory.jsp" />
         </action>
         
