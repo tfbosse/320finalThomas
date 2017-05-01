@@ -43,25 +43,38 @@ public class CartAction extends org.apache.struts.action.Action {
         
         FilmDAO dao = new FilmDAO();
         FilmForm info = (FilmForm) form;
-        boolean check;
-        
+        boolean fiveCheck,sameCheck;
+        int error = 0;
         String f, u;
         
         HttpSession ses = request.getSession();
         ses.setAttribute("title", info.getTitle());       
         f = (String) ses.getAttribute("title");      
-        System.out.println(f);
-        //
+        
         u = (String) ses.getAttribute("sessID");    
-        System.out.println(u);
-        check = dao.fiveFilmCheck(u);
-        System.out.println(check);
-        if(!check){
+        sameCheck = dao.sameFilmCheck(f);
+        fiveCheck = dao.fiveFilmCheck(u);
+        System.out.println(sameCheck);
+        if(sameCheck){
+            error = 1;
+        }
+        if(fiveCheck){
+            error = 2;
+        }
+        
+        if(!fiveCheck && !sameCheck){
+   
         dao.insertIntoCart(f,u);
         return mapping.findForward(SUCCESS);
+            
         }
         else{
+            if(error==2){
             errors.add("title", new ActionMessage("errors.cartfull"));
+            }
+            if(error==1){
+                errors.add("title", new ActionMessage("errors.sameFilm"));
+            }
             this.saveErrors(request, errors);
         return mapping.findForward(FAILURE);
         }
