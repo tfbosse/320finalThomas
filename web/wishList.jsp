@@ -4,6 +4,9 @@
     Author     : jakeotey
 --%>
 
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.myapp.struts.FilmForm"%>
+<%@page import="com.myapp.struts.customerDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="html" uri="http://struts.apache.org/tags-html" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -32,14 +35,14 @@
     </head>
     <body>
         
-        <sql:setDataSource var="snapshot" driver="com.mysql.jdbc.Driver"
-                           url="jdbc:mysql://localhost:3306/sakila?zeroDateTimeBehavior=convertToNull"
-                           user="root"  password="nbuser"/>
-
-        <sql:query dataSource="${snapshot}" var="wishFilms">
-            SELECT F.title, F.rating, F.description from film as F join wish_list_detail as C on F.film_id=C.film_id where F.film_id=C.film_id;
-        </sql:query>
-        
+        <%
+            HttpSession ses = request.getSession();
+            String u = (String) ses.getAttribute("sessID");
+            customerDAO custdao = new customerDAO();
+            ArrayList<FilmForm> flist = new ArrayList<FilmForm> ();
+            flist = custdao.getCustWishList(u);
+            request.setAttribute("flist",flist);
+        %>
         <h1>
             <div class="align-left-banner">
                 <a href="noise.jsp">Crimson Video Store</a>
@@ -64,7 +67,7 @@
                 <th width="5%">Cost</th>
                 <th width="70%">Description</th>
             </tr>
-           <c:forEach var="filmInCart" items="${wishFilms.rows}">
+           <c:forEach var="filmInCart" items="${flist}">
                 <tr>              
                     <td><c:out value="${filmInCart.title}"/> </td> 
                     <td> <c:out value="${filmInCart.rating}"/></td>  

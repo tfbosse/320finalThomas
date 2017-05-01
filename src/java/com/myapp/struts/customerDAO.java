@@ -17,7 +17,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-
 /**
  *
  * @author jakeotey
@@ -257,10 +256,10 @@ public class customerDAO {
                 String rentDate = df.format(rentalDate);
                 Date returnDate = rs1.getDate("return_date");
                 String retDate = df.format(returnDate);
-                Double penalty =  rs1.getDouble("penalty");
+                Double penalty = rs1.getDouble("penalty");
                 String pen = penalty.toString();
 
-                hist = new History(title,rentDate,retDate,cost,pen);
+                hist = new History(title, rentDate, retDate, cost, pen);
                 hlist.add(hist);
             }
 
@@ -269,6 +268,52 @@ public class customerDAO {
         }
 
         return hlist;
+    }
+
+    public ArrayList<FilmForm> getCustWishList(String username) {
+        ArrayList<FilmForm> flist = new ArrayList<FilmForm>();
+        DBConnectionUtil DBcon = new DBConnectionUtil();
+        Connection con1 = DBcon.getConnection();
+        FilmForm hist;
+        int id = 0;
+        try {
+            ResultSet rs, rs1;
+            PreparedStatement ps2 = con1.prepareStatement("SELECT customer_id from customer where username =?");
+            ps2.setString(1, username);
+
+            rs = ps2.executeQuery();
+            while (rs.next()) {
+                id = rs.getInt("customer_id");
+            }
+
+            PreparedStatement ps = con1.prepareStatement("SELECT F.title, F.rating, F.description  from wish_list_detail as W join film as F on W.film_id = F.film_id  where W.customer_id = ?");
+            ps.setInt(1, id);
+            rs1 = ps.executeQuery();
+            while (rs1.next()) {
+                String title = rs1.getString("title");
+                String rating = rs1.getString("rating");
+                String desc = rs1.getString("description");
+
+                hist = new FilmForm(title, rating, desc);
+                flist.add(hist);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return flist;
+    }
+
+    public void clearCart() {
+        DBConnectionUtil DBcon = new DBConnectionUtil();
+        Connection con1 = DBcon.getConnection();
+        try{
+        PreparedStatement ps2 = con1.prepareStatement("delete from cart");
+        ps2.execute();
+        }catch (Exception e) {
+            e.printStackTrace(); 
+        }
+
     }
 
 }
