@@ -83,9 +83,9 @@
             }
         %>
     </head>
-    
+
     <body onload="filterResults()">
-        
+
         <%
             FilmDAO fdao = new FilmDAO();
             ArrayList<FilmForm> films = fdao.getAllForReport();
@@ -108,7 +108,7 @@
             request.setAttribute("filmGenre", filmByGenre);
             request.setAttribute("filmCount", filmByCount);
         %>
-        
+
         <h1>
             <div class="align-left-banner">
                 <a href="noise.jsp">Crimson Video Store</a>
@@ -121,14 +121,28 @@
                 </div>
             </div>
         </h1>
-        
+
         <br/><br/><br/>
+
         
-        <br/>
-        
+
+    <br/>
+
+    <a class="my-link" href="addfilm.jsp">Add a film</a>
+
+    <br/><br/>
+
+    Enter the title of the film you wish to delete:
+    <html:form action="/invDelete">
+        <html:text property="todelete" />
+        <html:submit value="Delete" />
+    </html:form>
+    
+    <br/>
+
         <html:form action="/invFilter">
             <html:select property="field" >
-                
+
                 <html:option value="default">(Select a filter)</html:option>
                 <html:option value="Title">Title</html:option>
                 <html:option value="Rating" >Rating</html:option>
@@ -136,139 +150,131 @@
                 <html:option value="Actor">Actor</html:option>
                 <html:option value="Genre">Genre</html:option>
                 <html:option value="Count">Number In Stock</html:option>
-           
+
             </html:select>
             <html:submit value="Sort"/>
         </html:form>
-                
-        <br/>
-        
-        Enter the title of the film you wish to delete:
-        <html:form action="/invDelete">
-            <html:text property="todelete" />
-            <html:submit value="Delete" />
-        </html:form>
-        
-        <br/>
-        
-        <table style="display:block" id="bytitleinv" class="my-table">
-            <th width="15%">Title</th>
-            <th width="5%">Rating</th>
-            <th width="35%">Description</th>
-            <th width="30%">Actor(s)</th>
-            <th width="10%">Genre</th>
-            <th width="10%">In Stock</th>
-                <c:forEach var="filmInStock" items="${filmTitle}">
-                <tr>              
-                    <td><c:out value="${filmInStock.title}"/></td> 
-                    <td> <c:out value="${filmInStock.rating}"/></td>  
-                    <td> <c:out value="${filmInStock.description}"/></td> 
-                    <td> <c:out value="${filmInStock.actor}"/></td> 
-                    <td> <c:out value="${filmInStock.genre}"/></td>
-                    <td> <c:out value="${filmInStock.instock}"/></td>
-                </tr>
-            </c:forEach>
-        </table>
-        
-        <table style="display:none" id="byratinginv" class="my-table">
-            <th width="15%">Title</th>
-            <th width="5%">Rating</th>
-            <th width="35%">Description</th>
-            <th width="30%">Actor(s)</th>
-            <th width="10%">Genre</th>
-            <th width="10%">In Stock</th>
-                <c:forEach var="filmInStock" items="${filmRating}">
-                <tr>              
-                    <td><c:out value="${filmInStock.title}"/></td> 
-                    <td> <c:out value="${filmInStock.rating}"/></td>  
-                    <td> <c:out value="${filmInStock.description}"/></td> 
-                    <td> <c:out value="${filmInStock.actor}"/></td> 
-                    <td> <c:out value="${filmInStock.genre}"/></td>
-                    <td> <c:out value="${filmInStock.instock}"/></td>
-                    </td>
-                </tr>
-            </c:forEach>
-        </table>
-        
-        <table style="display:none" id="bydescinv" class="my-table">
-            <th width="15%">Title</th>
-            <th width="5%">Rating</th>
-            <th width="35%">Description</th>
-            <th width="30%">Actor(s)</th>
-            <th width="10%">Genre</th>
-            <th width="10%">In Stock</th>
-                <c:forEach var="filmInStock" items="${filmDesc}">
-                <tr>              
-                    <td><c:out value="${filmInStock.title}"/></td> 
-                    <td> <c:out value="${filmInStock.rating}"/></td>  
-                    <td> <c:out value="${filmInStock.description}"/></td> 
-                    <td> <c:out value="${filmInStock.actor}"/></td> 
-                    <td> <c:out value="${filmInStock.genre}"/></td>
-                    <td> <c:out value="${filmInStock.instock}"/></td>
-                    </td>
-                </tr>
-            </c:forEach>
-        </table>
-        
-        <table style="display:none" id="byactorinv" class="my-table">
-            <th width="15%">Title</th>
-            <th width="5%">Rating</th>
-            <th width="35%">Description</th>
-            <th width="30%">Actor(s)</th>
-            <th width="10%">Genre</th>
-            <th width="10%">In Stock</th>
-                <c:forEach var="filmInStock" items="${filmActor}">
-                <tr>              
-                    <td><c:out value="${filmInStock.title}"/></td> 
-                    <td> <c:out value="${filmInStock.rating}"/></td>  
-                    <td> <c:out value="${filmInStock.description}"/></td> 
-                    <td> <c:out value="${filmInStock.actor}"/></td> 
-                    <td> <c:out value="${filmInStock.genre}"/></td>
-                    <td> <c:out value="${filmInStock.instock}"/></td>
-                    </td>
-                </tr>
-            </c:forEach>
-        </table>
-        
-        <table style="display:none" id="bygenreinv" class="my-table">
-            <th width="15%">Title</th>
-            <th width="5%">Rating</th>
-            <th width="35%">Description</th>
-            <th width="30%">Actor(s)</th>
-            <th width="10%">Genre</th>
-            <th width="10%">In Stock</th>
-                <c:forEach var="filmInStock" items="${filmGenre}">
-                <tr>              
-                    <td><c:out value="${filmInStock.title}"/></td> 
-                    <td> <c:out value="${filmInStock.rating}"/></td>  
-                    <td> <c:out value="${filmInStock.description}"/></td> 
-                    <td> <c:out value="${filmInStock.actor}"/></td> 
-                    <td> <c:out value="${filmInStock.genre}"/></td>
-                    <td> <c:out value="${filmInStock.instock}"/></td>
-                    </td>
-                </tr>
-            </c:forEach>
-        </table>
-        
-        <table style="display:none" id="bycountinv" class="my-table">
-            <th width="15%">Title</th>
-            <th width="5%">Rating</th>
-            <th width="35%">Description</th>
-            <th width="30%">Actor(s)</th>
-            <th width="10%">Genre</th>
-            <th width="10%">In Stock</th>
-                <c:forEach var="filmInStock" items="${filmCount}">
-                <tr>              
-                    <td><c:out value="${filmInStock.title}"/></td> 
-                    <td> <c:out value="${filmInStock.rating}"/></td>  
-                    <td> <c:out value="${filmInStock.description}"/></td> 
-                    <td> <c:out value="${filmInStock.actor}"/></td> 
-                    <td> <c:out value="${filmInStock.genre}"/></td>
-                    <td> <c:out value="${filmInStock.instock}"/></td>
-                    </td>
-                </tr>
-            </c:forEach>
-        </table>
-    
-    </body>
+
+    <br/>
+
+    <table style="display:block" id="bytitleinv" class="my-table">
+        <th width="15%">Title</th>
+        <th width="5%">Rating</th>
+        <th width="35%">Description</th>
+        <th width="30%">Actor(s)</th>
+        <th width="10%">Genre</th>
+        <th width="10%">In Stock</th>
+            <c:forEach var="filmInStock" items="${filmTitle}">
+            <tr>              
+                <td><c:out value="${filmInStock.title}"/></td> 
+                <td> <c:out value="${filmInStock.rating}"/></td>  
+                <td> <c:out value="${filmInStock.description}"/></td> 
+                <td> <c:out value="${filmInStock.actor}"/></td> 
+                <td> <c:out value="${filmInStock.genre}"/></td>
+                <td> <c:out value="${filmInStock.instock}"/></td>
+            </tr>
+        </c:forEach>
+    </table>
+
+    <table style="display:none" id="byratinginv" class="my-table">
+        <th width="15%">Title</th>
+        <th width="5%">Rating</th>
+        <th width="35%">Description</th>
+        <th width="30%">Actor(s)</th>
+        <th width="10%">Genre</th>
+        <th width="10%">In Stock</th>
+            <c:forEach var="filmInStock" items="${filmRating}">
+            <tr>              
+                <td><c:out value="${filmInStock.title}"/></td> 
+                <td> <c:out value="${filmInStock.rating}"/></td>  
+                <td> <c:out value="${filmInStock.description}"/></td> 
+                <td> <c:out value="${filmInStock.actor}"/></td> 
+                <td> <c:out value="${filmInStock.genre}"/></td>
+                <td> <c:out value="${filmInStock.instock}"/></td>
+                </td>
+            </tr>
+        </c:forEach>
+    </table>
+
+    <table style="display:none" id="bydescinv" class="my-table">
+        <th width="15%">Title</th>
+        <th width="5%">Rating</th>
+        <th width="35%">Description</th>
+        <th width="30%">Actor(s)</th>
+        <th width="10%">Genre</th>
+        <th width="10%">In Stock</th>
+            <c:forEach var="filmInStock" items="${filmDesc}">
+            <tr>              
+                <td><c:out value="${filmInStock.title}"/></td> 
+                <td> <c:out value="${filmInStock.rating}"/></td>  
+                <td> <c:out value="${filmInStock.description}"/></td> 
+                <td> <c:out value="${filmInStock.actor}"/></td> 
+                <td> <c:out value="${filmInStock.genre}"/></td>
+                <td> <c:out value="${filmInStock.instock}"/></td>
+                </td>
+            </tr>
+        </c:forEach>
+    </table>
+
+    <table style="display:none" id="byactorinv" class="my-table">
+        <th width="15%">Title</th>
+        <th width="5%">Rating</th>
+        <th width="35%">Description</th>
+        <th width="30%">Actor(s)</th>
+        <th width="10%">Genre</th>
+        <th width="10%">In Stock</th>
+            <c:forEach var="filmInStock" items="${filmActor}">
+            <tr>              
+                <td><c:out value="${filmInStock.title}"/></td> 
+                <td> <c:out value="${filmInStock.rating}"/></td>  
+                <td> <c:out value="${filmInStock.description}"/></td> 
+                <td> <c:out value="${filmInStock.actor}"/></td> 
+                <td> <c:out value="${filmInStock.genre}"/></td>
+                <td> <c:out value="${filmInStock.instock}"/></td>
+                </td>
+            </tr>
+        </c:forEach>
+    </table>
+
+    <table style="display:none" id="bygenreinv" class="my-table">
+        <th width="15%">Title</th>
+        <th width="5%">Rating</th>
+        <th width="35%">Description</th>
+        <th width="30%">Actor(s)</th>
+        <th width="10%">Genre</th>
+        <th width="10%">In Stock</th>
+            <c:forEach var="filmInStock" items="${filmGenre}">
+            <tr>              
+                <td><c:out value="${filmInStock.title}"/></td> 
+                <td> <c:out value="${filmInStock.rating}"/></td>  
+                <td> <c:out value="${filmInStock.description}"/></td> 
+                <td> <c:out value="${filmInStock.actor}"/></td> 
+                <td> <c:out value="${filmInStock.genre}"/></td>
+                <td> <c:out value="${filmInStock.instock}"/></td>
+                </td>
+            </tr>
+        </c:forEach>
+    </table>
+
+    <table style="display:none" id="bycountinv" class="my-table">
+        <th width="15%">Title</th>
+        <th width="5%">Rating</th>
+        <th width="35%">Description</th>
+        <th width="30%">Actor(s)</th>
+        <th width="10%">Genre</th>
+        <th width="10%">In Stock</th>
+            <c:forEach var="filmInStock" items="${filmCount}">
+            <tr>              
+                <td><c:out value="${filmInStock.title}"/></td> 
+                <td> <c:out value="${filmInStock.rating}"/></td>  
+                <td> <c:out value="${filmInStock.description}"/></td> 
+                <td> <c:out value="${filmInStock.actor}"/></td> 
+                <td> <c:out value="${filmInStock.genre}"/></td>
+                <td> <c:out value="${filmInStock.instock}"/></td>
+                </td>
+            </tr>
+        </c:forEach>
+    </table>
+
+</body>
 </html>
