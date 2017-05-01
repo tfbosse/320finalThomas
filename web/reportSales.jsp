@@ -69,7 +69,7 @@
             <td> <c:out value="${checkouts.rentaldate}"/></td> 
             <td> <c:out value="${checkouts.returndate}"/></td> 
             <td> <c:out value="${checkouts.duedate}"/></td>
-        </td>
+        
     </tr>
 </c:forEach>
         </table>
