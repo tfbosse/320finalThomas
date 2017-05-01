@@ -86,6 +86,10 @@
             <html:form action="/sendToCart">
                 <html:submit value="Send to Cart"/>
             </html:form>
+            <br>
+            <html:form action="/sendToWL">
+                <html:submit value="Send to Wish List"/>
+            </html:form>
         
         
 
