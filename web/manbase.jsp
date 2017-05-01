@@ -38,10 +38,10 @@
         
         <br/><br/><br/>
         
-        <h3>Home</h3>
+        <h3>Welcome, <%=session.getAttribute("sessID")%>!</h3>
         
     <center>
-        <img src="welcome.gif"/>
+        <img src="welcome1.gif"/>
     </center>
         
     </body>

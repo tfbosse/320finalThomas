@@ -38,7 +38,7 @@
                 <div class="align-right-banner">
                     <a href="search.jsp">Search</a> |  
                     <a href="profile.jsp">Profile</a> | 
-                    <a href="cart.jsp">Cart</a> | 
+                    <a class="blue-link" href="cart.jsp">Cart</a> | 
                     <a href="wishList.jsp">Wish List</a> | 
                     <a href="customer.jsp">Customer</a> | 
                     <a href="home.jsp">Sign Out</a>
@@ -46,8 +46,6 @@
             </div>
         </h1>
         
-        <br/>
-        <h3>Cart</h3>
 
         <sql:setDataSource var="snapshot" driver="com.mysql.jdbc.Driver"
                            url="jdbc:mysql://localhost:3306/sakila?zeroDateTimeBehavior=convertToNull"

@@ -29,19 +29,6 @@ public class ProfileDAO {
     
     public void setValues(HttpSession session) {
         
-        session.removeAttribute("firstname");
-        session.removeAttribute("lastname");
-        session.removeAttribute("email");
-        session.removeAttribute("username");
-        session.removeAttribute("password");
-        session.removeAttribute("address");
-        session.removeAttribute("city");
-        session.removeAttribute("state");
-        session.removeAttribute("zip");
-        session.removeAttribute("cardNumber");
-        session.removeAttribute("expDate");
-        session.removeAttribute("secNum");
-        session.removeAttribute("nameOnCard");
 
         try {
             String username = (String) session.getAttribute("sessID");
