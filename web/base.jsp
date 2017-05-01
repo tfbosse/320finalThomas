@@ -4,6 +4,7 @@
     Author     : Thomas
 --%>
 
+<%@page import="com.myapp.struts.customerDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="html" uri="http://struts.apache.org/tags-html" %>
 <!DOCTYPE html>
@@ -33,7 +34,8 @@
                     <a href="search.jsp">Search</a> | 
                     <a href="profile.jsp">Profile</a> | 
                     <a href="cart.jsp">Cart</a> | 
-                    <a href="wishList.jsp">Wish List</a> | 
+                    <a href="wishList.jsp">Wish List</a> |
+                    <a href="customer.jsp">Customer History</a> | 
                     <a href="customer.jsp">Customer</a> | 
                     <a href="home.jsp">Sign Out</a>
                 </div>
@@ -41,6 +43,10 @@
         </h1>
         
         <br/><br/><br/>
+        <%
+         customerDAO cdao = new customerDAO();
+         cdao.clearCart();   
+        %>
         
     <center>
         <img src="welcome.gif"/>

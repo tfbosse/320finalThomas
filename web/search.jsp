@@ -79,8 +79,8 @@
             <html:submit value="Search"/>
         </html:form>
                 
-                <br/>
-                
+               
+              <html:errors/>  
                 
 
         Please Enter the Title of the Film you would like to have more Information on 
@@ -89,9 +89,9 @@
             <html:submit value="More Info"/>
         </html:form>
         
-        <br/>
+        
 
-        <html:errors/>
+        
         <div style="display:block" id="sendToCart">
             Please Enter the Title of the Film you would like to Send to the Cart 
             <html:form action="/sendToCart">
@@ -100,9 +100,9 @@
             </html:form>
         </div>
 
-        <br/>
         
-        <div stype="display:block" id="sendToWish">
+        
+        <div style="display:block" id="sendToWish">
         Please Enter the Title of the Film you would like to Send to the Wish List
         <html:form action="/sendToWishList">
             <html:text property="title"/>

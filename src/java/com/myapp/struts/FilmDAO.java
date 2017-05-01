@@ -92,7 +92,7 @@ public class FilmDAO {
         return film;
 
     }
-
+    
     public ArrayList<FilmForm> getAllFilms() throws Exception {
         DBConnectionUtil DBcon = new DBConnectionUtil();
         Connection con1 = DBcon.getConnection();
@@ -146,6 +146,75 @@ public class FilmDAO {
                     String length = rs.getString("length");
 
                     FilmForm film = new FilmForm(title, actor, genre, releaseYear, rating, description, length);
+                    films.add(film);
+
+                }
+
+            } catch (SQLException ex) {
+                System.out.println("SQL statement is not executed!" + ex);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return films;
+
+    }
+
+    public ArrayList<FilmForm> getAllForReport() throws Exception {
+        DBConnectionUtil DBcon = new DBConnectionUtil();
+        Connection con1 = DBcon.getConnection();
+
+        ArrayList<FilmForm> films = new ArrayList<FilmForm>();//initialize list of films
+
+        try {
+
+            try {
+
+                Statement lookUp = con1.createStatement();
+                ResultSet rs;
+
+                rs = lookUp.executeQuery("SELECT * from film where in_stock >= 0");
+
+                while (rs.next()) {
+
+                    String title = rs.getString("title");
+
+                    Statement stActor = con1.createStatement();
+                    String actor = "";
+                    ResultSet rsActor = stActor.executeQuery("Select * from film_actor as fa join actor as a on "
+                            + "fa.actor_id = a.actor_id where fa.film_id = '" + rs.getString("film_id") + "'");
+
+                    int a = 0;
+                    while (rsActor.next()) {
+                        if (a > 0) {
+                            actor += ", ";
+                        }
+                        a++;
+
+                        actor += rsActor.getString("first_name") + " " + rsActor.getString("last_name");
+                    }
+
+                    String genre = "";
+                    Statement stGenre = con1.createStatement();
+                    ResultSet rsGenre = stGenre.executeQuery("Select * from film_category as fc join category as c "
+                            + "on fc.category_id = c.category_id where fc.film_id = '" + rs.getString("film_id") + "'");
+                    int g = 0;
+                    while (rsGenre.next()) {
+                        if (g > 0) {
+                            genre += ", ";
+                        }
+
+                        genre += rsGenre.getString("name");
+                    }
+
+                    String releaseYear = rs.getString("release_year");
+                    String rating = rs.getString("rating");
+                    String description = rs.getString("description");
+                    String length = rs.getString("length");
+                    String instock = rs.getString("in_stock");
+
+                    FilmForm film = new FilmForm(title, actor, genre, releaseYear, rating, description, length, instock, true);
                     films.add(film);
 
                 }
@@ -673,7 +742,7 @@ public class FilmDAO {
         return check;
     }
 
-    public void removeFromCart(String title,String username) {
+    public void removeFromCart(String title, String username) {
         DBConnectionUtil DBcon = new DBConnectionUtil();
         Connection con1 = DBcon.getConnection();
         int cid = 0;
@@ -682,14 +751,14 @@ public class FilmDAO {
         try {
             //get the customer_id
             ResultSet rs1;
-                PreparedStatement ps1 = con1.prepareStatement("SELECT customer_id from customer where username =?");
-                ps1.setString(1, username);
+            PreparedStatement ps1 = con1.prepareStatement("SELECT customer_id from customer where username =?");
+            ps1.setString(1, username);
 
-                rs1 = ps1.executeQuery();
-                while (rs1.next()) {
-                    cid = rs1.getInt("customer_id");
-                }
-                
+            rs1 = ps1.executeQuery();
+            while (rs1.next()) {
+                cid = rs1.getInt("customer_id");
+            }
+
             //get the film_id
             ResultSet rs2;
             PreparedStatement ps2 = con1.prepareStatement("SELECT film_id from film where title =?");
@@ -699,22 +768,21 @@ public class FilmDAO {
             while (rs2.next()) {
                 fid = rs2.getInt("film_id");
             }
-            
+
             //remove the film
             PreparedStatement st = con1.prepareStatement("DELETE from cart where film_id =? and customer_id=?");
-                st.setInt(1, fid);
-                st.setInt(2, cid);
+            st.setInt(1, fid);
+            st.setInt(2, cid);
 
-               st.execute();
-            
+            st.execute();
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
-    
-    public void removeFromWL(String title, String username){
+
+    public void removeFromWL(String title, String username) {
         DBConnectionUtil DBcon = new DBConnectionUtil();
         Connection con1 = DBcon.getConnection();
         int cid = 0;
@@ -723,14 +791,14 @@ public class FilmDAO {
         try {
             //get the customer_id
             ResultSet rs1;
-                PreparedStatement ps1 = con1.prepareStatement("SELECT customer_id from customer where username =?");
-                ps1.setString(1, username);
+            PreparedStatement ps1 = con1.prepareStatement("SELECT customer_id from customer where username =?");
+            ps1.setString(1, username);
 
-                rs1 = ps1.executeQuery();
-                while (rs1.next()) {
-                    cid = rs1.getInt("customer_id");
-                }
-                
+            rs1 = ps1.executeQuery();
+            while (rs1.next()) {
+                cid = rs1.getInt("customer_id");
+            }
+
             //get the film_id
             ResultSet rs2;
             PreparedStatement ps2 = con1.prepareStatement("SELECT film_id from film where title =?");
@@ -740,18 +808,102 @@ public class FilmDAO {
             while (rs2.next()) {
                 fid = rs2.getInt("film_id");
             }
-            
+
             //remove the film
             PreparedStatement st = con1.prepareStatement("DELETE from wish_list_detail where film_id =? and customer_id=?");
-                st.setInt(1, fid);
-                st.setInt(2, cid);
+            st.setInt(1, fid);
+            st.setInt(2, cid);
 
-               st.execute();
-            
+            st.execute();
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public boolean sameFilmCheck(String title) {
+        DBConnectionUtil DBcon = new DBConnectionUtil();
+        Connection con1 = DBcon.getConnection();
+        boolean check = false;
+        int fid = 0;
+        int count = 1;
+        //get the film_id
+        try {
+            ResultSet rs2;
+            PreparedStatement ps2 = con1.prepareStatement("SELECT film_id from film where title =?");
+            ps2.setString(1, title);
+
+            rs2 = ps2.executeQuery();
+            while (rs2.next()) {
+                fid = rs2.getInt("film_id");
+            }
+            //get the count
+            PreparedStatement st = con1.prepareStatement("SELECT count(film_id) from cart where film_id =?");
+            st.setInt(1, fid);
+
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                count = rs.getInt(1);
+            }
+
+            System.out.println(count + " check");
+            //check the count for a film thats already in the cart
+            if (count > 0) {
+                check = true;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return check;
+    }
+
+    public boolean sameFilmCheckWL(String title, String username) {
+        DBConnectionUtil DBcon = new DBConnectionUtil();
+        Connection con1 = DBcon.getConnection();
+        boolean check = false;
+        int fid = 0, cid = 0;
+        int count = 1;
+
+        try {
+            ResultSet rs1;
+            PreparedStatement ps1 = con1.prepareStatement("SELECT customer_id from customer where username =?");
+            ps1.setString(1, username);
+
+            rs1 = ps1.executeQuery();
+            while (rs1.next()) {
+                cid = rs1.getInt("customer_id");
+            }
+            //get the film_id
+            ResultSet rs2;
+            PreparedStatement ps2 = con1.prepareStatement("SELECT film_id from film where title =?");
+            ps2.setString(1, title);
+
+            rs2 = ps2.executeQuery();
+            while (rs2.next()) {
+                fid = rs2.getInt("film_id");
+            }
+            //get the count
+            PreparedStatement st = con1.prepareStatement("SELECT count(film_id) from wish_list_detail where film_id =? and customer_id=?");
+            st.setInt(1, fid);
+            st.setInt(2, cid);
+
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                count = rs.getInt(1);
+            }
+
+            //check the count for a film thats already in the cart
+            if (count > 0) {
+                check = true;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return check;
     }
 
 }
