@@ -8,9 +8,11 @@ package com.myapp.struts;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
 
 /**
  *
@@ -19,7 +21,7 @@ import org.apache.struts.action.ActionMapping;
 public class WishListAction extends org.apache.struts.action.Action {
 
     /* forward name="success" path="" */
-    private static final String SUCCESS = "success";
+    private static final String SUCCESS = "success",FAILURE = "failure";
 
     /**
      * This is the action called from the Struts framework.
@@ -35,21 +37,28 @@ public class WishListAction extends org.apache.struts.action.Action {
     public ActionForward execute(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
             throws Exception {
-        
+        ActionErrors errors = new ActionErrors();
         FilmDAO dao = new FilmDAO();
         FilmForm info = (FilmForm) form;
         
         String f, u;
-        
+        boolean sameCheck;
         HttpSession ses = request.getSession();
         ses.setAttribute("title", info.getTitle());       
         f = (String) ses.getAttribute("title");      
-        System.out.println(f);
-        
+        sameCheck = dao.sameFilmCheckWL(f);
         u = (String) ses.getAttribute("sessID");    
-        System.out.println(u);
+        System.out.println(sameCheck);
+        if( !sameCheck){
+   
         dao.insertIntoWishList(f,u);
-        
         return mapping.findForward(SUCCESS);
+        }
+        else{
+            errors.add("title", new ActionMessage("errors.sameFilmWL"));
+            this.saveErrors(request, errors);
+            return mapping.findForward(FAILURE);
+        }   
+        
     }
 }

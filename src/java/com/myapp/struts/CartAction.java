@@ -54,7 +54,7 @@ public class CartAction extends org.apache.struts.action.Action {
         u = (String) ses.getAttribute("sessID");    
         sameCheck = dao.sameFilmCheck(f);
         fiveCheck = dao.fiveFilmCheck(u);
-        System.out.println(sameCheck);
+        
         if(sameCheck){
             error = 1;
         }
