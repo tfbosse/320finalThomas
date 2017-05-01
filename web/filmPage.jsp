@@ -26,6 +26,7 @@
                     document.getElementById("inv").style.display = "inline";
                     document.getElementById("cart").style.display = "none";
                     document.getElementById("wish").style.display = "none";
+                    document.getElementById("cust").style.display = "none";
                 }
             }
         </script>
@@ -55,6 +56,7 @@
                     <div style="display:inline" id="cart"><a href="cart.jsp">Cart</a> | </div>
                     <div style="display:inline" id="wish"><a href="wishList.jsp">Wish List</a> | </div>
                     <div style="display:none" id="inv"><a href="inventory.jsp">Inventory</a> | </div>
+                    <div style="display:inline" id="cust"><a href="customer.jsp">Customer</a> | </div>
                     <a href="home.jsp">Sign Out</a>
                 </div>
             </div>

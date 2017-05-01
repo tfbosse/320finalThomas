@@ -27,6 +27,7 @@
                     document.getElementById("wishlist").style.display = "none";
                     document.getElementById("sendToWish").style.display = "none";
                     document.getElementById("inv").style.display = "inline";
+                    document.getElementById("cust").style.display = "none";
                 }
             }
         </script>
@@ -45,12 +46,13 @@
             <div class="align-left-banner">
                 <a href="noise.jsp">Crimson Video Store</a>
                 <div class="align-right-banner">
-                    <a href="seach.jsp">Search</a> | 
+                    <a href="search.jsp">Search</a> | 
                     <a href="profile.jsp">Profile</a> | 
                     <div id="reps" style="display:none"><a href="reports.jsp">Reports</a> | </div>
                     <div id="cart" style="display:inline"><a href="cart.jsp">Cart</a> | </div>
                     <div id="wishlist" style="display:inline"><a href="wishList.jsp">Wish List</a> | </div>
                     <div id="inv" style="display:none"><a href="inventory.jsp">Inventory</a> | </div>
+                    <div id="cust" style="display:inline"><a href="customer.jsp">Customer</a> | </div>
                     <a href="home.jsp">Sign Out</a>
                 </div>
             </div>
