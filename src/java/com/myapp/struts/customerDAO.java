@@ -255,10 +255,16 @@ public class customerDAO {
                 Date rentalDate = rs1.getDate("rental_date");
                 String rentDate = df.format(rentalDate);
                 Date returnDate = rs1.getDate("return_date");
-                String retDate = df.format(returnDate);
+                String retDate = "";
                 Double penalty = rs1.getDouble("penalty");
                 String pen = penalty.toString();
 
+                
+                if(returnDate != null){
+                    retDate = df.format(returnDate);
+                }
+                
+                
                 hist = new History(title, rentDate, retDate, cost, pen);
                 hlist.add(hist);
             }
