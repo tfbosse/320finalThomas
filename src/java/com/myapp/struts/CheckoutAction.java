@@ -45,9 +45,6 @@ public class CheckoutAction extends org.apache.struts.action.Action {
         fdao.checkout(u);
         
         
-        System.out.println();
-        
-        
         return mapping.findForward(SUCCESS);
     }
 }
