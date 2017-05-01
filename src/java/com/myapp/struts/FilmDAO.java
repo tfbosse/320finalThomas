@@ -681,6 +681,7 @@ public class FilmDAO {
             e.printStackTrace();
         }
 
+
         try {
 
             try {
@@ -783,7 +784,7 @@ public class FilmDAO {
                 while (rs2.next()) {
                     id = rs2.getInt("customer_id");
                 }
-                System.out.println(id);
+                
 
                 PreparedStatement st = con1.prepareStatement("SELECT count(film_id) from cart where customer_id =?");
                 st.setInt(1, id);
@@ -893,7 +894,7 @@ public class FilmDAO {
         Connection con1 = DBcon.getConnection();
         boolean check = false;
         int fid = 0;
-        int count = 1;
+        int count = 0;
         //get the film_id
         try {
             ResultSet rs2;
@@ -912,6 +913,7 @@ public class FilmDAO {
             while (rs.next()) {
                 count = rs.getInt(1);
             }
+            
 
             //check the count for a film thats already in the cart
             if (count > 0) {
@@ -921,7 +923,7 @@ public class FilmDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        
         return check;
     }
 
@@ -1036,7 +1038,7 @@ public class FilmDAO {
                 fid = rs2.getInt("film_id");
             }
 
-                PreparedStatement st = con1.prepareStatement("SELECT count(film_id) from wish_list_detail where film_id =?");
+                PreparedStatement st = con1.prepareStatement("SELECT count(film_id) from film where film_id =?");
                 st.setInt(1, fid);
                 
 
@@ -1054,6 +1056,42 @@ public class FilmDAO {
             check = true;
         }
 
+        return check;
+    }
+    
+    public boolean textBoxEmptyCheckCart(String title) {
+        DBConnectionUtil DBcon = new DBConnectionUtil();
+        Connection con1 = DBcon.getConnection();
+
+        boolean check = false;
+        int fid = 0;
+        int count = 1;
+        try {
+            ResultSet rs2;
+            PreparedStatement ps2 = con1.prepareStatement("SELECT film_id from film where title =?");
+            ps2.setString(1, title);
+
+            rs2 = ps2.executeQuery();
+            while (rs2.next()) {
+                fid = rs2.getInt("film_id");
+            }
+                PreparedStatement st = con1.prepareStatement("SELECT count(film_id) from film where film_id =?");
+                st.setInt(1, fid);
+                
+
+                ResultSet rs = st.executeQuery();
+                while (rs.next()) {
+                    count = rs.getInt(1);
+                }
+            
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (title.equals("") || count == 0) {
+            check = true;
+        }
         return check;
     }
 
