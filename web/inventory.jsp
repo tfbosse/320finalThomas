@@ -76,10 +76,10 @@
             response.setHeader("Pragma", "no-cache");
             response.setDateHeader("Expires", 0);
             if (session.getAttribute("sessID") == null) {
-                response.sendRedirect("/FinalShitStruts/");
+                response.sendRedirect("/FinalStruts/");
             }
             if (session.getAttribute("sessType") == "cust") {
-                response.sendRedirect("/FinalShitStruts/noise.jsp");
+                response.sendRedirect("/FinalStruts/noise.jsp");
             }
         %>
     </head>

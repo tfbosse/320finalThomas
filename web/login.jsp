@@ -19,7 +19,7 @@
             response.setDateHeader("Expires", 0);
             try {
                 if (session.getAttribute("sessID") != null && (String)session.getAttribute("sessID") != "0") {
-                    response.sendRedirect("/FinalShitStruts/");
+                    response.sendRedirect("/FinalStruts/");
                 }
             } catch (Exception e) {
                 e.printStackTrace();
