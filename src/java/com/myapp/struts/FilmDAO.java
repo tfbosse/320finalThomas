@@ -753,6 +753,49 @@ public class FilmDAO {
             e.printStackTrace();
         }
     }
+    
+    public boolean sameFilmCheck(String title){
+        DBConnectionUtil DBcon = new DBConnectionUtil();
+        Connection con1 = DBcon.getConnection();
+        boolean check = false;
+        int fid = 0;
+        int count = 1;
+        //get the film_id
+        try{
+            ResultSet rs2;
+            PreparedStatement ps2 = con1.prepareStatement("SELECT film_id from film where title =?");
+            ps2.setString(1, title);
+
+            rs2 = ps2.executeQuery();
+            while (rs2.next()) {
+                fid = rs2.getInt("film_id");
+            }
+        //get the count
+            PreparedStatement st = con1.prepareStatement("SELECT count(film_id) from cart where film_id =?");
+                st.setInt(1, fid);
+
+                ResultSet rs = st.executeQuery();
+                while (rs.next()) {
+                    count = rs.getInt(1);
+                }
+                
+            System.out.println(count + " check"); 
+        //check the count for a film thats already in the cart
+        if(count > 0){
+            check = true;
+        }
+                
+                
+            
+            
+            
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+            
+        return check;
+    }
+    
 
 }
 

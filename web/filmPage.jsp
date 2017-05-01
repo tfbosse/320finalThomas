@@ -98,7 +98,7 @@
             </html:form>
 
             <br>
-            <html:form action="/sendToWL">
+            <html:form action="/sendToWishList">
                 <html:submit value="Send to Wish List"/>
             </html:form>
 
