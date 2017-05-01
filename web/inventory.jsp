@@ -85,6 +85,8 @@
     </head>
 
     <body onload="filterResults()">
+        
+        
 
         <%
             FilmDAO fdao = new FilmDAO();
@@ -123,7 +125,7 @@
         </h1>
 
         <br/><br/><br/>
-
+<h3>Inventory</h3>
         
 
     <br/>

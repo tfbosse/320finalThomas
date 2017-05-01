@@ -50,6 +50,8 @@
         </h2>
         </div>
         
+        <br/>
+        <h3>Rental Reports</h3>
           <%
            PaymentDAO cDAO = new PaymentDAO();
             ArrayList<CheckOutForm> checkOuts = cDAO.getRentals();

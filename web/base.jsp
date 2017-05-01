@@ -41,6 +41,8 @@
             </div>
         </h1>
         
+        <h3>Home</h3>
+        
         <br/><br/><br/>
         <%
          customerDAO cdao = new customerDAO();

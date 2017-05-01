@@ -94,6 +94,7 @@
                 </div>
             </div>
         </h1>
+        
 
         <div class="div-center">
             <h2 class="align-center">
@@ -104,7 +105,8 @@
                 <a class="my-link" href="reportRevenue.jsp">Revenue Reports</a>
             </h2>
         </div>
-
+<br/>
+        <h3>Inventory Reports</h3>
         <%
             FilmDAO fdao = new FilmDAO();
             ArrayList<FilmForm> films = fdao.getAllForReport();
