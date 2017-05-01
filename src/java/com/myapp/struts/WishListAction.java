@@ -42,7 +42,7 @@ public class WishListAction extends org.apache.struts.action.Action {
         FilmForm info = (FilmForm) form;
         int error = 0;
         String f, u;
-        boolean emptyBox,sameCheckWL;
+        boolean emptyBox;
         HttpSession ses = request.getSession();
         ses.setAttribute("title", info.getTitle());       
         f = (String) ses.getAttribute("title");      
@@ -50,15 +50,13 @@ public class WishListAction extends org.apache.struts.action.Action {
         u = (String) ses.getAttribute("sessID");    
         
         emptyBox = dao.textBoxEmptyCheck(f);
-        sameCheckWL = dao.isFilmInWishList(f,u);
         
-        if (sameCheckWL) {
-            error = 3;
-        }
+        //error handle to check if film is already in wish list
+        
         if (emptyBox) {
             error = 4;
         }
-        if( !emptyBox && !sameCheckWL){
+        if( !emptyBox){
    
         dao.insertIntoWishList(f,u);
         return mapping.findForward(SUCCESS);
@@ -68,10 +66,7 @@ public class WishListAction extends org.apache.struts.action.Action {
                 errors.add("title", new ActionMessage("errors.emptyBox"));
                 
             }
-            if (error == 3) {
-                errors.add("title", new ActionMessage("errors.filmNotInWishList"));
-                
-            }
+            
             
             
             this.saveErrors(request, errors);
