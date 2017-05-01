@@ -8,9 +8,11 @@ package com.myapp.struts;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
 
 /**
  *
@@ -37,6 +39,8 @@ public class CartAction extends org.apache.struts.action.Action {
             HttpServletRequest request, HttpServletResponse response)
             throws Exception {
         
+        ActionErrors errors = new ActionErrors();
+        
         FilmDAO dao = new FilmDAO();
         FilmForm info = (FilmForm) form;
         boolean check;
@@ -57,6 +61,8 @@ public class CartAction extends org.apache.struts.action.Action {
         return mapping.findForward(SUCCESS);
         }
         else{
+            errors.add("title", new ActionMessage("errors.cartfull"));
+            this.saveErrors(request, errors);
         return mapping.findForward(FAILURE);
         }
     }
