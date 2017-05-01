@@ -49,7 +49,9 @@
             request.setAttribute("hlist",hlist);
         %>
         
-        <table >
+       
+        
+        <table>
             <th width="12.5%">Title</th>
             <th width="15%">Return Date</th>
             <th width="20%">Rental Date</th>

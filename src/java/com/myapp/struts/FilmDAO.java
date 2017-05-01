@@ -1206,6 +1206,7 @@ public class FilmDAO {
         DBConnectionUtil DBcon = new DBConnectionUtil();
         Connection con1 = DBcon.getConnection();
         int fid=0;
+        int penalty=0;
         
         try {
             Timestamp ts = new Timestamp(System.currentTimeMillis());
@@ -1221,23 +1222,27 @@ public class FilmDAO {
             
             PreparedStatement ps2 = con1.prepareStatement("UPDATE film set in_stock=in_stock+1 where film_id=?");
             ps2.setInt(1, fid);
-
             ps2.execute();
             
             
             PreparedStatement ps3 = con1.prepareStatement("UPDATE rental set return_date=? where film_id=?");
             ps3.setDate(1, date);
             ps3.setInt(2, fid);
-
             ps3.execute();
             
-            //update penalty here 
             
-            
-            
-            PreparedStatement ps4 = con1.prepareStatement("UPDATE rental set line_total=line_total + penalty where film_id=?");
+            PreparedStatement ps4 = con1.prepareStatement("Select penalty from rental where film_id=?");
             ps4.setInt(1, fid);
-            ps4.execute();
+            ResultSet rs2 = ps4.executeQuery();
+            while (rs2.next()) {
+                penalty = rs2.getInt("penalty");
+            }
+            
+            
+            PreparedStatement ps5 = con1.prepareStatement("UPDATE rental set line_total=line_total + ? where film_id=?");
+            ps5.setInt(1, penalty);
+            ps5.setInt(2, fid);
+            ps5.execute();
             
 
             

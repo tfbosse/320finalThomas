@@ -119,11 +119,11 @@
         
 
         <action input="/" name="FilmForm" path="/checkout" scope="session" type="com.myapp.struts.CheckoutAction">
-            <forward name="success" path="/checkout.jsp"/>
+            <forward name="success" path="/customer.jsp"/>
         </action>
         
         <action input="/" name="FilmForm" path="/returnFilm" scope="session" type="com.myapp.struts.ReturnAction">
-            <forward name="success" path="/checkout.jsp" />
+            <forward name="success" path="/base.jsp" />
         </action>
         
 
