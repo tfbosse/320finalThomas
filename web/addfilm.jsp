@@ -33,11 +33,12 @@
                     <a href="search.jsp">Search</a> | 
                     <a href="profile.jsp">Profile</a> | 
                     <a href="reports.jsp">Reports</a> | 
-                    <a href="inventory.jsp">Inventory</a> | 
+                    <a class="blue-link" href="inventory.jsp">Inventory</a> | 
                     <a href="home.jsp">Sign Out</a>
                 </div>
             </div>
         </h1>
+        <br/><br/><br/>
         
         <html:errors/>
         
@@ -103,7 +104,7 @@
                 <td>Number in Stock: </td>
                 <td><html:text property="instock" size="24"/></td>
             </tr>
-        </table>
+        </table><br/>
                 <html:submit value="Submit" />
     </html:form>
         
