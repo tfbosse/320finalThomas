@@ -1073,6 +1073,9 @@ public class FilmDAO {
 
             }
 
+            
+            
+            
             java.sql.Date rentalDate = date;
             java.sql.Date lastUpdate = date;
 
@@ -1081,7 +1084,7 @@ public class FilmDAO {
             st4.setDate(2, rentalDate);
             st4.setDate(3, lastUpdate);
             st4.setInt(4, id);
-            st4.setNull(5, java.sql.Types.DATE);
+            st4.setDate(5, new Date(System.currentTimeMillis()+7*1440*60*1000));
             st4.setNull(6, java.sql.Types.DATE);
             st4.setInt(7, 5);
             st4.setInt(8, 0);
@@ -1095,6 +1098,62 @@ public class FilmDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    
+    public void returnFilm(String title){
+        DBConnectionUtil DBcon = new DBConnectionUtil();
+        Connection con1 = DBcon.getConnection();
+        int fid=0;
+        
+        try {
+            Timestamp ts = new Timestamp(System.currentTimeMillis());
+            Date date = new Date(ts.getTime());
+
+            PreparedStatement ps1 = con1.prepareStatement("SELECT film_id from film where title =?");
+            ps1.setString(1, title);
+            
+            ResultSet rs1 = ps1.executeQuery();
+            while (rs1.next()) {
+                fid = rs1.getInt("film_id");
+            }
+            
+            PreparedStatement ps2 = con1.prepareStatement("UPDATE film set in_stock=in_stock+1 where film_id=?");
+            ps2.setInt(1, fid);
+
+            ps2.execute();
+            
+            
+            PreparedStatement ps3 = con1.prepareStatement("UPDATE rental set return_date=? where film_id=?");
+            ps3.setDate(1, date);
+            ps3.setInt(2, fid);
+
+            ps3.execute();
+            
+            //update penalty here 
+            
+            
+            
+            PreparedStatement ps4 = con1.prepareStatement("UPDATE rental set line_total=line_total + penalty where film_id=?");
+            ps4.setInt(1, fid);
+            ps4.execute();
+            
+
+            
+            
+        }
+            catch (SQLException ex) {
+            System.out.println("SQL statement is not executed!" + ex);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+            
+            
+            
+        
+        
+        
+        
+        
     }
 
 }

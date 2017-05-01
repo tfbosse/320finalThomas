@@ -9,6 +9,7 @@
 <%@page import="com.myapp.struts.PaymentDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
 
 <!DOCTYPE html>
 <html>
@@ -75,6 +76,14 @@
     </tr>
 </c:forEach>
         </table>
+        
+        
+        Enter the title of the movie you want to return:
+        <html:form action="/returnFilm">
+            <html:text property="title"/>
+            <html:submit value="Return Film"/>
+        </html:form> 
+        
         
         
     </body>
