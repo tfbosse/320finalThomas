@@ -73,7 +73,7 @@
             </c:forEach>
         </table>
             <br>
-            
+            <html:errors/>
         Please enter the title you wish to remove from your cart:
         <html:form action="/removeFromCart">
             <html:text property="title"/>

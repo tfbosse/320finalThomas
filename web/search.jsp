@@ -65,10 +65,10 @@
                            user="root"  password="nbuser"/>
 
 <br /><br /><br /><br/><br/>
-
+<html:errors/>
         <html:form action="/search">
             <html:select property="searchType" >
-                <html:option value="Search Criteria">(Search Criteria)</html:option>
+                
                 <html:option value="Title" >Title</html:option>
                 <html:option value="Genre">Genre</html:option>
                 <html:option value="Actor">Actor</html:option>
@@ -77,10 +77,7 @@
             </html:select>
             <html:text property="searchString"/>
             <html:submit value="Search"/>
-        </html:form>
-                
-               
-              <html:errors/>  
+        </html:form> 
                 
 
         Please Enter the Title of the Film you would like to have more Information on 

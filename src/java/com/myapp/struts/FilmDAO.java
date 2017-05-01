@@ -92,7 +92,7 @@ public class FilmDAO {
         return film;
 
     }
-    
+
     public ArrayList<FilmForm> getAllFilms() throws Exception {
         DBConnectionUtil DBcon = new DBConnectionUtil();
         Connection con1 = DBcon.getConnection();
@@ -846,7 +846,6 @@ public class FilmDAO {
                 count = rs.getInt(1);
             }
 
-            System.out.println(count + " check");
             //check the count for a film thats already in the cart
             if (count > 0) {
                 check = true;
@@ -896,6 +895,137 @@ public class FilmDAO {
 
             //check the count for a film thats already in the cart
             if (count > 0) {
+                check = true;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return check;
+    }
+
+    public boolean isFilmInWishList(String title, String username) {
+        DBConnectionUtil DBcon = new DBConnectionUtil();
+        Connection con1 = DBcon.getConnection();
+        boolean check = false;
+        int fid = 0, cid = 0;
+        int count = 1;
+
+        try {
+            ResultSet rs1;
+            PreparedStatement ps1 = con1.prepareStatement("SELECT customer_id from customer where username =?");
+            ps1.setString(1, username);
+
+            rs1 = ps1.executeQuery();
+            while (rs1.next()) {
+                cid = rs1.getInt("customer_id");
+            }
+            //get the film_id
+            ResultSet rs2;
+            PreparedStatement ps2 = con1.prepareStatement("SELECT film_id from film where title =?");
+            ps2.setString(1, title);
+
+            rs2 = ps2.executeQuery();
+            while (rs2.next()) {
+                fid = rs2.getInt("film_id");
+            }
+            //get the count
+            PreparedStatement st = con1.prepareStatement("SELECT count(film_id) from wish_list_detail where film_id =? and customer_id=?");
+            st.setInt(1, fid);
+            st.setInt(2, cid);
+
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                count = rs.getInt(1);
+            }
+            //check the count for a film thats already in the cart
+            if (count == 0) {
+                check = true;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return check;
+    }
+
+    public boolean textBoxEmptyCheck(String title) {
+        DBConnectionUtil DBcon = new DBConnectionUtil();
+        Connection con1 = DBcon.getConnection();
+
+        boolean check = false;
+        int fid = 0;
+        int count = 1;
+        try {
+            ResultSet rs2;
+            PreparedStatement ps2 = con1.prepareStatement("SELECT film_id from film where title =?");
+            ps2.setString(1, title);
+
+            rs2 = ps2.executeQuery();
+            while (rs2.next()) {
+                fid = rs2.getInt("film_id");
+            }
+
+                PreparedStatement st = con1.prepareStatement("SELECT count(film_id) from wish_list_detail where film_id =?");
+                st.setInt(1, fid);
+                
+
+                ResultSet rs = st.executeQuery();
+                while (rs.next()) {
+                    count = rs.getInt(1);
+                }
+            
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (title.equals("") || count == 0) {
+            check = true;
+        }
+
+        return check;
+    }
+
+    public boolean isFilmInCart(String title, String username) {
+        DBConnectionUtil DBcon = new DBConnectionUtil();
+        Connection con1 = DBcon.getConnection();
+        boolean check = false;
+        int fid = 0, cid = 0;
+        int count = 1;
+
+        try {
+            ResultSet rs1;
+            PreparedStatement ps1 = con1.prepareStatement("SELECT customer_id from customer where username =?");
+            ps1.setString(1, username);
+
+            rs1 = ps1.executeQuery();
+            while (rs1.next()) {
+                cid = rs1.getInt("customer_id");
+            }
+            //get the film_id
+            ResultSet rs2;
+            PreparedStatement ps2 = con1.prepareStatement("SELECT film_id from film where title =?");
+            ps2.setString(1, title);
+
+            rs2 = ps2.executeQuery();
+            while (rs2.next()) {
+                fid = rs2.getInt("film_id");
+            }
+            //get the count
+            PreparedStatement st = con1.prepareStatement("SELECT count(film_id) from cart where film_id =? and customer_id=?");
+            st.setInt(1, fid);
+            st.setInt(2, cid);
+
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                count = rs.getInt(1);
+            }
+
+            //check the count for a film thats already in the cart
+            if (count == 0) {
                 check = true;
             }
 

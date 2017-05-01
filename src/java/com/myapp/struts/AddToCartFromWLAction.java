@@ -18,7 +18,7 @@ import org.apache.struts.action.ActionMessage;
  *
  * @author jakeotey
  */
-public class FilmAction extends org.apache.struts.action.Action {
+public class AddToCartFromWLAction extends org.apache.struts.action.Action {
 
     /* forward name="success" path="" */
     private static final String SUCCESS = "success", FAILURE = "failure";
@@ -37,33 +37,60 @@ public class FilmAction extends org.apache.struts.action.Action {
     public ActionForward execute(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
             throws Exception {
+
         ActionErrors errors = new ActionErrors();
+
         FilmDAO dao = new FilmDAO();
         FilmForm info = (FilmForm) form;
-        boolean emptyBox;
+        boolean fiveCheck, sameCheck, sameCheckWL,emptyBox;
         int error = 0;
-        String f;
-        
+        String f, u;
 
         HttpSession ses = request.getSession();
         ses.setAttribute("title", info.getTitle());
         f = (String) ses.getAttribute("title");
+
+        u = (String) ses.getAttribute("sessID");
+        sameCheck = dao.sameFilmCheck(f);
+        sameCheckWL = dao.isFilmInWishList(f,u);
+        fiveCheck = dao.fiveFilmCheck(u);
         emptyBox = dao.textBoxEmptyCheck(f);
-        
-        if(emptyBox){
+
+        if (sameCheck) {
             error = 1;
         }
-            
-        if(!emptyBox){
-        info = dao.getAFilm(info.getTitle());
-
-        request.setAttribute("film", info);
-
-        return mapping.findForward(SUCCESS);
+        
+        if (fiveCheck) {
+            error = 2;
         }
-        else{
-            if(error == 1){
+        if (sameCheckWL) {
+            error = 3;
+        }
+        if (emptyBox) {
+            error = 4;
+        }
+        System.out.println(emptyBox +"-------");
+
+        if (!fiveCheck && !sameCheck && !sameCheckWL && !emptyBox) {
+
+            dao.insertIntoCart(f, u);
+            dao.removeFromWL(f, u);
+            return mapping.findForward(SUCCESS);
+
+        } else {
+            if (error == 4) {
                 errors.add("title", new ActionMessage("errors.emptyBox"));
+                
+            }
+            if (error == 3) {
+                errors.add("title", new ActionMessage("errors.filmNotInWishList"));
+                
+            }
+            if (error == 2) {
+                errors.add("title", new ActionMessage("errors.cartfull"));
+            }
+            if (error == 1) {
+                errors.add("title", new ActionMessage("errors.sameFilm"));
             }
             this.saveErrors(request, errors);
             return mapping.findForward(FAILURE);

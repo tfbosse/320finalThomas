@@ -12,6 +12,7 @@ import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
 
 /**
  *
@@ -20,7 +21,7 @@ import org.apache.struts.action.ActionMapping;
 public class RemoveFromWishListAction extends org.apache.struts.action.Action {
 
     /* forward name="success" path="" */
-    private static final String SUCCESS = "success";
+    private static final String SUCCESS = "success", FAILURE = "failure";
 
     /**
      * This is the action called from the Struts framework.
@@ -37,20 +38,51 @@ public class RemoveFromWishListAction extends org.apache.struts.action.Action {
             HttpServletRequest request, HttpServletResponse response)
             throws Exception {
         ActionErrors errors = new ActionErrors();
-        
+
         FilmDAO dao = new FilmDAO();
         FilmForm info = (FilmForm) form;
-        
-        
+        boolean sameCheckWL, emptyBox;
+        int error = 0;
         String f, u;
-        
+
         HttpSession ses = request.getSession();
-        ses.setAttribute("title", info.getTitle());       
-        f = (String) ses.getAttribute("title");      
+        ses.setAttribute("title", info.getTitle());
+        f = (String) ses.getAttribute("title");
+
+        u = (String) ses.getAttribute("sessID");
+        sameCheckWL = dao.isFilmInWishList(f, u);
         
-        u = (String) ses.getAttribute("sessID");    
-        dao.removeFromWL(f, u);
-       
-        return mapping.findForward(SUCCESS);
+        emptyBox = dao.textBoxEmptyCheck(f);
+
+        
+        
+        if (sameCheckWL) {
+            error = 3;
+        }
+        if (emptyBox) {
+            error = 4;
+        }
+        
+
+        if (!sameCheckWL && !emptyBox) {
+
+            
+            dao.removeFromWL(f, u);
+            return mapping.findForward(SUCCESS);
+
+        } else {
+            if (error == 4) {
+                errors.add("title", new ActionMessage("errors.emptyBox"));
+
+            }
+            if (error == 3) {
+                errors.add("title", new ActionMessage("errors.filmNotInWishList"));
+
+            }
+            
+            
+            this.saveErrors(request, errors);
+            return mapping.findForward(FAILURE);
+        }
     }
 }

@@ -8,9 +8,11 @@ package com.myapp.struts;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
 
 /**
  *
@@ -36,10 +38,15 @@ public class SearchAction extends org.apache.struts.action.Action {
     public ActionForward execute(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
             throws Exception {
+        
+        ActionErrors errors = new ActionErrors();
         SearchForm search = (SearchForm) form;
-        String searchType = search.getSearchType();
-        String searchString = search.getSearchString();
-
+        
+        int error = 0;
+        
+        if(getErrors(request).isEmpty()){
+            error = 1;
+        }
         if (getErrors(request).isEmpty()) {
             FilmDAO film = new FilmDAO();
 
@@ -49,6 +56,10 @@ public class SearchAction extends org.apache.struts.action.Action {
             return mapping.findForward(SUCCESS);
         } 
         else {
+            if(error == 1){
+                errors.add("title", new ActionMessage("errors.emptyBox"));
+            }
+            this.saveErrors(request, errors);
             return mapping.findForward(FAILURE);
         }
     }
