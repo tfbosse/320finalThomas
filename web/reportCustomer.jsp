@@ -131,6 +131,8 @@
                 </div>
             </div>
         </h1>
+        
+        
 
         <div class="div-center">
             <h2 class="align-center">
@@ -141,7 +143,8 @@
                 <a class="my-link" href="reportRevenue.jsp">Revenue Reports</a>
             </h2>
         </div>
-
+<br/>
+        <h3>Customer Reports</h3>
         <%
             customerDAO custdao = new customerDAO();
             ArrayList<SignUpForm> customers = custdao.getAllCustomers();

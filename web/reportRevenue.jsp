@@ -50,6 +50,9 @@
                 <a class="my-link" href="reportRevenue.jsp">Revenue Reports</a>
             </h2>
         </div>
+        
+        <br/>
+        <h3>Revenue Reports</h3>
 
         <%
             PaymentDAO cDAO = new PaymentDAO();
