@@ -60,16 +60,14 @@
 
         <table class="my-table">
             <th width="30%">Title</th>
-            <th width="10%">Rating</th>
-            <th width="20%">Description</th>
-            <th width="20%">Actor(s)</th>
-            <th width="20%">Genre</th>
+            <th width="10%">Rental ID</th>
+            <th width="20%">Rental Date</th>
+            <th width="20%">Due Date</th>
                 <c:forEach var="checkouts" items="${listCheckOuts}">
                 <tr>              
                     <td><c:out value="${checkouts.title}"/></td> 
                     <td> <c:out value="${checkouts.rentalid}"/></td>  
                     <td> <c:out value="${checkouts.rentaldate}"/></td> 
-                    <td> <c:out value="${checkouts.returndate}"/></td> 
                     <td> <c:out value="${checkouts.duedate}"/></td>
                     </td>
                 </tr>
