@@ -50,13 +50,14 @@ public class WishListAction extends org.apache.struts.action.Action {
         u = (String) ses.getAttribute("sessID");    
         
         emptyBox = dao.textBoxEmptyCheck(f);
-        sameCheckWL = dao.isFilmInWishList(f,u);
+        sameCheckWL = dao.sameFilmCheckWL(f, u);
+        //error handle to check if film is already in wish list
         
-        if (sameCheckWL) {
-            error = 3;
-        }
         if (emptyBox) {
             error = 4;
+        }
+        if(sameCheckWL){
+            error = 3;
         }
         if( !emptyBox && !sameCheckWL){
    
@@ -69,9 +70,10 @@ public class WishListAction extends org.apache.struts.action.Action {
                 
             }
             if (error == 3) {
-                errors.add("title", new ActionMessage("errors.filmNotInWishList"));
+                errors.add("title", new ActionMessage("errors.sameFilmWL"));
                 
             }
+            
             
             
             this.saveErrors(request, errors);

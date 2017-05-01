@@ -44,6 +44,8 @@ public class SearchAction extends org.apache.struts.action.Action {
         
         int error = 0;
         
+        
+        
         if(getErrors(request).isEmpty()){
             error = 1;
         }

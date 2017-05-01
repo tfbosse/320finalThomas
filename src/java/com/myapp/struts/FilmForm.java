@@ -86,7 +86,7 @@ public class FilmForm extends org.apache.struts.action.ActionForm {
         this.shownTitle = shownTitle;
         
     }
-   
+
     
     public String getField() {
         return field;
@@ -161,7 +161,6 @@ public class FilmForm extends org.apache.struts.action.ActionForm {
     }
     
 
-    
 
     }
 

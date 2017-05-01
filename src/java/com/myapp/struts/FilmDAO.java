@@ -253,7 +253,7 @@ public class FilmDAO {
                 Statement stGenre = con1.createStatement();
                 ResultSet rsGenre;
 
-                if (field.equals("Title") || field.equals("Release Year") || field.equals("Rating")) {
+                if (field.equals("Title") || field.equals("Release Year") || field.equals("Rating") ) {
 
                     for (int x = 0; x < searchList.length; x++) {
                         if (field.equals("Rating") && searchList[x].toUpperCase().equals("PG")) {
@@ -434,7 +434,71 @@ public class FilmDAO {
                             films.add(film);
                         }
                     }
-                } else {
+                }
+
+                
+                
+                else {
+                     for (int x = 0; x < searchList.length; x++) {
+                        rs = lookUp.executeQuery("select * from film as f "
+                                + "join film_actor as fa "
+                                + "on f.film_id = fa.film_id "
+                                + "join actor as a "
+                                + "on fa.actor_id = a.actor_id "
+                                + "join film_category as fc "
+                                + "on f.film_id = fc.film_id "
+                                + "join category as c "
+                                + "on fc.category_id = c.category_id "
+                                + "where f.title = '" + searchList[x] + "' or f.rating = '"+ searchList[x] +"' or "
+                                + "f.release_year = '" + searchList[x] + "' or a.first_name = '" + searchList[x]  
+                                + "' a.last_name = '" + searchList[x] + "' or c.name = '" + searchList[x] + "'");
+                        
+
+                        while (rs.next()) {
+
+                            String id = rs.getString("film_id");
+                            String title = rs.getString("title");
+                            String actor = "";
+                            String genre = "";
+                            String releaseYear = rs.getString("release_year");
+                            String rating = rs.getString("rating");
+                            String description = rs.getString("description");
+                            String length = rs.getString("length");
+
+                            rsActor = stActor.executeQuery("Select * from film_actor as fa "
+                                    + "                    join actor as a "
+                                    + "                    on fa.actor_id = a.actor_id "
+                                    + "                    where fa.film_id = '" + id + "'");
+
+                            int a = 0;
+                            while (rsActor.next()) {
+                                if (a > 0) {
+                                    actor += ", ";
+                                }
+                                a++;
+
+                                actor += rsActor.getString("first_name") + " " + rsActor.getString("last_name");
+                            }
+
+                            rsGenre = stGenre.executeQuery("Select * from film_category as fc "
+                                    + "                    join category as c "
+                                    + "                    on fc.category_id = c.category_id "
+                                    + "                    where fc.film_id = '" + id + "'");
+
+                            int g = 0;
+                            while (rsGenre.next()) {
+                                if (g > 0) {
+                                    genre += ", ";
+                                }
+
+                                genre += rsGenre.getString("name");
+                            }
+
+                            FilmForm film = new FilmForm(title, actor, genre, releaseYear, rating, description, length);
+                            films.add(film);
+                        }
+                    }
+                    
 
                 }
 
@@ -617,6 +681,7 @@ public class FilmDAO {
             e.printStackTrace();
         }
 
+
         try {
 
             try {
@@ -719,7 +784,7 @@ public class FilmDAO {
                 while (rs2.next()) {
                     id = rs2.getInt("customer_id");
                 }
-                System.out.println(id);
+                
 
                 PreparedStatement st = con1.prepareStatement("SELECT count(film_id) from cart where customer_id =?");
                 st.setInt(1, id);
@@ -829,7 +894,7 @@ public class FilmDAO {
         Connection con1 = DBcon.getConnection();
         boolean check = false;
         int fid = 0;
-        int count = 1;
+        int count = 0;
         //get the film_id
         try {
             ResultSet rs2;
@@ -848,6 +913,7 @@ public class FilmDAO {
             while (rs.next()) {
                 count = rs.getInt(1);
             }
+            
 
             //check the count for a film thats already in the cart
             if (count > 0) {
@@ -857,7 +923,7 @@ public class FilmDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        
         return check;
     }
 
@@ -972,7 +1038,7 @@ public class FilmDAO {
                 fid = rs2.getInt("film_id");
             }
 
-                PreparedStatement st = con1.prepareStatement("SELECT count(film_id) from wish_list_detail where film_id =?");
+                PreparedStatement st = con1.prepareStatement("SELECT count(film_id) from film where film_id =?");
                 st.setInt(1, fid);
                 
 
@@ -990,6 +1056,42 @@ public class FilmDAO {
             check = true;
         }
 
+        return check;
+    }
+    
+    public boolean textBoxEmptyCheckCart(String title) {
+        DBConnectionUtil DBcon = new DBConnectionUtil();
+        Connection con1 = DBcon.getConnection();
+
+        boolean check = false;
+        int fid = 0;
+        int count = 1;
+        try {
+            ResultSet rs2;
+            PreparedStatement ps2 = con1.prepareStatement("SELECT film_id from film where title =?");
+            ps2.setString(1, title);
+
+            rs2 = ps2.executeQuery();
+            while (rs2.next()) {
+                fid = rs2.getInt("film_id");
+            }
+                PreparedStatement st = con1.prepareStatement("SELECT count(film_id) from film where film_id =?");
+                st.setInt(1, fid);
+                
+
+                ResultSet rs = st.executeQuery();
+                while (rs.next()) {
+                    count = rs.getInt(1);
+                }
+            
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (title.equals("") || count == 0) {
+            check = true;
+        }
         return check;
     }
 

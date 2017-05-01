@@ -50,21 +50,22 @@ public class CartAction extends org.apache.struts.action.Action {
         HttpSession ses = request.getSession();
         ses.setAttribute("title", info.getTitle());       
         f = (String) ses.getAttribute("title");      
-        
+        System.out.println( f + "++++++++++++");
         u = (String) ses.getAttribute("sessID");    
         sameCheck = dao.sameFilmCheck(f);
         fiveCheck = dao.fiveFilmCheck(u);
-        emptyBox = dao.textBoxEmptyCheck(f);
+        emptyBox = dao.textBoxEmptyCheckCart(f);
         if(sameCheck){
             error = 1;
         }
         if(fiveCheck){
             error = 2;
         }
-        System.out.println(emptyBox + "++++++++++++");
+        
         if (emptyBox) {
             error = 4;
         }
+        System.out.println( emptyBox+ "++++++++++++" + error);
         
         if(!fiveCheck && !sameCheck && !emptyBox){
    
