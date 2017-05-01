@@ -5,7 +5,6 @@
  */
 package com.myapp.struts;
 
-import static java.io.ObjectStreamClass.lookup;
 import java.sql.Timestamp;
 import java.sql.Connection;
 import java.sql.Date;
@@ -13,9 +12,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+
 
 /**
  *
@@ -80,28 +81,28 @@ public class customerDAO {
             e.printStackTrace();
         }
     }
-    
+
     public boolean searchCustomer(String username) {
-        
+
         try {
             DBConnectionUtil DBcon = new DBConnectionUtil();
             Connection con = DBcon.getConnection();
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery("select * from customer where username='" + username + "';");
-            
+
             String temp = null;
-            
+
             while (rs.next()) {
                 temp = rs.getString("username");
             }
-            
+
             if (temp == null) {
                 return false;
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        
+
         return true;
     }
 
@@ -138,23 +139,23 @@ public class customerDAO {
         }
         return flag;
     }
-   
+
     public void editCustomer(UpdateForm form) {
         System.out.println("jdbc connection");
         DBConnectionUtil DBcon1 = new DBConnectionUtil();
         Connection con1 = DBcon1.getConnection();
-        
+
         try {
             Timestamp ts = new Timestamp(System.currentTimeMillis());
             Date date = new Date(ts.getTime());
             PreparedStatement st = con1.prepareStatement("update customer set first_name=?, last_name=?, email=?, "
                     + "password=?, address=?, city=?, state=?, zip=?, card_number=?, expiration_date=?, "
                     + "security_number=?, name_on_card=?, last_update=? where username=?");
-            
+
             SimpleDateFormat format = new SimpleDateFormat("MM/yy");
             java.util.Date parsed = format.parse(form.getExpDate());
             java.sql.Date eDate = new java.sql.Date(parsed.getTime());
-            
+
             st.setString(1, form.getFirstname());
             st.setString(2, form.getLastname());
             st.setString(3, form.getEmail());
@@ -169,66 +170,105 @@ public class customerDAO {
             st.setString(12, form.getNameOnCard());
             st.setDate(13, date);
             st.setString(14, form.getUsername());
-            
+
             st.execute();
-            
+
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ParseException e) {
             e.printStackTrace();
         }
     }
-    
-    
-    public ArrayList <SignUpForm> getAllCustomers () throws Exception {
+
+    public ArrayList<SignUpForm> getAllCustomers() throws Exception {
         DBConnectionUtil DBcon = new DBConnectionUtil();
         Connection con1 = DBcon.getConnection();
-        
-        ArrayList <SignUpForm> customers = new ArrayList <SignUpForm>();
-        
+
+        ArrayList<SignUpForm> customers = new ArrayList<SignUpForm>();
+
         try {
 
             try {
-              
+
                 Statement lookUp = con1.createStatement();
                 ResultSet rs;
-                
-                   rs = lookUp.executeQuery("SELECT * from customer;");
-                    
-                   while(rs.next()){
-                       
-                Timestamp ts = new Timestamp(System.currentTimeMillis());
-                Date date = new Date(ts.getTime());
-                      
-                String first = rs.getString("first_name");
-                String last = rs.getString("last_name");
-                String email = rs.getString("email");
-                String address = rs.getString("address");
-                String city = rs.getString("city");
-                String state = rs.getString("state");
-                String zip = rs.getString("zip");
-                String username =rs.getString("username");
-                String password = rs.getString("password");
-                String cNum = rs.getString("card_number");
-                String expDate = rs.getString("expiration_date");
-                String secNum = rs.getString("security_number");
-                String nameOnCard = rs.getString("name_on_card");
-                      
-                SignUpForm customer = new SignUpForm(first, last, email, username, password, address, city, state, 
-                        zip, cNum, expDate, secNum, nameOnCard, date.toString());
-                customers.add(customer);
-                
-                   }
-       
-        } catch (SQLException ex) {
+
+                rs = lookUp.executeQuery("SELECT * from customer;");
+
+                while (rs.next()) {
+
+                    Timestamp ts = new Timestamp(System.currentTimeMillis());
+                    Date date = new Date(ts.getTime());
+
+                    String first = rs.getString("first_name");
+                    String last = rs.getString("last_name");
+                    String email = rs.getString("email");
+                    String address = rs.getString("address");
+                    String city = rs.getString("city");
+                    String state = rs.getString("state");
+                    String zip = rs.getString("zip");
+                    String username = rs.getString("username");
+                    String password = rs.getString("password");
+                    String cNum = rs.getString("card_number");
+                    String expDate = rs.getString("expiration_date");
+                    String secNum = rs.getString("security_number");
+                    String nameOnCard = rs.getString("name_on_card");
+
+                    SignUpForm customer = new SignUpForm(first, last, email, username, password, address, city, state,
+                            zip, cNum, expDate, secNum, nameOnCard, date.toString());
+                    customers.add(customer);
+
+                }
+
+            } catch (SQLException ex) {
                 System.out.println("SQL statement is not executed!" + ex);
             }
-        }
-            catch (Exception e) {
-                  e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return customers;
-    
+
+    }
+
+    public ArrayList<History> getCustHistory(String username) {
+        DBConnectionUtil DBcon = new DBConnectionUtil();
+        Connection con1 = DBcon.getConnection();
+        ArrayList<History> hlist = new ArrayList<History>();
+        History hist;
+        int id = 0;
+        String cost = "5";
+        DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+        try {
+            ResultSet rs, rs1;
+            PreparedStatement ps2 = con1.prepareStatement("SELECT customer_id from customer where username =?");
+            ps2.setString(1, username);
+
+            rs = ps2.executeQuery();
+            while (rs.next()) {
+                id = rs.getInt("customer_id");
+            }
+
+            PreparedStatement ps = con1.prepareStatement("SELECT F.title, R.rental_date, R.return_date, R.penalty from rental as R join film as F on R.film_id=F.film_id where customer_id = ?");
+            ps.setInt(1, id);
+            rs1 = ps.executeQuery();
+            while (rs1.next()) {
+                String title = rs1.getString("title");
+                Date rentalDate = rs1.getDate("rental_date");
+                String rentDate = df.format(rentalDate);
+                Date returnDate = rs1.getDate("return_date");
+                String retDate = df.format(returnDate);
+                Double penalty =  rs1.getDouble("penalty");
+                String pen = penalty.toString();
+
+                hist = new History(title,rentDate,retDate,cost,pen);
+                hlist.add(hist);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return hlist;
     }
 
 }
