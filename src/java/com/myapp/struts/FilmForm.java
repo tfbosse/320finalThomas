@@ -86,31 +86,6 @@ public class FilmForm extends org.apache.struts.action.ActionForm {
         this.shownTitle = shownTitle;
         
     }
-    public String getInstock() {
-        return instock;
-    }
-
-    public void setInstock(String instock) {
-        this.instock = instock;
-    }
-
-    public boolean isWhatever() {
-        return whatever;
-    }
-
-    public void setWhatever(boolean whatever) {
-        this.whatever = whatever;
-    }
-    
-    
-    
-    public FilmForm(){
-        super();
-    }
-    
-    public FilmForm(String title){
-        this.title = title;
-    }
     
     public String getField() {
         return field;
@@ -184,12 +159,6 @@ public class FilmForm extends org.apache.struts.action.ActionForm {
         this.shownTitle = shownTitle;
     }
     
-
-    public FilmForm(String title,String rating,String desc){
-        this.title = title;
-        this.rating = rating;
-        this.description = desc;
-    }
 
     }
 
