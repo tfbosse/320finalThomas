@@ -40,23 +40,40 @@ public class WishListAction extends org.apache.struts.action.Action {
         ActionErrors errors = new ActionErrors();
         FilmDAO dao = new FilmDAO();
         FilmForm info = (FilmForm) form;
-        
+        int error = 0;
         String f, u;
-        boolean sameCheck;
+        boolean emptyBox,sameCheckWL;
         HttpSession ses = request.getSession();
         ses.setAttribute("title", info.getTitle());       
         f = (String) ses.getAttribute("title");      
         
         u = (String) ses.getAttribute("sessID");    
         
-        sameCheck = dao.sameFilmCheckWL(f,u);
-        if( !sameCheck){
+        emptyBox = dao.textBoxEmptyCheck(f);
+        sameCheckWL = dao.isFilmInWishList(f,u);
+        
+        if (sameCheckWL) {
+            error = 3;
+        }
+        if (emptyBox) {
+            error = 4;
+        }
+        if( !emptyBox && !sameCheckWL){
    
         dao.insertIntoWishList(f,u);
         return mapping.findForward(SUCCESS);
         }
         else{
-            errors.add("title", new ActionMessage("errors.sameFilmWL"));
+            if (error == 4) {
+                errors.add("title", new ActionMessage("errors.emptyBox"));
+                
+            }
+            if (error == 3) {
+                errors.add("title", new ActionMessage("errors.filmNotInWishList"));
+                
+            }
+            
+            
             this.saveErrors(request, errors);
             return mapping.findForward(FAILURE);
         }   

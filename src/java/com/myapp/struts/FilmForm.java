@@ -14,6 +14,42 @@ public class FilmForm extends org.apache.struts.action.ActionForm {
     private String title, actor, genre, releaseYear, rating, description, length, shownTitle;
     private String field, instock;
     private boolean whatever = true;
+
+
+    public String getInstock() {
+        return instock;
+    }
+
+    public void setInstock(String instock) {
+        this.instock = instock;
+    }
+
+    public boolean isWhatever() {
+        return whatever;
+    }
+
+    public void setWhatever(boolean whatever) {
+        this.whatever = whatever;
+    }
+    
+    
+    
+    public FilmForm(){
+        super();
+    }
+    
+    public FilmForm(String title){
+        this.title = title;
+    }
+    
+
+    public FilmForm(String title,String rating,String desc){
+        this.title = title;
+        this.rating = rating;
+        this.description = desc;
+    }
+
+
     public FilmForm(String title, String actor, String genre, String releaseYear, String rating, String description, 
             String length, String instock, boolean whatever) {
         this.title = title;

@@ -55,7 +55,7 @@
         
         <action input="/" name="FilmForm" path="/moreInfo" scope="session" type="com.myapp.struts.FilmAction">
             <forward name="success" path="/filmPage.jsp" />
-            <forward name="failure" path="/noise.jsp" />
+            <forward name="failure" path="/search.jsp" />
         </action>
         
         <action input="/" name="UpdateForm" path="/manupdate" scope="session" type="com.myapp.struts.ManUpdateAction">
@@ -110,6 +110,11 @@
         
         <action input="/" name="InventoryAssorted" path="/invDelete" scope="session" type="com.myapp.struts.InventoryDelete">
             <forward name="success" path="/inventory.jsp" />
+        </action>
+        
+        <action input="/" name="FilmForm" path="/sendToCartFromWL" scope="session" type="com.myapp.struts.AddToCartFromWLAction">
+            <forward name="success" path="/cart.jsp" />
+            <forward name="failure" path="/wishList.jsp" />
         </action>
         
 

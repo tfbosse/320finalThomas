@@ -76,6 +76,9 @@
             </c:forEach>
         </table>
             <br>
+
+            <html:errors/>
+
             
         Click the button below to checkout with the current movies in your cart
         <html:form action="/checkout">
@@ -83,6 +86,7 @@
         </html:form>    
             
             
+
         Please enter the title you wish to remove from your cart:
         <html:form action="/removeFromCart">
             <html:text property="title"/>

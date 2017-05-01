@@ -77,11 +77,18 @@
                 </tr>
             </c:forEach>
         </table>
-        
+            <br>
+        <html:errors/>
         Please enter the title you wish to remove from your wish list:
         <html:form action="/removeFromWL">
             <html:text property="title"/>
             <html:submit value="Remove"/>
+        </html:form>
+        <br>
+        Please enter the title you wish to add to your cart:
+        <html:form action="/sendToCartFromWL">
+            <html:text property="title"/>
+            <html:submit value="Add to cart"/>
         </html:form>
         
         
