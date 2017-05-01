@@ -5,18 +5,22 @@
  */
 package com.myapp.struts;
 
+import java.sql.Date;
+
 /**
  *
  * @author landr
  */
 public class CheckOutForm {
     
-    String title, rentalid, startdate, enddate, duedate;
+    String title, rentalid; 
+    Date rentaldate, enddate, duedate;
 
-    public CheckOutForm(String title, String rentalid, String rentaldate, String returndate, String duedate){
+    public CheckOutForm(String title, String rentalid, Date rentaldate, Date returndate, Date duedate){
         this.title=title;
-        this.startdate = startdate;
-        this.enddate = enddate;
+        this.rentalid=rentalid;
+        this.rentaldate = rentaldate;
+        this.enddate = returndate;
         this.duedate = duedate;
     }
        public CheckOutForm (){
@@ -31,11 +35,11 @@ public class CheckOutForm {
         return rentalid;
     }
 
-    public String getStartdate() {
-        return startdate;
+    public Date getRentaldate() {
+        return rentaldate;
     }
 
-    public String getEnddate() {
+    public Date getReturndate() {
         return enddate;
     }
     
@@ -47,19 +51,19 @@ public class CheckOutForm {
         this.rentalid = rentalid;
     }
 
-    public void setStartdate(String startdate) {
-        this.startdate = startdate;
+    public void setRentaldate(String startdate) {
+        this.rentaldate = rentaldate;
     }
 
-    public void setEnddate(String enddate) {
+    public void setReturndate(Date returndate) {
         this.enddate = enddate;
     }
 
-    public String getDuedate() {
+    public Date getDuedate() {
         return duedate;
     }
 
-    public void setDuedate(String duedate) {
+    public void setDuedate(Date duedate) {
         this.duedate = duedate;
     }
     
