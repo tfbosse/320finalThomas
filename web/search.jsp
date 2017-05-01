@@ -58,7 +58,8 @@
             </div>
         </h1>
 
-        
+        <br/>
+        <h3>Search</h3>
 
         <sql:setDataSource var="source" driver="com.mysql.jdbc.Driver"
                            url="jdbc:mysql://localhost:3306/sakila"

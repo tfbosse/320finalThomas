@@ -47,6 +47,9 @@
             </div>
         </h1>
         
+        <br/>
+        <h3>Profile</h3>
+        
         <br />
         <br />
         <br />

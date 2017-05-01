@@ -118,6 +118,19 @@
         </action>
         
 
+        <action input="/" name="FilmForm" path="/checkout" scope="session" type="com.myapp.struts.CheckoutAction">
+            <forward name="success" path="/checkout.jsp"/>
+        </action>
+        
+        
+
+        <action input="/" name="FilmForm" path="/addFilm" scope="session" type="com.myapp.struts.AddFilm">
+            <forward name="success" path="/inventory.jsp" />
+            <forward name="failure" path="/addfilm.jsp" />
+        </action>
+        
+
+
        
     </action-mappings>
     

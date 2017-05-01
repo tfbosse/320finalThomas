@@ -7,10 +7,13 @@ package com.myapp.struts;
 
 import com.sun.xml.internal.ws.util.StringUtils;
 import java.sql.Connection;
+import java.sql.Date;
+import static java.sql.Types.NULL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import javax.servlet.http.HttpSession;
 
@@ -905,6 +908,7 @@ public class FilmDAO {
         return check;
     }
 
+
     public boolean isFilmInWishList(String title, String username) {
         DBConnectionUtil DBcon = new DBConnectionUtil();
         Connection con1 = DBcon.getConnection();
@@ -1034,6 +1038,63 @@ public class FilmDAO {
         }
 
         return check;
+    }
+
+
+    public void checkout(String username) {
+        DBConnectionUtil DBcon = new DBConnectionUtil();
+        Connection con1 = DBcon.getConnection();
+        int id = 0;
+        int lineTotal = 0;
+        int penalty = 0;
+        int custID = 0;
+
+        try {
+            Timestamp ts = new Timestamp(System.currentTimeMillis());
+            Date date = new Date(ts.getTime());
+
+            PreparedStatement ps2 = con1.prepareStatement("SELECT customer_id from customer where username =?");
+            ps2.setString(1, username);
+
+            ResultSet rs25 = ps2.executeQuery();
+            while (rs25.next()) {
+                custID = rs25.getInt("customer_id");
+            }
+
+            Statement st = con1.createStatement();
+            ResultSet rs = st.executeQuery("SELECT * FROM cart");
+            while (rs.next()) {
+                id = rs.getInt("film_id");
+                System.out.println(id);
+
+                PreparedStatement st2 = con1.prepareStatement("UPDATE film set in_stock = in_stock-1 where film_id = ?");
+                st2.setInt(1, id);
+                st2.execute();
+
+            }
+
+            java.sql.Date rentalDate = date;
+            java.sql.Date lastUpdate = date;
+
+            PreparedStatement st4 = con1.prepareStatement("Insert into rental(customer_id, rental_date, last_update, film_id, due_date, return_date, line_total, penalty) Values(?,?,?,?,?,?,?,?)");
+            st4.setInt(1, custID);
+            st4.setDate(2, rentalDate);
+            st4.setDate(3, lastUpdate);
+            st4.setInt(4, id);
+            st4.setNull(5, java.sql.Types.DATE);
+            st4.setNull(6, java.sql.Types.DATE);
+            st4.setInt(7, 5);
+            st4.setInt(8, 0);
+
+            st4.execute();
+            
+
+
+        } catch (SQLException ex) {
+            System.out.println("SQL statement is not executed!" + ex);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

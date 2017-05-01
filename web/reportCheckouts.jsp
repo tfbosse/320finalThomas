@@ -49,6 +49,9 @@
                 <a class="my-link" href="reportSales.jsp">Rental Reports</a> | 
                 <a class="my-link" href="reportRevenue.jsp">Revenue Reports</a>
             </h2>
+            
+            <br/>
+            <h3>Checkout Reports</h3>
 
         </div>
 

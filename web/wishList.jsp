@@ -58,6 +58,7 @@
         </h1>
             
             <br/><br/><br/>
+            <h3>Wish List</h3>
 
         <table class="my-table">
             
