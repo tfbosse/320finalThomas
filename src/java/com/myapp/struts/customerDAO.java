@@ -260,11 +260,15 @@ public class customerDAO {
                 String pen = penalty.toString();
 
                 
-                if(returnDate != null){
-                    retDate = df.format(returnDate);
+
+                
+                if (returnDate != null){
+                     retDate = df.format(rentalDate);
                 }
                 
                 
+                
+
                 hist = new History(title, rentDate, retDate, cost, pen);
                 hlist.add(hist);
             }
