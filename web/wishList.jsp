@@ -74,6 +74,12 @@
             </c:forEach>
         </table>
         
+        Please enter the title you wish to remove from your wish list:
+        <html:form action="/removeFromWL">
+            <html:text property="title"/>
+            <html:submit value="Remove"/>
+        </html:form>
+        
         
         
     </body>

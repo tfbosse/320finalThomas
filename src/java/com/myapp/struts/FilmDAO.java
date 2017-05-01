@@ -673,30 +673,85 @@ public class FilmDAO {
         return check;
     }
 
-    public void removeFilm(String custID) {
+    public void removeFromCart(String title,String username) {
         DBConnectionUtil DBcon = new DBConnectionUtil();
         Connection con1 = DBcon.getConnection();
-        int id = 0;
+        int cid = 0;
+        int fid = 0;
 
         try {
+            //get the customer_id
+            ResultSet rs1;
+                PreparedStatement ps1 = con1.prepareStatement("SELECT customer_id from customer where username =?");
+                ps1.setString(1, username);
+
+                rs1 = ps1.executeQuery();
+                while (rs1.next()) {
+                    cid = rs1.getInt("customer_id");
+                }
+                
+            //get the film_id
             ResultSet rs2;
-            PreparedStatement ps2 = con1.prepareStatement("SELECT customer_id from customer where username =?");
-            ps2.setString(1, custID);
+            PreparedStatement ps2 = con1.prepareStatement("SELECT film_id from film where title =?");
+            ps2.setString(1, title);
 
             rs2 = ps2.executeQuery();
             while (rs2.next()) {
-                id = rs2.getInt("customer_id");
+                fid = rs2.getInt("film_id");
             }
-            PreparedStatement st = con1.prepareStatement("SELECT film_id) from cart where customer_id =?");
-                st.setInt(1, id);
+            
+            //remove the film
+            PreparedStatement st = con1.prepareStatement("DELETE from cart where film_id =? and customer_id=?");
+                st.setInt(1, fid);
+                st.setInt(2, cid);
 
-                ResultSet rs = st.executeQuery();
+               st.execute();
             
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+    }
+    
+    public void removeFromWL(String title, String username){
+        DBConnectionUtil DBcon = new DBConnectionUtil();
+        Connection con1 = DBcon.getConnection();
+        int cid = 0;
+        int fid = 0;
+
+        try {
+            //get the customer_id
+            ResultSet rs1;
+                PreparedStatement ps1 = con1.prepareStatement("SELECT customer_id from customer where username =?");
+                ps1.setString(1, username);
+
+                rs1 = ps1.executeQuery();
+                while (rs1.next()) {
+                    cid = rs1.getInt("customer_id");
+                }
+                
+            //get the film_id
+            ResultSet rs2;
+            PreparedStatement ps2 = con1.prepareStatement("SELECT film_id from film where title =?");
+            ps2.setString(1, title);
+
+            rs2 = ps2.executeQuery();
+            while (rs2.next()) {
+                fid = rs2.getInt("film_id");
+            }
+            
+            //remove the film
+            PreparedStatement st = con1.prepareStatement("DELETE from wish_list_detail where film_id =? and customer_id=?");
+                st.setInt(1, fid);
+                st.setInt(2, cid);
+
+               st.execute();
+            
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }
