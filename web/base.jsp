@@ -4,6 +4,7 @@
     Author     : Thomas
 --%>
 
+<%@page import="com.myapp.struts.customerDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="html" uri="http://struts.apache.org/tags-html" %>
 <!DOCTYPE html>
@@ -42,6 +43,10 @@
         </h1>
         
         <br/><br/><br/>
+        <%
+         customerDAO cdao = new customerDAO();
+         cdao.clearCart();   
+        %>
         
     <center>
         <img src="welcome.gif"/>

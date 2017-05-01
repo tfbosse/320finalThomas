@@ -54,6 +54,7 @@ public class LoginAction extends org.apache.struts.action.Action {
             ses.setAttribute("sessType", "cust");
             signUpForm.setUsername("");
             signUpForm.setPassword("");
+            cdao.clearCart();
             return mapping.findForward(SUCCESS);
         }  else if (mdao.searchManager(signUpForm.getUsername(), signUpForm.getPassword())) {
             HttpSession ses = request.getSession();

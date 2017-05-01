@@ -46,9 +46,10 @@ public class WishListAction extends org.apache.struts.action.Action {
         HttpSession ses = request.getSession();
         ses.setAttribute("title", info.getTitle());       
         f = (String) ses.getAttribute("title");      
-        sameCheck = dao.sameFilmCheckWL(f);
+        
         u = (String) ses.getAttribute("sessID");    
-        System.out.println(sameCheck);
+        
+        sameCheck = dao.sameFilmCheckWL(f,u);
         if( !sameCheck){
    
         dao.insertIntoWishList(f,u);

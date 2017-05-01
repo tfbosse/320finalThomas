@@ -41,6 +41,12 @@ public class FilmForm extends org.apache.struts.action.ActionForm {
         this.title = title;
     }
     
+
+    public FilmForm(String title,String rating,String desc){
+        this.title = title;
+        this.rating = rating;
+        this.description = desc;
+
     public FilmForm(String title, String actor, String genre, String releaseYear, String rating, String description, 
             String length, String instock, boolean whatever) {
         this.title = title;
@@ -52,6 +58,7 @@ public class FilmForm extends org.apache.struts.action.ActionForm {
         this.length = length;
         this.instock = instock;
         this.whatever = true;
+
     }
    
     public FilmForm(String title, String actor, String genre, String releaseYear, String rating, String description, String length){
