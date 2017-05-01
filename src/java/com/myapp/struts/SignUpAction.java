@@ -214,10 +214,11 @@ public class SignUpAction extends org.apache.struts.action.Action {
         if (code.length() != 3) {
             return false;
         }
-        if (code.matches(".*[a-z][A-Z].*")) {
+        if (code.matches("[0-9]+")) {
+            return true;
+        } else {
             return false;
         }
-        return true;
     }
     
     public boolean cnameVal(String cardname) {
