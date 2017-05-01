@@ -37,6 +37,9 @@
             </div>
         </h1>
         
+        <br/>
+        <h3>Customer History</h3>
+        
         <%
             HttpSession ses = request.getSession();
             String u = (String) ses.getAttribute("sessID");

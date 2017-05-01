@@ -38,6 +38,8 @@
         
         <br/><br/><br/>
         
+        <h3>Home</h3>
+        
     <center>
         <img src="welcome.gif"/>
     </center>

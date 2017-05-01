@@ -63,7 +63,12 @@
         </h1>
         
         <br/><br/><br/>
+        
+        <h3>
+            Film Detail
+        </h3>
 
+        <br/>
         <table class="my-table">
             <th width="100%">
                 Film 

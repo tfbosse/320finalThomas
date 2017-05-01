@@ -46,6 +46,7 @@ public class FilmForm extends org.apache.struts.action.ActionForm {
         this.title = title;
         this.rating = rating;
         this.description = desc;
+    }
 
     }
     public FilmForm(String title, String actor, String genre, String releaseYear, String rating, String description, 

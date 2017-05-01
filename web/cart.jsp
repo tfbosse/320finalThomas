@@ -45,6 +45,9 @@
                 </div>
             </div>
         </h1>
+        
+        <br/>
+        <h3>Cart</h3>
 
         <sql:setDataSource var="snapshot" driver="com.mysql.jdbc.Driver"
                            url="jdbc:mysql://localhost:3306/sakila?zeroDateTimeBehavior=convertToNull"
