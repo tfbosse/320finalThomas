@@ -634,11 +634,10 @@ public class FilmDAO {
         DBConnectionUtil DBcon = new DBConnectionUtil();
         Connection con1 = DBcon.getConnection();
         boolean check = false;
-        
 
         try {
             try {
-                int count = 0;
+                int count = 1;
                 int id = 0;
                 ResultSet rs2;
                 PreparedStatement ps2 = con1.prepareStatement("SELECT customer_id from customer where username =?");
@@ -654,8 +653,8 @@ public class FilmDAO {
                 st.setInt(1, id);
 
                 ResultSet rs = st.executeQuery();
-                while(rs.next()){
-                count = rs.getInt(0);
+                while (rs.next()) {
+                    count = rs.getInt(1);
                 }
                 if (count < 5) {
                     check = false;
@@ -672,6 +671,32 @@ public class FilmDAO {
         }
 
         return check;
+    }
+
+    public void removeFilm(String custID) {
+        DBConnectionUtil DBcon = new DBConnectionUtil();
+        Connection con1 = DBcon.getConnection();
+        int id = 0;
+
+        try {
+            ResultSet rs2;
+            PreparedStatement ps2 = con1.prepareStatement("SELECT customer_id from customer where username =?");
+            ps2.setString(1, custID);
+
+            rs2 = ps2.executeQuery();
+            while (rs2.next()) {
+                id = rs2.getInt("customer_id");
+            }
+            PreparedStatement st = con1.prepareStatement("SELECT film_id) from cart where customer_id =?");
+                st.setInt(1, id);
+
+                ResultSet rs = st.executeQuery();
+            
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
 }

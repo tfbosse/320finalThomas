@@ -75,6 +75,8 @@
         </html:form>
                 
                 <br/>
+                
+                
 
         Please Enter the Title of the Film you would like to have more Information on 
         <html:form action="/moreInfo">
@@ -84,6 +86,7 @@
         
         <br/>
 
+        <html:errors/>
         <div style="display:block" id="sendToCart">
             Please Enter the Title of the Film you would like to Send to the Cart 
             <html:form action="/sendToCart">
