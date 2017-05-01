@@ -67,7 +67,6 @@
         <html:errors/>
         <html:form action="/search">
             <html:select property="searchType" >
-                <html:option value="default">(Select an option)</html:option>
                 <html:option value="Title" >Title</html:option>
                 <html:option value="Genre">Genre</html:option>
                 <html:option value="Actor">Actor</html:option>
