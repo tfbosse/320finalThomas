@@ -40,7 +40,7 @@ public class PaymentDAO {
                 ResultSet rs = lookUp.executeQuery("SELECT * from rental as r "
                         + "join film as f "
                         + "on r.film_id = f.film_id "
-                        + "where r.duedate <= "+ date);
+                        + "where r.due_date >= "+ date);
 
                 while (rs.next()) {
 
