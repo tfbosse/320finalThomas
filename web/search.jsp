@@ -46,7 +46,7 @@
             <div class="align-left-banner">
                 <a href="noise.jsp">Crimson Video Store</a>
                 <div class="align-right-banner">
-                    <a href="search.jsp">Search</a> | 
+                    <a class="blue-link" href="search.jsp">Search</a> | 
                     <a href="profile.jsp">Profile</a> | 
                     <div id="reps" style="display:none"><a href="reports.jsp">Reports</a> | </div>
                     <div id="cart" style="display:inline"><a href="cart.jsp">Cart</a> | </div>
@@ -58,18 +58,16 @@
             </div>
         </h1>
 
-        <br/>
-        <h3>Search</h3>
 
         <sql:setDataSource var="source" driver="com.mysql.jdbc.Driver"
                            url="jdbc:mysql://localhost:3306/sakila"
                            user="root"  password="nbuser"/>
 
-<br /><br /><br /><br/><br/>
-<html:errors/>
+        <br /><br /><br />
+        <html:errors/>
         <html:form action="/search">
             <html:select property="searchType" >
-                
+                <html:option value="default">(Select an option)</html:option>
                 <html:option value="Title" >Title</html:option>
                 <html:option value="Genre">Genre</html:option>
                 <html:option value="Actor">Actor</html:option>
@@ -79,17 +77,17 @@
             <html:text property="searchString"/>
             <html:submit value="Search"/>
         </html:form> 
-                
+
 
         Please Enter the Title of the Film you would like to have more Information on 
         <html:form action="/moreInfo">
             <html:text property="title"/>
             <html:submit value="More Info"/>
         </html:form>
-        
-        
 
-        
+
+
+
         <div style="display:block" id="sendToCart">
             Please Enter the Title of the Film you would like to Send to the Cart 
             <html:form action="/sendToCart">
@@ -98,14 +96,14 @@
             </html:form>
         </div>
 
-        
-        
+
+
         <div style="display:block" id="sendToWish">
-        Please Enter the Title of the Film you would like to Send to the Wish List
-        <html:form action="/sendToWishList">
-            <html:text property="title"/>
-            <html:submit value="Send to Wish List"/>   
-        </html:form>
+            Please Enter the Title of the Film you would like to Send to the Wish List
+            <html:form action="/sendToWishList">
+                <html:text property="title"/>
+                <html:submit value="Send to Wish List"/>   
+            </html:form>
         </div>
 
 
