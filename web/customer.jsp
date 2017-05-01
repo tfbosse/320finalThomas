@@ -51,8 +51,8 @@
         
         <table >
             <th width="12.5%">Title</th>
-            <th width="15%">Return Date</th>
-            <th width="20%">Rental Date</th>
+            <th width="15%">Rental Date</th>
+            <th width="20%">Return Date</th>
             <th width="15%">Cost</th>
             <th width="15%">Penalty</th>
             
